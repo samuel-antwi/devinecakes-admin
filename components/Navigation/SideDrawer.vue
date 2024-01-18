@@ -16,7 +16,7 @@ const isContentTab = computed(() => {
   );
 });
 const isUsersTab = computed(() => {
-  return route.path === "/admin/users";
+  return route.path.includes("/users");
 });
 </script>
 <template>

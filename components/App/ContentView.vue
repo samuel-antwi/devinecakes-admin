@@ -8,8 +8,8 @@ const isContentPage = computed(() => {
 <template>
   <div v-if="isContentPage" class="dark:bg-[#21262E] p-3">
     <NuxtLink
-      to="/content/orders"
-      :class="[route.path === '/content/orders' ? 'bg-[#30363D]' : '']"
+      to="/admin/content/orders"
+      :class="[route.path === '/admin/content/orders' ? 'bg-[#30363D]' : '']"
       class="flex items-center w-full mb-1.5 hover:bg-[#30363D] py-1.5 px-4 rounded transition-all duration-300 ease-in-out"
     >
       <UIcon
@@ -19,7 +19,7 @@ const isContentPage = computed(() => {
       <h1 class="text-sm tracking-wide">Orders</h1>
     </NuxtLink>
     <NuxtLink
-      to="/content/customers"
+      to="/admin/content/customers"
       :class="[route.path === '/content/customers' ? 'bg-[#30363D]' : '']"
       class="flex items-center hover:bg-[#30363D] py-1.5 px-4 rounded transition-all duration-300 ease-in-out"
     >

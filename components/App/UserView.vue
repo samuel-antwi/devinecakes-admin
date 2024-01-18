@@ -1,15 +1,15 @@
 <script setup lang="ts">
 const route = useRoute();
 const isUsersPage = computed(() => {
-  return route.path === "/admin/users";
+  return route.path.includes("/users");
 });
 </script>
 
 <template>
   <div v-if="isUsersPage" class="dark:bg-[#21262E] p-3">
     <NuxtLink
-      to="/content/orders"
-      :class="[isUsersPage ? 'bg-[#30363D]' : '']"
+      to="/admin/users"
+      :class="[route.path === '/admin/users' ? 'bg-[#30363D]' : '']"
       class="flex items-center w-full mb-1.5 hover:bg-[#30363D] py-1.5 px-4 rounded transition-all duration-300 ease-in-out"
     >
       <UIcon
@@ -19,8 +19,8 @@ const isUsersPage = computed(() => {
       <h1 class="text-sm tracking-wide">All Users</h1>
     </NuxtLink>
     <NuxtLink
-      to="/users"
-      :class="[isUsersPage ? '' : '']"
+      :to="`/admin/users/roles/${1}`"
+      :class="[route.path.includes('/roles') ? 'bg-[#30363D]' : '']"
       class="flex items-center hover:bg-[#30363D] py-1.5 px-4 rounded transition-all duration-300 ease-in-out"
     >
       <UIcon
