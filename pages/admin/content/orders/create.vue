@@ -4,5 +4,5 @@ definePageMeta({
 });
 </script>
 <template>
-  <div>Waiting for Customers</div>
+  <div>Create Order</div>
 </template>

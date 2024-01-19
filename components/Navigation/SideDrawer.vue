@@ -16,7 +16,7 @@ const isContentTab = computed(() => {
   );
 });
 const isUsersTab = computed(() => {
-  return route.path.includes("/users");
+  return route.path.includes("/admin/users");
 });
 </script>
 <template>
@@ -50,7 +50,7 @@ const isUsersTab = computed(() => {
                 ? 'dark:text-gray-100 '
                 : 'dark:text-gray-500 dark:hover:text-gray-100',
             ]"
-            class="text-2xl dark:text-gray-500"
+            class="text-2xl"
             name="i-heroicons-users"
           />
         </NuxtLink>

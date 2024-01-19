@@ -11,6 +11,8 @@
   },
   "devDependencies": {
     "@nuxtjs/supabase": "^1.1.5",
+    "@vueuse/core": "^10.7.2",
+    "@vueuse/nuxt": "^10.7.2",
     "eslint": "^8.56.0",
     "nuxt": "^3.9.1",
     "prettier": "^2.8.8",

@@ -4,5 +4,5 @@ definePageMeta({
 });
 </script>
 <template>
-  <div class="py-10">Waiting for Orders</div>
+  <div>Create Customer</div>
 </template>

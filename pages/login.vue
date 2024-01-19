@@ -45,7 +45,7 @@ watch(
   user,
   () => {
     if (user.value) {
-      return navigateTo("/");
+      return navigateTo("/admin/content/orders");
     }
   },
   { immediate: true }

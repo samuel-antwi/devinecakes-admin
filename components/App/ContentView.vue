@@ -1,33 +1,37 @@
 <script setup lang="ts">
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+
 const route = useRoute();
-const isContentPage = computed(() => {
-  return route.path.includes("/content");
-});
+const isContentPage = computed(() => route.path.includes("/content"));
+
+const links = [
+  {
+    path: "/admin/content/orders",
+    icon: "i-heroicons-shopping-bag",
+    label: "Orders",
+  },
+  {
+    path: "/admin/content/customers",
+    icon: "i-heroicons-user-group",
+    label: "Customers",
+  },
+];
+
+const isActive = (path: string) => (route.path === path ? "bg-[#30363D]" : "");
 </script>
 
 <template>
   <div v-if="isContentPage" class="dark:bg-[#21262E] p-3">
     <NuxtLink
-      to="/admin/content/orders"
-      :class="[route.path === '/admin/content/orders' ? 'bg-[#30363D]' : '']"
+      v-for="link in links"
+      :key="link.path"
+      :to="link.path"
+      :class="[isActive(link.path)]"
       class="flex items-center w-full mb-1.5 hover:bg-[#30363D] py-1.5 px-4 rounded transition-all duration-300 ease-in-out"
     >
-      <UIcon
-        class="text-2xl text-indigo-500 mr-2"
-        name="i-heroicons-shopping-bag"
-      />
-      <h1 class="text-sm tracking-wide">Orders</h1>
-    </NuxtLink>
-    <NuxtLink
-      to="/admin/content/customers"
-      :class="[route.path === '/content/customers' ? 'bg-[#30363D]' : '']"
-      class="flex items-center hover:bg-[#30363D] py-1.5 px-4 rounded transition-all duration-300 ease-in-out"
-    >
-      <UIcon
-        class="text-2xl text-indigo-500 mr-2"
-        name="i-heroicons-user-group"
-      />
-      <h1 class="text-sm tracking-wide">Customers</h1>
+      <UIcon class="text-2xl text-indigo-500 mr-2" :name="link.icon" />
+      <h1 class="text-sm tracking-wide">{{ link.label }}</h1>
     </NuxtLink>
   </div>
 </template>
