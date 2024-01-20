@@ -11,9 +11,3 @@
     </div>
   </div>
 </template>
-
-<style scoped lang="scss">
-.app-logo {
-  min-width: 16rem;
-}
-</style>
