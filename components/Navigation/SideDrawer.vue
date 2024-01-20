@@ -20,12 +20,12 @@ const isUsersTab = computed(() => {
 });
 </script>
 <template>
-  <div>
+  <div class="hidden lg:block">
     <app-logo />
-    <div class="flex relative h-screen dark:bg-[#21262E]">
-      <div class="flex flex-col items-center dark:bg-[#0D1217]">
+    <div class="flex relative h-screen bg-[#F0F4F9] dark:bg-[#21262E]">
+      <div class="flex flex-col items-center bg-[#0E1C2F]">
         <NuxtLink
-          :class="[isContentTab ? 'bg-[#21262E]' : '']"
+          :class="[isContentTab ? 'dark:bg-[#21262E] bg-[#F0F4F9]' : '']"
           class="px-5 py-3 flex items-center justify-center"
           to="/admin/content/orders"
         >
@@ -33,14 +33,14 @@ const isUsersTab = computed(() => {
             :class="[
               isContentTab
                 ? 'dark:text-gray-100 '
-                : 'dark:text-gray-500 dark:hover:text-gray-100',
+                : 'dark:text-gray-500 text-gray-300 hover:text-gray-100',
             ]"
             class="text-2xl"
             name="i-heroicons-archive-box"
           />
         </NuxtLink>
         <NuxtLink
-          :class="[isUsersTab ? 'bg-[#21262E]' : '']"
+          :class="[isUsersTab ? 'dark:bg-[#21262E] bg-[#F0F4F9]' : '']"
           class="px-5 py-3 flex items-center justify-center"
           to="/admin/users"
         >
@@ -48,7 +48,7 @@ const isUsersTab = computed(() => {
             :class="[
               isUsersTab
                 ? 'dark:text-gray-100 '
-                : 'dark:text-gray-500 dark:hover:text-gray-100',
+                : 'dark:text-gray-500 text-gray-300 hover:text-gray-100',
             ]"
             class="text-2xl"
             name="i-heroicons-users"
@@ -58,7 +58,7 @@ const isUsersTab = computed(() => {
           <theme-toggle />
           <button
             @click="logout"
-            class="bg-[#30363D] mt-4 p-[7px] rounded-full flex items-center justify-center"
+            class="dark:bg-[#30363D] text-gray-200 mt-4 p-[7px] rounded-full flex items-center justify-center"
             type="button"
           >
             <UTooltip

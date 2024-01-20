@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: "login-layout",
+});
+
 const supabase = useSupabaseClient();
 const isLoading = ref(false);
 const user = useSupabaseUser();
@@ -56,14 +60,16 @@ watch(
     <div class="flex items-center justify-center h-screen">
       <form @click.prevent="handleLogin" class="max-w-sm mx-auto w-full">
         <div
-          class="header bg-gray-800 py-2 px-5 shadow-md text-gray-50 rounded-t-md"
+          class="header border border-b-0 border-gray-700 bg-indigo-800 py-2 px-5 shadow-md text-gray-50 rounded-t-md"
         >
           <div class="flex items-center">
             <UIcon class="mr-2" name="i-heroicons-cake" />
             Devine Cakesgh
           </div>
         </div>
-        <UCard class="rounded-tr-none rounded-tl-none">
+        <div
+          class="rounded-tr-none p-10 border border-gray-300 dark:border-gray-600 rounded-tl-none"
+        >
           <div class="mb-4">
             <label class="mb-1" for="email">Email address</label>
             <UInput
@@ -89,7 +95,7 @@ watch(
               </template>
             </UButton>
           </div>
-        </UCard>
+        </div>
       </form>
     </div>
   </UContainer>

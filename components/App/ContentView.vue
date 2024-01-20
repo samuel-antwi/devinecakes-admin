@@ -18,7 +18,8 @@ const links = [
   },
 ];
 
-const isActive = (path: string) => (route.path === path ? "bg-[#30363D]" : "");
+const isActive = (path: string) =>
+  route.path === path ? "dark:bg-[#30363D] bg-[#E4EAF1]" : "";
 </script>
 
 <template>
@@ -28,7 +29,7 @@ const isActive = (path: string) => (route.path === path ? "bg-[#30363D]" : "");
       :key="link.path"
       :to="link.path"
       :class="[isActive(link.path)]"
-      class="flex items-center w-full mb-1.5 hover:bg-[#30363D] py-1.5 px-4 rounded transition-all duration-300 ease-in-out"
+      class="flex items-center w-full mb-1.5 hover:bg-[#E4EAF1] dark:hover:bg-[#30363D] py-1.5 px-4 rounded transition-all duration-150 ease-in-out"
     >
       <UIcon class="text-2xl text-indigo-500 mr-2" :name="link.icon" />
       <h1 class="text-sm tracking-wide">{{ link.label }}</h1>

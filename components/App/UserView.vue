@@ -9,8 +9,10 @@ const isUsersPage = computed(() => {
   <div v-if="isUsersPage" class="dark:bg-[#21262E] p-3">
     <NuxtLink
       to="/admin/users"
-      :class="[route.path === '/admin/users' ? 'bg-[#30363D]' : '']"
-      class="flex items-center w-full mb-1.5 hover:bg-[#30363D] py-1.5 px-4 rounded transition-all duration-300 ease-in-out"
+      :class="[
+        route.path === '/admin/users' ? 'dark:bg-[#30363D] bg-[#E4EAF1]' : '',
+      ]"
+      class="flex items-center w-full mb-1.5 hover:bg-[#E4EAF1] dark:hover:bg-[#30363D] py-1.5 px-4 rounded transition-all duration-300 ease-in-out"
     >
       <UIcon
         class="text-2xl text-indigo-500 mr-2"
@@ -20,8 +22,10 @@ const isUsersPage = computed(() => {
     </NuxtLink>
     <NuxtLink
       :to="`/admin/users/roles/${1}`"
-      :class="[route.path.includes('/roles') ? 'bg-[#30363D]' : '']"
-      class="flex items-center hover:bg-[#30363D] py-1.5 px-4 rounded transition-all duration-300 ease-in-out"
+      :class="[
+        route.path.includes('/roles') ? 'dark:bg-[#30363D] bg-[#E4EAF1]' : '',
+      ]"
+      class="flex items-center dark:hover:bg-[#30363D] hover:bg-[#E4EAF1] py-1.5 px-4 rounded transition-all duration-300 ease-in-out"
     >
       <UIcon
         class="text-2xl text-indigo-500 mr-2"
