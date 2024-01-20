@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { columns, people } from "@/data/people";
 definePageMeta({
   layout: "auth",
 });
@@ -16,7 +17,7 @@ const noCustomers = computed(() => customers.value.length === 0);
       />
     </div>
     <div v-else>
-      <app-global-item-list></app-global-item-list>
+      <app-global-table-list :columns="columns" :rows="people" />
     </div>
   </div>
 </template>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { routeConfig } from "@/utils/route-config";
+import type { RouteConfigType } from "~/types/global";
 const route = useRoute();
 
 const showContentText = computed(() => {
@@ -6,32 +8,9 @@ const showContentText = computed(() => {
 });
 
 const computedDetails = computed(() => {
-  let title, icon;
-
-  switch (route.name) {
-    case "admin-content-orders":
-      title = "Orders";
-      icon = "i-heroicons-shopping-bag";
-      break;
-    case "admin-content-customers":
-      title = "Customers";
-      icon = "i-heroicons-users";
-      break;
-    case "admin-users":
-      title = "User Directory";
-      icon = "i-heroicons-users";
-      break;
-    case "admin-users-roles-id":
-      title = "Administrator";
-      icon = "i-heroicons-users";
-      break;
-
-    default:
-      title = "Orders";
-      icon = "i-heroicons-shopping-bag";
-  }
-
-  return { title, icon };
+  return (
+    routeConfig[route.name as keyof RouteConfigType] || routeConfig["default"]
+  );
 });
 </script>
 <template>

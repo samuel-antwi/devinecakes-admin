@@ -1,5 +1,4 @@
-<script setup>
-const columns = [
+export const columns = [
   {
     key: "id",
     label: "ID",
@@ -30,7 +29,7 @@ const columns = [
   },
 ];
 
-const people = [
+export const people = [
   {
     id: 1,
     name: "Lindsay Walton",
@@ -86,39 +85,3 @@ const people = [
     town: "London",
   },
 ];
-
-const q = ref("");
-const page = ref(1);
-const pageCount = 5;
-
-const filteredRows = computed(() => {
-  if (!q.value) {
-    return people;
-  }
-
-  return people.filter((person) => {
-    return Object.values(person).some((value) => {
-      return String(value).toLowerCase().includes(q.value.toLowerCase());
-    });
-  });
-});
-</script>
-
-<template>
-  <div>
-    <div class="flex px-3 py-3.5 border-b border-gray-200 dark:border-gray-700">
-      <UInput v-model="q" placeholder="Filter people..." />
-    </div>
-
-    <UTable :rows="filteredRows" :columns="columns" />
-    <div
-      class="flex justify-end px-3 py-3.5 border-t border-gray-200 dark:border-gray-700"
-    >
-      <UPagination
-        v-model="page"
-        :page-count="pageCount"
-        :total="people.length"
-      />
-    </div>
-  </div>
-</template>

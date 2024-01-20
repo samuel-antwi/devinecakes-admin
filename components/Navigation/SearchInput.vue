@@ -1,14 +1,14 @@
 <script setup lang="ts">
-const items = ref(2);
-const q = ref("");
+import { useGlobalStore } from "@/composables/globalStore";
+const { searchQuery } = useGlobalStore();
 </script>
 
 <template>
   <div class="flex items-center space-x-3">
-    <p class="dark:text-gray-600">{{ items }} items</p>
+    <navigation-item-count />
     <UInput
-      v-model="q"
-      name="q"
+      v-model="searchQuery"
+      name="searchQuery "
       size="lg"
       placeholder="Search items..."
       icon="i-heroicons-magnifying-glass-20-solid"
@@ -17,15 +17,14 @@ const q = ref("");
     >
       <template #trailing>
         <UButton
-          v-show="q !== ''"
+          v-show="searchQuery !== ''"
           color="gray"
           variant="link"
           icon="i-heroicons-x-mark-20-solid"
           :padded="false"
-          @click="q = ''"
+          @click="searchQuery = ''"
         />
       </template>
     </UInput>
-    <navigation-create-button />
   </div>
 </template>
