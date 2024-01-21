@@ -7,6 +7,10 @@ const showContentText = computed(() => {
   return route.path.includes("/admin/content");
 });
 
+const isCreatePage = computed(() => {
+  return route.path.includes("/create");
+});
+
 const computedDetails = computed(() => {
   return (
     routeConfig[route.name as keyof RouteConfigType] || routeConfig["default"]
@@ -15,17 +19,15 @@ const computedDetails = computed(() => {
 </script>
 <template>
   <div class="flex items-center">
-    <UButton
-      class="w-10 lg:hidden h-10 flex mr-3 dark:bg-[#21262E] dark:text-gray-100 items-center justify-center rounded-full"
-    >
-      <UIcon class="text-xl" :name="'i-heroicons-bars-3'" />
-    </UButton>
+    <navigation-side-drawer />
     <div class="hidden lg:block">
-      <UButton
-        class="w-10 h-10 flex mr-3 text-gray-700 bg-[#F0F4F9] dark:bg-[#21262E] dark:text-gray-100 items-center justify-center rounded-full"
+      <navigation-back-button v-if="isCreatePage" />
+      <div
+        v-else
+        class="w-10 cursor-not-allowed h-10 flex mr-3 text-gray-700 bg-[#F0F4F9] dark:bg-[#21262E] dark:text-gray-100 items-center justify-center rounded-full"
       >
         <UIcon class="text-xl" :name="computedDetails.icon" />
-      </UButton>
+      </div>
     </div>
     <span>
       <p v-if="showContentText" class="text-xs dark:text-gray-500">Content</p>
