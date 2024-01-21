@@ -1,6 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import path from "path";
 export default defineNuxtConfig({
-  modules: ["@nuxt/ui", "@nuxtjs/supabase", "@vueuse/nuxt"],
+  ssr: false,
+  modules: ["@nuxt/ui", "@nuxtjs/supabase", "@vueuse/nuxt", "nuxt-primevue"],
   devtools: { enabled: true },
 
   supabase: {
@@ -15,5 +17,14 @@ export default defineNuxtConfig({
   css: ["@/assets/css/main.css"],
   colorMode: {
     preference: "light",
+  },
+  primevue: {
+    options: {
+      unstyled: true,
+    },
+    components: {
+      include: ["DataTable", "Dropdown", "Menubar"],
+    },
+    importPT: { from: path.resolve(__dirname, "./presets/lara/") },
   },
 });

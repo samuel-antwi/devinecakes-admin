@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const colorMode = useColorMode();
-console.log(colorMode.preference);
 
 const isDark = computed({
   get() {
@@ -20,7 +19,6 @@ const isDark = computed({
       aria-label="Theme"
       @click="isDark = !isDark"
     />
-
     <template #fallback>
       <div class="w-8 h-8" />
     </template>

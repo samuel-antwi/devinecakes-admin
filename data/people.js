@@ -1,23 +1,23 @@
 export const columns = [
   {
     key: "id",
-    label: "ID",
+    label: "Order Number",
   },
   {
     key: "name",
-    label: "Name",
+    label: "Payment Ref.",
   },
   {
     key: "title",
-    label: "Title",
+    label: "Full Name",
   },
   {
     key: "email",
-    label: "Email",
+    label: "Location",
   },
   {
     key: "role",
-    label: "Role",
+    label: "",
   },
   {
     key: "salary",

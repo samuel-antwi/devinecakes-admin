@@ -15,7 +15,9 @@
     "@vueuse/nuxt": "^10.7.2",
     "eslint": "^8.56.0",
     "nuxt": "^3.9.1",
+    "nuxt-primevue": "^0.2.2",
     "prettier": "^2.8.8",
+    "primevue": "^3.46.0",
     "vue": "^3.4.6",
     "vue-eslint-parser": "^8.3.0",
     "vue-router": "^4.2.5"
