@@ -6,7 +6,12 @@ const orders = ref([]);
 const noOrdrs = computed(() => orders.value.length === 0);
 </script>
 <template>
-  <UContainer class="py-10">
+  <div>
+    <app-actions :title="'Orders'" :icon="'i-heroicons-shopping-bag'">
+      <template #actions>
+        <navigation-create-button />
+      </template>
+    </app-actions>
     <div v-if="noOrdrs">
       <app-global-empty-content
         description="You have no orders yet."
@@ -18,5 +23,5 @@ const noOrdrs = computed(() => orders.value.length === 0);
     <div class="mt-10" v-else>
       <h1>List of content</h1>
     </div>
-  </UContainer>
+  </div>
 </template>

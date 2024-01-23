@@ -1,5 +1,8 @@
 <script setup lang="ts">
 const route = useRoute();
+
+const router = useRouter();
+
 const computedDetails = computed(() => {
   let link;
 
@@ -27,11 +30,13 @@ const computedDetails = computed(() => {
 </script>
 
 <template>
-  <div>
+  <UTooltip text="Create Item" :popper="{ arrow: true }">
     <NuxtLink :to="`${computedDetails.link}`">
-      <UButton class="w-12 h-12 flex items-center justify-center rounded-full">
-        <UIcon class="text-xl" name="i-heroicons-plus" />
+      <UButton
+        icon="i-heroicons-plus"
+        class="w-12 h-12 flex items-center justify-center rounded-full"
+      >
       </UButton>
     </NuxtLink>
-  </div>
+  </UTooltip>
 </template>

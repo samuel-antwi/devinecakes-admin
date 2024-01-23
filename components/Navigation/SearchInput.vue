@@ -13,7 +13,10 @@ const { searchQuery } = useGlobalStore();
       placeholder="Search items..."
       icon="i-heroicons-magnifying-glass-20-solid"
       autocomplete="off"
-      :ui="{ icon: { trailing: { pointer: '' } } }"
+      :ui="{
+        rounded: 'rounded-full',
+        icon: { trailing: { pointer: '' } },
+      }"
     >
       <template #trailing>
         <UButton

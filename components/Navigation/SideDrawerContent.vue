@@ -20,11 +20,9 @@ const isUsersTab = computed(() => {
 });
 </script>
 <template>
-  <div class="fixed left-0">
+  <div class="fixed left-0 w-[300px] z-30">
     <app-logo />
-    <div
-      class="flex relative w-[250px] h-screen bg-[#F0F4F9] dark:bg-[#21262E]"
-    >
+    <div class="flex relative h-screen bg-[#F0F4F9] dark:bg-[#21262E]">
       <div class="flex flex-col items-center bg-[#0E1C2F]">
         <NuxtLink
           :class="[isContentTab ? 'dark:bg-[#21262E] bg-[#F0F4F9]' : '']"

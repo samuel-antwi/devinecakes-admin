@@ -7,7 +7,7 @@ const props = defineProps<{
 }>();
 </script>
 <template>
-  <div class="flex flex-col justify-center items-center h-[700px]">
+  <div class="flex flex-col mt-32 justify-center items-center h-auto">
     <div class="flex flex-col items-center space-y-4">
       <div
         class="w-24 h-24 flex items-center justify-center bg-[#F0F4F9] dark:bg-[#21262E] rounded-full"

@@ -4,5 +4,18 @@ definePageMeta({
 });
 </script>
 <template>
-  <div>Create Customer</div>
+  <div>
+    <app-actions
+      :title="'Customers'"
+      :icon="'i-heroicons-user-group'"
+      :can-go-back="true"
+    >
+      <template #actions>
+        <app-buttons-save-button />
+      </template>
+    </app-actions>
+    <div>
+      <h1>Create Account</h1>
+    </div>
+  </div>
 </template>

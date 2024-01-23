@@ -8,7 +8,12 @@ const noCustomers = computed(() => customers.value.length === 0);
 </script>
 <template>
   <div>
-    <div v-if="noCustomers" class="py-10">
+    <app-actions :title="'Customers'" :icon="'i-heroicons-user-group'">
+      <template #actions>
+        <navigation-create-button />
+      </template>
+    </app-actions>
+    <div v-if="noCustomers">
       <app-global-empty-content
         description="You have no orders yet."
         :icon="'i-heroicons-user-group'"
