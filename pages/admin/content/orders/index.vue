@@ -9,7 +9,8 @@ const noOrdrs = computed(() => orders.value.length === 0);
   <div>
     <app-actions :title="'Orders'" :icon="'i-heroicons-shopping-bag'">
       <template #actions>
-        <navigation-create-button />
+        <app-search-input />
+        <app-buttons-create-button />
       </template>
     </app-actions>
     <div v-if="noOrdrs">
@@ -20,7 +21,7 @@ const noOrdrs = computed(() => orders.value.length === 0);
         button-label="Create Order"
       />
     </div>
-    <div class="mt-10" v-else>
+    <div class="my-10" v-else>
       <h1>List of content</h1>
     </div>
   </div>

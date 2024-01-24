@@ -19,9 +19,11 @@ const props = defineProps<{
         There are no items in this collection yet.
       </p>
       <NuxtLink :to="`${createLink}`">
-        <UButton size="xl" class="mt-4 text-lg" color="primary">{{
-          buttonLabel
-        }}</UButton>
+        <UButton
+          size="xl"
+          class="mt-4 dark:text-gray-100 text-lg dark:bg-primary-600"
+          >{{ buttonLabel }}</UButton
+        >
       </NuxtLink>
     </div>
   </div>

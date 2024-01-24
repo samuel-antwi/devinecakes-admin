@@ -1,24 +1,9 @@
-/* :root {
-  --color: #243746;
-  --color-primary: #158876;
-  --color-secondary: #0e2233;
-  --bg: #f3f5f4;
-  --bg-secondary: #fff;
-  --border-color: #ddd;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.dark-mode {
-  --color: #ebf4f1;
-  --color-primary: #41b38a;
-  --color-secondary: #fdf9f3;
-  --bg: #020420;
-  --bg-secondary: #071521;
-  --border-color: #0d2538;
+@layer utilities {
+  label {
+    @apply text-gray-700 dark:text-gray-300;
+  }
 }
-.sepia-mode {
-  --color: #433422;
-  --color-secondary: #504231;
-  --bg: #f1e7d0;
-  --bg-secondary: #eae0c9;
-  --border-color: #ded0bf;
-} */

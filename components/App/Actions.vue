@@ -35,7 +35,7 @@ const showContentText = computed(() => {
         </span>
       </div>
       <div class="flex items-center space-x-3">
-        <navigation-search-input />
+        <slot name="search" />
         <slot name="actions" />
       </div>
     </div>

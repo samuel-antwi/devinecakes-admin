@@ -6,7 +6,7 @@ definePageMeta({
 <template>
   <div>
     <app-actions
-      :title="'Orders'"
+      :title="'Creating an Order'"
       :icon="'i-heroicons-shopping-bag'"
       :can-go-back="true"
     >
@@ -14,8 +14,8 @@ definePageMeta({
         <app-buttons-save-button />
       </template>
     </app-actions>
-    <div>
-      <h1>Create Order</h1>
+    <div class="mb-10">
+      <app-orders-create-order />
     </div>
   </div>
 </template>

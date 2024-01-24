@@ -56,7 +56,7 @@ watch(
 );
 </script>
 <template>
-  <UContainer>
+  <div>
     <div class="flex items-center justify-center h-screen">
       <form @click.prevent="handleLogin" class="max-w-sm mx-auto w-full">
         <div
@@ -98,5 +98,5 @@ watch(
         </div>
       </form>
     </div>
-  </UContainer>
+  </div>
 </template>

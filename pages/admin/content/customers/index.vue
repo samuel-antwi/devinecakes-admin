@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { columns, people } from "@/data/people";
+import { columns, customers } from "@/data/customers";
 definePageMeta({
   layout: "auth",
 });
-const customers = ref(["ghgh"]);
-const noCustomers = computed(() => customers.value.length === 0);
+
+const noCustomers = computed(() => customers.length === 0);
 </script>
 <template>
   <div>
     <app-actions :title="'Customers'" :icon="'i-heroicons-user-group'">
       <template #actions>
-        <navigation-create-button />
+        <app-search-input />
+        <app-buttons-create-button />
       </template>
     </app-actions>
     <div v-if="noCustomers">
@@ -22,7 +23,7 @@ const noCustomers = computed(() => customers.value.length === 0);
       />
     </div>
     <div v-else>
-      <app-global-table-list :rows="people" :columns="columns" />
+      <app-global-table-list :rows="customers" :columns="columns" />
     </div>
   </div>
 </template>

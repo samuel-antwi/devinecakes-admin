@@ -34,7 +34,7 @@ const computedDetails = computed(() => {
     <NuxtLink :to="`${computedDetails.link}`">
       <UButton
         icon="i-heroicons-plus"
-        class="w-12 h-12 flex items-center justify-center rounded-full"
+        class="w-12 h-12 flex dark:bg-primary-600 dark:text-gray-100 items-center justify-center rounded-full"
       >
       </UButton>
     </NuxtLink>

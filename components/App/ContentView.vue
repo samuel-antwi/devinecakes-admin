@@ -10,11 +10,13 @@ const links = [
     path: "/admin/content/orders",
     icon: "i-heroicons-shopping-bag",
     label: "Orders",
+    activeLink: ["admin/content/orders/create", "admin/content/orders"],
   },
   {
     path: "/admin/content/customers",
     icon: "i-heroicons-user-group",
     label: "Customers",
+    activeLink: ["admin/content/customers/create", "admin/content/customers"],
   },
 ];
 
