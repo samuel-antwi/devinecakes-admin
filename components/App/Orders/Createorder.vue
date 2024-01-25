@@ -21,32 +21,31 @@ const quantityOptions = ["1", "2", "3", "4", "5"];
   <div class="max-w-2xl">
     <form class="flex flex-col space-y-10">
       <div>
-        <label class="text-xl font-medium mb-2 block" for="payment reference"
+        <label class="text-lg font-medium mb-2 block" for="payment reference"
           >Payment Reference *</label
         >
         <UInput
+          type="number"
           icon="i-heroicons-ticket"
           v-model="orderData.paymentReferenceNumber"
-          :ui="{ spacing: 'py-4' }"
           id="payment reference"
           size="xl"
         />
       </div>
       <div>
-        <label class="text-xl font-medium mb-2 block" for="payment status"
+        <label class="text-lg font-medium mb-2 block" for="payment status"
           >Payment Status *</label
         >
         <UInputMenu
           icon="i-heroicons-banknotes"
           :options="['Fully Paid', 'Half Paid', 'Not Paid']"
           v-model="orderData.paymentStatus"
-          :ui="{ spacing: 'py-4' }"
           id="payment status"
           size="xl"
         />
       </div>
       <div>
-        <label class="text-xl font-medium mb-2 block" for="cake">Cake *</label>
+        <label class="text-lg font-medium mb-2 block" for="cake">Cake *</label>
         <USelectMenu
           icon="i-heroicons-cake"
           multiple
@@ -58,33 +57,31 @@ const quantityOptions = ["1", "2", "3", "4", "5"];
         />
       </div>
       <div>
-        <label class="text-xl font-medium mb-2 block" for="cake"
+        <label class="text-lg font-medium mb-2 block" for="cake"
           >Quantity</label
         >
         <USelectMenu
           icon="i-heroicons-calculator"
           :options="quantityOptions"
           v-model="orderData.quantity"
-          :ui="{ spacing: 'py-4' }"
           id="quantity"
           size="xl"
         />
       </div>
       <div>
-        <label class="text-xl font-medium mb-2 block" for="delivery method"
+        <label class="text-lg font-medium mb-2 block" for="delivery method"
           >Delivery Method</label
         >
         <UInputMenu
           icon="i-heroicons-truck"
           :options="['Pickup', 'Home Delivery']"
           v-model="orderData.deliveryMethod"
-          :ui="{ spacing: 'py-4' }"
           id="delivery method"
           size="xl"
         />
       </div>
       <div>
-        <label class="text-xl font-medium mb-2 block" for="delivery date"
+        <label class="text-lg font-medium mb-2 block" for="delivery date"
           >Delivery Date *</label
         >
         <USelectMenu
@@ -92,33 +89,30 @@ const quantityOptions = ["1", "2", "3", "4", "5"];
           multiple
           :options="options"
           v-model="selected"
-          :ui="{ spacing: 'py-4' }"
           id="delivery date"
           size="xl"
         />
       </div>
       <div>
-        <label class="text-xl font-medium mb-2 block" for="extras"
+        <label class="text-lg font-medium mb-2 block" for="extras"
           >Extras</label
         >
         <USelectMenu
           multiple
           :options="options"
           v-model="selected"
-          :ui="{ spacing: 'py-4' }"
           id="extras"
           size="xl"
           placeholder="Select extras"
         />
       </div>
       <div>
-        <label class="text-xl font-medium mb-2 block" for="description"
+        <label class="text-lg font-medium mb-2 block" for="description"
           >Description</label
         >
         <UTextarea
           :rows="7"
           v-model="orderData.description"
-          :ui="{ spacing: 'py-4' }"
           id="description"
           size="xl"
         />
