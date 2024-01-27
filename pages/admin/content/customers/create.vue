@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCreateCustomer } from "~/components/app/composables/createCustomer";
+import { useCreateCustomer } from "@/components/App/composables/createCustomer";
 
 definePageMeta({
   layout: "auth",
