@@ -23,7 +23,7 @@ const save = () => {
       </template>
     </app-actions>
     <div>
-      <app-customers-create-customer />
+      <customers-create-customer />
     </div>
   </div>
 </template>
