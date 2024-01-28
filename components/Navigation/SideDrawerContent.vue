@@ -20,9 +20,9 @@ const isUsersTab = computed(() => {
 });
 </script>
 <template>
-  <div class="fixed left-0 w-[300px] z-30">
+  <div class="z-30 fixed left-0 w-[250px] lg:w-[300px] 2xl:w-[452px]">
     <app-logo />
-    <div class="flex relative h-screen bg-[#F0F4F9] dark:bg-[#21262E]">
+    <div class="flex h-screen bg-[#F0F4F9] dark:bg-[#21262E]">
       <div class="flex flex-col items-center bg-[#0E1C2F]">
         <NuxtLink
           :class="[isContentTab ? 'dark:bg-[#21262E] bg-[#F0F4F9]' : '']"
@@ -54,7 +54,7 @@ const isUsersTab = computed(() => {
             name="i-heroicons-users"
           />
         </NuxtLink>
-        <div class="absolute bottom-28">
+        <div class="absolute lg:bottom-28 bottom-44">
           <theme-toggle />
           <button
             @click="logout"

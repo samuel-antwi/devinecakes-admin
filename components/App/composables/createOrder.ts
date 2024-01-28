@@ -1,4 +1,6 @@
-const orderData = ref({
+import type { OrderType } from "@/types/order";
+
+const orderData = ref<OrderType>({
   paymentReferenceNumber: "",
   paymentStatus: "",
   orderStatus: "",

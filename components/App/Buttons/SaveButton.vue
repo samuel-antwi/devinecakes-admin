@@ -4,12 +4,26 @@ const emit = defineEmits(["save-item"]);
 const emitSave = () => {
   emit("save-item");
 };
+
+const props = withDefaults(
+  defineProps<{
+    canSave?: boolean;
+  }>(),
+  {
+    canSave: false,
+  }
+);
 </script>
 
 <template>
   <div>
-    <UTooltip text="Save" :popper="{ arrow: true }">
+    <UTooltip
+      :text="!props.canSave ? 'Can\'t save' : 'Save'"
+      :popper="{ arrow: true }"
+    >
       <UButton
+        :ui="{ color: 'dark:disabled:bg-gray-300' }"
+        :disabled="!props.canSave"
         type="submit"
         icon="i-heroicons-check"
         @click.prevent="emitSave"
