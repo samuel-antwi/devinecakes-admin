@@ -103,9 +103,9 @@ const quantityOptions = ["1", "2", "3", "4", "5"];
             size="xl"
           />
         </div>
-        <div>
+        <!-- <div>
           <pv-calendar />
-        </div>
+        </div> -->
         <div>
           <label class="text-lg font-medium mb-2 block" for="extras"
             >Extras</label
