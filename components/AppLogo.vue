@@ -2,7 +2,7 @@
 <template>
   <div class="w-full bg-[#E4EAF1] dark:bg-[#30363D]">
     <div class="flex items-center">
-      <div class="bg-indigo-600 p-4">
+      <div class="bg-primary-600 p-[17px]">
         <UIcon class="text-3xl text-gray-100" name="i-heroicons-cake" />
       </div>
       <div class="ml-4">

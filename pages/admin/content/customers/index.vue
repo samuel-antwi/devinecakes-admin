@@ -10,7 +10,7 @@ const noCustomers = computed(() => customers.length === 0);
   <div>
     <app-actions :title="'Customers'" :icon="'i-heroicons-user-group'">
       <template #actions>
-        <app-search-input />
+        <search-input v-if="customers.length" />
         <app-buttons-create-button />
       </template>
     </app-actions>

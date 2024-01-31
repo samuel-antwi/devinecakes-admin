@@ -3,7 +3,7 @@ export default defineAppConfig({
     container: {
       constrained: "max-w-7xl",
     },
-    primary: "indigo",
+    primary: "blue",
     gray: "slate",
     input: {
       padding: {

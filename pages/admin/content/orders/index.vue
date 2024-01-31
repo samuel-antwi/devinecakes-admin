@@ -9,7 +9,7 @@ const noOrdrs = computed(() => orders.value.length === 0);
   <div>
     <app-actions :title="'Orders'" :icon="'i-heroicons-shopping-bag'">
       <template #actions>
-        <app-search-input v-if="orders.length" />
+        <search-input v-if="orders.length" />
         <app-buttons-create-button />
       </template>
     </app-actions>

@@ -9,7 +9,7 @@ const { searchQuery } = useGlobalStore();
     <UInput
       v-model="searchQuery"
       name="searchQuery "
-      size="xl"
+      size="lg"
       placeholder="Search items..."
       icon="i-heroicons-magnifying-glass-20-solid"
       autocomplete="off"
