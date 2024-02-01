@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { useGlobalStore } from "@/composables/globalStore";
-const { searchQuery } = useGlobalStore();
+const { filters } = useGlobalStore();
 </script>
 
 <template>
   <div class="flex items-center space-x-3">
     <navigation-item-count />
     <UInput
-      v-model="searchQuery"
-      name="searchQuery "
+      v-model="filters['global'].value"
+      :name="filters['global'].value"
       size="lg"
       placeholder="Search items..."
       icon="i-heroicons-magnifying-glass-20-solid"
@@ -20,12 +20,12 @@ const { searchQuery } = useGlobalStore();
     >
       <template #trailing>
         <UButton
-          v-show="searchQuery !== ''"
+          v-show="filters['global'].value"
           color="gray"
           variant="link"
           icon="i-heroicons-x-mark-20-solid"
           :padded="false"
-          @click="searchQuery = ''"
+          @click="filters['global'].value = ''"
         />
       </template>
     </UInput>

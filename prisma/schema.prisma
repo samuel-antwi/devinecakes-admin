@@ -11,34 +11,34 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model Customer{
-  id Int @id @default(autoincrement())
+model customers{
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   firstName String
   surname String
   phone String
   city String
   streetName String?
   digitalAddress String?
-  createdAt DateTime @default(now())
+  createdAt DateTime @db.Timestamptz(6)
   updatedAt DateTime @updatedAt
-  orders Order[]
+  orders orders[]
 }
 
-model Order{
-  id Int @id @default(autoincrement())
-  customerId Int
+model orders{
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   paymentReference Int?
   paymentStatus String?
   orderNumber String
-  customer Customer @relation(fields: [customerId], references: [id])
-  orderDate DateTime @default(now())
+  customerId String @db.Uuid
+  customer customers @relation(fields: [customerId], references: [id])
+  orderDate DateTime @db.Timestamptz(6)
   deliveryDate DateTime
   deliveryStatus String
   deliveryMethod String
   orderStatus String
   description String?
   cakeType String
-  createdAt DateTime @default(now())
+  createdAt DateTime @db.Timestamptz(6)
   updatedAt DateTime @updatedAt
 }
 
