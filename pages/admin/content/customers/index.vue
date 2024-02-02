@@ -13,7 +13,7 @@ const columns = [
   { field: "phone", header: "Phone number" },
 ];
 
-const { data: customers } = await useFetch(`/api/customers`);
+const { data: customers, status } = await useFetch(`/api/customers`);
 
 // const { data: customers } = await useAsyncData("customers", async () => {
 //   const { data } = await client.from("customers").select("*");
@@ -26,15 +26,15 @@ const noCustomers = computed(() => customers.value?.length === 0);
 
 console.log("CUSTOMERS", customers.value);
 
-onMounted(() => {
-  customerData.value = customers.value;
-});
+// onMounted(() => {
+//   customerData.value = customers.value;
+// });
 </script>
 <template>
   <div>
     <app-actions :title="'Customers'" :icon="'i-heroicons-user-group'">
       <template #actions>
-        <search-input v-if="customers.length" />
+        <search-input />
         <app-buttons-create-button />
       </template>
     </app-actions>
@@ -48,7 +48,7 @@ onMounted(() => {
     </div>
     <div v-else>
       <!-- <app-global-table-list :rows="customers" :columns="columns" /> -->
-      <pv-table :columns="columns" :value="customerData" />
+      <pv-table :columns="columns" :value="customers" />
     </div>
   </div>
 </template>
