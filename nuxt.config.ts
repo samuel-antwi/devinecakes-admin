@@ -5,13 +5,17 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   debug: true,
   supabase: {
-    url: process.env.NUXT_PUBLIC_SUPABASE_URL,
-    key: process.env.NUXT_PUBLIC_SUPABASE_KEY,
     redirectOptions: {
       login: "/login",
       callback: "/confirm",
       exclude: [],
     },
+  },
+  runtimeConfig: {
+    DATABASE_URL: process.env.DATABASE_URL,
+    DIRECT_URL: process.env.DIRECT_URL,
+    SUPABASE_URL: process.env.SUPABASE_URL,
+    SUPABASE_KEY: process.env.SUPABASE_KEY,
   },
   css: ["@/assets/css/main.css"],
   colorMode: {
