@@ -13,7 +13,7 @@ const columns = [
   { field: "phone", header: "Phone number" },
 ];
 
-const { data: customers, status } = await useFetch(`/api/customers`);
+const { pending, data: customers, status } = await useFetch(`/api/customers`);
 
 // const { data: customers } = await useAsyncData("customers", async () => {
 //   const { data } = await client.from("customers").select("*");
@@ -38,17 +38,22 @@ console.log("CUSTOMERS", customers.value);
         <app-buttons-create-button />
       </template>
     </app-actions>
-    <div v-if="noCustomers">
-      <app-global-empty-content
-        description="You have no orders yet."
-        :icon="'i-heroicons-user-group'"
-        create-link="/admin/content/customers/create"
-        button-label="Add Customer"
-      />
+    <div v-if="pending">
+      <h1>Loading</h1>
     </div>
     <div v-else>
-      <!-- <app-global-table-list :rows="customers" :columns="columns" /> -->
-      <pv-table :columns="columns" :value="customers" />
+      <div v-if="noCustomers">
+        <app-global-empty-content
+          description="You have no orders yet."
+          :icon="'i-heroicons-user-group'"
+          create-link="/admin/content/customers/create"
+          button-label="Add Customer"
+        />
+      </div>
+      <div v-else>
+        <!-- <app-global-table-list :rows="customers" :columns="columns" /> -->
+        <pv-table :columns="columns" :value="customers" />
+      </div>
     </div>
   </div>
 </template>
