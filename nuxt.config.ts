@@ -1,7 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import path from "path";
 export default defineNuxtConfig({
-  ssr: false,
   modules: ["@nuxt/ui", "@nuxtjs/supabase", "@vueuse/nuxt", "nuxt-primevue"],
   devtools: { enabled: true },
   debug: true,
