@@ -13,10 +13,11 @@ datasource db {
 
 model customers{
   id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  salutation String?
   firstName String
   surname String
-  phone String
-  city String
+  mobileNumber String
+  town String?
   streetName String?
   digitalAddress String?
   createdAt DateTime @db.Timestamptz(6)

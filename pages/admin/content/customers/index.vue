@@ -1,34 +1,26 @@
 <script setup lang="ts">
-// import { customers } from "@/data/customers";
 definePageMeta({
   layout: "auth",
 });
 
-const customerData = ref([]);
-
 const columns = [
   { field: "firstName", header: "First Name" },
   { field: "surname", header: "Surname" },
-  { field: "city", header: "Location" },
-  { field: "phone", header: "Phone number" },
+  { field: "town", header: "Town" },
+  { field: "mobileNumber", header: "Phone number" },
 ];
 
-const { pending, data: customers, status } = await useFetch(`/api/customers`);
+const {
+  pending,
+  data: customers,
+  refresh,
+} = await useFetch(`/api/customers/get-customers`);
 
-// const { data: customers } = await useAsyncData("customers", async () => {
-//   const { data } = await client.from("customers").select("*");
-//   return data;
-// });
+onMounted(() => {
+  refresh();
+});
 
 const noCustomers = computed(() => customers.value?.length === 0);
-
-// const client = useSupabaseClient();
-
-console.log("CUSTOMERS", customers.value);
-
-// onMounted(() => {
-//   customerData.value = customers.value;
-// });
 </script>
 <template>
   <div>
