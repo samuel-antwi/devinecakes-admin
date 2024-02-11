@@ -3,62 +3,26 @@ definePageMeta({
   layout: "login-layout",
 });
 
-const supabase = useSupabaseClient();
-const isLoading = ref(false);
-const user = useSupabaseUser();
-const errorMsg = ref("");
-
-interface User {
-  email: string;
-  password: string;
-}
-
-const formData = ref<User>({
+const formData = ref({
   email: "",
   password: "",
 });
 
-// Login with email and password
-async function login() {
+const { login } = useDirectusAuth();
+const router = useRouter();
+const onSubmit = async () => {
   try {
-    isLoading.value = true;
-    const { error } = await supabase.auth.signInWithPassword({
-      email: formData.value.email,
-      password: formData.value.password,
-    });
-    if (user.value) navigateTo({ path: "/confirm" });
-    if (error) {
-      errorMsg.value =
-        "Looks like either your email address or password were incorrect!";
-      return;
-    }
-    errorMsg.value = "";
-  } catch (error) {
-    console.error(error);
-    errorMsg.value = "An unexpected error occurred. Please try again.";
-  } finally {
-    isLoading.value = false;
+    await login({ email: "", password: "" });
+    router.push("/admin/content/orders");
+  } catch (e) {
+    console.log(e);
   }
-}
-
-const handleLogin = async () => {
-  await login();
 };
-
-watch(
-  user,
-  () => {
-    if (user.value) {
-      return navigateTo("/admin/content/orders");
-    }
-  },
-  { immediate: true }
-);
 </script>
 <template>
   <div>
     <div class="flex items-center justify-center h-screen">
-      <form @click.prevent="handleLogin" class="max-w-sm mx-auto w-full">
+      <form @click.prevent="onSubmit" class="max-w-sm mx-auto w-full">
         <div
           class="header border border-b-0 border-gray-700 bg-indigo-800 py-2 px-5 shadow-md text-gray-50 rounded-t-md"
         >

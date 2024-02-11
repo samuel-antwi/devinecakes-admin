@@ -2,12 +2,18 @@
 const route = useRoute();
 const router = useRouter();
 
-const supabase = useSupabaseClient();
-
-const logout = async () => {
-  await supabase.auth.signOut();
+const { logout } = useDirectusAuth();
+const onSubmit = async () => {
+  logout();
   router.push("/login");
 };
+
+// const supabase = useSupabaseClient();
+
+// const logout = async () => {
+//   await supabase.auth.signOut();
+//   router.push("/login");
+// };
 
 const isContentTab = computed(() => {
   return (
@@ -57,7 +63,7 @@ const isUsersTab = computed(() => {
         <div class="absolute lg:bottom-28 bottom-44">
           <theme-toggle />
           <button
-            @click="logout"
+            @click="onSubmit"
             class="dark:bg-[#30363D] text-gray-200 mt-4 p-[7px] rounded-full flex items-center justify-center"
             type="button"
           >
