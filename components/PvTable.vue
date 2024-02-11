@@ -7,10 +7,13 @@ import Column from "primevue/column";
 import Calendar from "primevue/calendar";
 import InputNumber from "primevue/inputnumber";
 import { useGlobalStore } from "@/composables/globalStore";
+import type { CustomerType } from "@/types/customers";
+import type { OrderType } from "@/types/order";
 
 const props = defineProps<{
   columns: any[];
-  value: any[];
+  filters: any[];
+  value: CustomerType[] | OrderType[];
 }>();
 
 const { filters } = useGlobalStore();
@@ -57,7 +60,7 @@ const getCustomers = (data) => {
       :loading="loading"
       filterDisplay="menu"
       :rowsPerPageOptions="[5, 10, 20, 50]"
-      :globalFilterFields="['firstName', 'surname', 'city', 'phone']"
+      :globalFilterFields="props.filters"
     >
       <template #empty> No item found. </template>
       <template #loading> Loading customers data. Please wait. </template>
@@ -69,7 +72,6 @@ const getCustomers = (data) => {
         :field="col.field"
         :header="col.header"
       >
-        <NuxtLink to="/"></NuxtLink>
       </Column>
     </DataTable>
   </ClientOnly>

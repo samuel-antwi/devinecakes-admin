@@ -10,11 +10,13 @@ const columns = [
   { field: "mobileNumber", header: "Phone number" },
 ];
 
+const filters = ["firstName", "surname", "town", "mobileNumber"];
+
 const {
   pending,
   data: customers,
   refresh,
-} = await useFetch(`/api/customers/get-customers`);
+} = await useFetch(`/api/customers/customers`);
 
 onMounted(() => {
   refresh();
@@ -44,7 +46,11 @@ const noCustomers = computed(() => customers.value?.length === 0);
       </div>
       <div v-else>
         <!-- <app-global-table-list :rows="customers" :columns="columns" /> -->
-        <pv-table :columns="columns" :value="customers" />
+        <pv-table
+          :columns="columns"
+          :value="customers"
+          :global-filter-fields="filters"
+        />
       </div>
     </div>
   </div>

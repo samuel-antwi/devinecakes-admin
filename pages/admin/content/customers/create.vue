@@ -5,8 +5,6 @@ definePageMeta({
   layout: "auth",
 });
 
-const router = useRouter();
-
 const { formData } = useCreateCustomer();
 
 const saveCustomer = async () => {
@@ -15,13 +13,10 @@ const saveCustomer = async () => {
 
 async function createCustomer() {
   try {
-    const customers = await $fetch("/api/customers/create", {
+    await useFetch("/api/customers/create", {
       method: "post",
-      contentType: "application/json",
       body: formData.value,
     });
-    console.log(customers);
-    // await router.push("/admin/content/customers");
   } catch (e) {
     console.log(e);
     throw new Error(e.message);
