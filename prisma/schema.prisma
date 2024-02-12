@@ -20,7 +20,7 @@ model customers{
   town String?
   streetName String?
   digitalAddress String?
-  createdAt DateTime @db.Timestamptz(6)
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   orders orders[]
 }
@@ -32,14 +32,14 @@ model orders{
   orderNumber String
   customerId String @db.Uuid
   customer customers @relation(fields: [customerId], references: [id])
-  orderDate DateTime @db.Timestamptz(6)
+  orderDate DateTime @default(now())
   deliveryDate DateTime
   deliveryStatus String
   deliveryMethod String
   orderStatus String
   description String?
   cakeType String
-  createdAt DateTime @db.Timestamptz(6)
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 

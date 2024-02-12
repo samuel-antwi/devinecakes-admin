@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useCreateCustomer } from "@/components/App/composables/createCustomer";
+const router = useRouter();
 
 definePageMeta({
   layout: "auth",
@@ -7,16 +8,14 @@ definePageMeta({
 
 const { formData } = useCreateCustomer();
 
-const saveCustomer = async () => {
-  await createCustomer();
-};
-
 async function createCustomer() {
   try {
-    await useFetch("/api/customers/create", {
+    await $fetch("/api/customers/create", {
       method: "post",
       body: formData.value,
     });
+    console.log(formData.value);
+    await router.push("/admin/content/customers");
   } catch (e) {
     console.log(e);
     throw new Error(e.message);
@@ -40,7 +39,7 @@ const enableSaveButton = computed(() => {
     >
       <template #actions>
         <app-buttons-save-button
-          @save-item="saveCustomer"
+          @save-item="createCustomer"
           :can-save="enableSaveButton"
         />
       </template>

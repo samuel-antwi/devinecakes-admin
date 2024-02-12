@@ -46,11 +46,7 @@ const noCustomers = computed(() => customers.value?.length === 0);
       </div>
       <div v-else>
         <!-- <app-global-table-list :rows="customers" :columns="columns" /> -->
-        <pv-table
-          :columns="columns"
-          :value="customers"
-          :global-filter-fields="filters"
-        />
+        <pv-table :columns="columns" :value="customers" :filters="filters" />
       </div>
     </div>
   </div>

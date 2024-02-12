@@ -1,6 +1,7 @@
 import { prisma } from "@/utils/prisma";
-export default defineCachedEventHandler(async (event) => {
+export default defineEventHandler(async (event) => {
   const body = await readBody(event);
+  console.log("BODY", body);
 
   try {
     const customers = await prisma.customers.create({
@@ -12,7 +13,6 @@ export default defineCachedEventHandler(async (event) => {
         digitalAddress: body.digitalAddress,
         mobileNumber: body.mobileNumber,
         streetName: body.streetName,
-        createdAt: new Date(),
       },
     });
     return customers;
