@@ -14,6 +14,7 @@ const props = defineProps<{
   columns: any[];
   filters: any[];
   value: CustomerType[] | OrderType[];
+  loading?: boolean;
 }>();
 
 const { filters } = useGlobalStore();
@@ -22,30 +23,30 @@ const customers = ref();
 
 const loading = ref(true);
 
-onMounted(() => {
-  customerService.getCustomersMedium().then((data) => {
-    customers.value = getCustomers(data);
-    loading.value = false;
-  });
-});
+// onMounted(() => {
+//   customerService.getCustomersMedium().then((data) => {
+//     customers.value = getCustomers(data);
+//     loading.value = false;
+//   });
+// });
 
-const formatDate = (value) => {
-  return value.toLocaleDateString("en-US", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
-};
-const formatCurrency = (value) => {
-  return value.toLocaleString("en-US", { style: "currency", currency: "USD" });
-};
+// const formatDate = (value) => {
+//   return value.toLocaleDateString("en-US", {
+//     day: "2-digit",
+//     month: "2-digit",
+//     year: "numeric",
+//   });
+// };
+// const formatCurrency = (value) => {
+//   return value.toLocaleString("en-US", { style: "currency", currency: "USD" });
+// };
 
-const getCustomers = (data) => {
-  return [...(data || [])].map((d) => {
-    d.date = new Date(d.date);
-    return d;
-  });
-};
+// const getCustomers = (data) => {
+//   return [...(data || [])].map((d) => {
+//     d.date = new Date(d.date);
+//     return d;
+//   });
+// };
 </script>
 
 <template>
@@ -57,7 +58,6 @@ const getCustomers = (data) => {
       paginator
       :rows="10"
       dataKey="id"
-      :loading="loading"
       filterDisplay="menu"
       :rowsPerPageOptions="[5, 10, 20, 50]"
       :globalFilterFields="props.filters"

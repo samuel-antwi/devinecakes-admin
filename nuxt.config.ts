@@ -15,8 +15,8 @@ export default defineNuxtConfig({
     DATABASE_URL: process.env.DATABASE_URL,
     DIRECT_URL: process.env.DIRECT_URL,
     public: {
-      SUPABASE_URL: process.env.SUPABASE_URL,
-      SUPABASE_KEY: process.env.SUPABASE_KEY,
+      NUXT_PUBLIC_SUPABASE_URL: process.env.SUPABASE_URL,
+      NUXT_PUBLIC_SUPABASE_KEY: process.env.SUPABASE_KEY,
     },
   },
   css: ["@/assets/css/main.css"],
@@ -28,7 +28,14 @@ export default defineNuxtConfig({
       unstyled: true,
     },
     components: {
-      include: ["DataTable", "Dropdown", "Menubar"],
+      include: [
+        "DataTable",
+        "Dropdown",
+        "Menubar",
+        "Toast",
+        "TabView",
+        "TabPanel",
+      ],
     },
     importPT: { from: path.resolve(__dirname, "./presets/lara/") },
   },

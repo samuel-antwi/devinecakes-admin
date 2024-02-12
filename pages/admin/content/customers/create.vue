@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import { useCreateCustomer } from "@/components/App/composables/createCustomer";
+import { useToast } from "primevue/usetoast";
+
+const toast = useToast();
+
+console.log("TOAST", toast);
+
 const router = useRouter();
 
 definePageMeta({
@@ -7,15 +13,27 @@ definePageMeta({
 });
 
 const { formData } = useCreateCustomer();
+const loading = ref(false);
 
 async function createCustomer() {
+  loading.value = true;
   try {
-    await $fetch("/api/customers/create", {
+    const customer = await $fetch("/api/customers/create", {
       method: "post",
       body: formData.value,
     });
-    console.log(formData.value);
-    await router.push("/admin/content/customers");
+
+    if (customer.id) {
+      // router.push(`/admin/content/customers`);
+      router.push(`/admin/content/customers/${customer.id}`);
+    }
+    loading.value = false;
+    toast.add({
+      severity: "success",
+      summary: "Success",
+      detail: "Customer created",
+      life: 10000,
+    });
   } catch (e) {
     console.log(e);
     throw new Error(e.message);
@@ -26,7 +44,8 @@ const enableSaveButton = computed(() => {
   return Boolean(
     formData.value.firstName &&
       formData.value.surname &&
-      formData.value.mobileNumber
+      formData.value.mobileNumber &&
+      !loading.value
   );
 });
 </script>

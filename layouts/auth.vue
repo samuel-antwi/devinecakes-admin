@@ -1,14 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Toast from "primevue/toast";
+</script>
 <template>
   <div>
-    <div class="lg:grid grid-cols-10">
-      <div class="col-span-2 hidden lg:block">
+    <Toast />
+    <div>
+      <div class="hidden lg:block">
         <navigation-side-drawer-content />
       </div>
-      <div class="col-span-8">
-        <UContainer class="mt-6">
+      <div>
+        <div class="mt-6 lg:ml-[300px] px-4 lg:px-8">
           <slot />
-        </UContainer>
+        </div>
       </div>
     </div>
   </div>

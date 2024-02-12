@@ -20,7 +20,7 @@ const isUsersTab = computed(() => {
 });
 </script>
 <template>
-  <div class="z-30 fixed left-0 w-[250px] lg:w-[300px] 2xl:w-[452px]">
+  <div class="z-30 fixed left-0 top-0 w-[250px] lg:w-[300px]">
     <app-logo />
     <div class="flex h-screen bg-[#F0F4F9] dark:bg-[#21262E]">
       <div class="flex flex-col items-center bg-[#0E1C2F]">

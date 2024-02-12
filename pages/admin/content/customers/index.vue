@@ -16,10 +16,8 @@ const {
   pending,
   data: customers,
   refresh,
-} = await useFetch(`/api/customers/customers`);
-
-onMounted(() => {
-  refresh();
+} = await useFetch(`/api/customers/customers`, {
+  server: false,
 });
 
 const noCustomers = computed(() => customers.value?.length === 0);
