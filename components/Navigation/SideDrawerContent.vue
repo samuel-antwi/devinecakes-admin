@@ -54,8 +54,7 @@ const isUsersTab = computed(() => {
             name="i-heroicons-users"
           />
         </NuxtLink>
-        <div class="absolute lg:bottom-28 bottom-44">
-          <theme-toggle />
+        <div class="absolute lg:bottom-28 bottom-52">
           <button
             @click="logout"
             class="dark:bg-[#30363D] text-gray-200 mt-4 p-[7px] rounded-full flex items-center justify-center"
