@@ -1,26 +1,38 @@
 <script setup lang="ts">
 import type { CustomerType } from "@/types/customers";
 import { useGlobalStore } from "@/composables/globalStore";
+import { useToast } from "primevue/usetoast";
 
-const route = useRoute();
+const toast = useToast();
 
 const props = defineProps<{
   customer: CustomerType;
 }>();
-
-const options = ["Mr", "Mrs", "Miss", "Dr", "Prof", "Rev", "Other"];
 
 const { isOpen } = useGlobalStore();
 
 // make deep copy of customer object
 const formData = ref<CustomerType>(JSON.parse(JSON.stringify(props.customer)));
 
-const handleSubmit = async () => {
-  const customer = await $fetch<CustomerType>(`/api/customers/update`, {
+const { data, error, execute } = useFetch<CustomerType>(
+  `/api/customers/update`,
+  {
     method: "put",
     body: formData.value,
-  });
-};
+  }
+);
+
+async function handleSubmit() {
+  await execute();
+  if (!error.value) {
+    isOpen.value = false;
+    toast.add({
+      severity: "success",
+      summary: "Success",
+      detail: "Customer details updated",
+    });
+  }
+}
 </script>
 
 <template>
@@ -28,7 +40,7 @@ const handleSubmit = async () => {
     <UModal v-model="isOpen" prevent-close>
       <UCard>
         <template #header>
-          <h1 class="text-lg font-medium">Edit Personal details</h1>
+          <h1 class="text-lg font-medium">Edit Customer details</h1>
           <UButton
             @click="isOpen = false"
             icon="i-heroicons-x-mark"
@@ -44,7 +56,7 @@ const handleSubmit = async () => {
             <UInputMenu
               id="salutation"
               size="md"
-              :options="options"
+              :options="['Mr', 'Mrs', 'Miss', 'Dr', 'Prof', 'Rev', 'Other']"
               v-model="formData.salutation"
             />
           </div>

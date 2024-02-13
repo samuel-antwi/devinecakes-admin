@@ -7,13 +7,15 @@ definePageMeta({
 
 const route = useRoute();
 
-const id = route.params.id;
+const id = ref(route.params.id) as Ref<string>;
 
 const {
   pending,
   data: customer,
   refresh,
-} = await useFetch<CustomerType>(`/api/customers/${id}`);
+} = await useFetch<CustomerType>(`/api/customers/${id.value}`, {
+  immediate: true,
+});
 </script>
 <template>
   <div>

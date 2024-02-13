@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { CustomerType } from "@/types/customers";
-import EditPersonaldetails from "./EditPersonaldetails.vue";
 import { useGlobalStore } from "@/composables/globalStore";
 
 const { isOpen } = useGlobalStore();
@@ -12,7 +11,7 @@ const props = defineProps<{
 <template>
   <div>
     <div v-if="isOpen">
-      <EditPersonaldetails :customer="customer" :isOpen="isOpen" />
+      <customers-edit-customer :customer="customer" :isOpen="isOpen" />
     </div>
     <div class="flex">
       <div class="border w-12 h-12 flex items-center justify-center rounded">
