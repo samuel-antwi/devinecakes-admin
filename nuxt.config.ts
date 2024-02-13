@@ -3,6 +3,7 @@ import path from "path";
 export default defineNuxtConfig({
   modules: ["@nuxt/ui", "@nuxtjs/supabase", "@vueuse/nuxt", "nuxt-primevue"],
   devtools: { enabled: true },
+  debug: true,
   supabase: {
     redirectOptions: {
       login: "/login",
@@ -34,6 +35,11 @@ export default defineNuxtConfig({
         "Toast",
         "TabView",
         "TabPanel",
+        "Divider",
+        "Accordion",
+        "AccordionTab",
+        "Dialog",
+        "InputText",
       ],
     },
     importPT: { from: path.resolve(__dirname, "./presets/lara/") },

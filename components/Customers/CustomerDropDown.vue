@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { useGlobalStore } from "@/composables/globalStore";
+const { isOpen } = useGlobalStore();
 const items = [
   [
     {
       label: "Edit",
       icon: "i-heroicons-pencil-square-20-solid",
       click: () => {
-        console.log("Edit");
+        isOpen.value = true;
       },
     },
     {

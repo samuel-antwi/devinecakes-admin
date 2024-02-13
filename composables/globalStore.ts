@@ -2,6 +2,7 @@ import { FilterMatchMode, FilterOperator } from "primevue/api";
 const itemsCount = ref<string[]>([]);
 const searchQuery = ref("");
 const filters = ref();
+const isOpen = ref(false);
 
 export const useGlobalStore = () => {
   const initFilters = () => {
@@ -12,5 +13,5 @@ export const useGlobalStore = () => {
 
   initFilters();
 
-  return { itemsCount, searchQuery, filters, initFilters };
+  return { itemsCount, searchQuery, filters, initFilters, isOpen };
 };
