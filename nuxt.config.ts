@@ -3,7 +3,6 @@ import path from "path";
 export default defineNuxtConfig({
   modules: ["@nuxt/ui", "@nuxtjs/supabase", "@vueuse/nuxt", "nuxt-primevue"],
   devtools: { enabled: true },
-  debug: true,
   supabase: {
     redirectOptions: {
       login: "/login",

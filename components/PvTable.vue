@@ -17,11 +17,24 @@ const props = defineProps<{
   loading?: boolean;
 }>();
 
+const emit = defineEmits(["getCustomer"]);
+
 const { filters } = useGlobalStore();
+const selectedField = ref();
 
-const customers = ref();
+// const customers = ref();
 
-const loading = ref(true);
+// const loading = ref(true);
+
+const handleGetCustomer = (event: { data: any }) => {
+  emit("getCustomer", event.data);
+};
+
+// const router = useRouter();
+// const onRowSelect = (event: any) => {
+//   const link = selectedField.value.id;
+//   router.push(`/admin/content/customers/${link}`);
+// };
 
 // onMounted(() => {
 //   customerService.getCustomersMedium().then((data) => {
@@ -52,6 +65,7 @@ const loading = ref(true);
 <template>
   <ClientOnly>
     <DataTable
+      ref="dt"
       v-model:filters="filters"
       sortMode="multiple"
       :value="value"
@@ -61,6 +75,9 @@ const loading = ref(true);
       filterDisplay="menu"
       :rowsPerPageOptions="[5, 10, 20, 50]"
       :globalFilterFields="props.filters"
+      v-model:selection="selectedField"
+      selectionMode="single"
+      @rowSelect="handleGetCustomer"
     >
       <template #empty> No item found. </template>
       <template #loading> Loading customers data. Please wait. </template>

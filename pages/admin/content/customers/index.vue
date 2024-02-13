@@ -1,7 +1,13 @@
 <script setup lang="ts">
+import { useGlobalStore } from "@/composables/globalStore";
+import DataTable from "primevue/datatable";
+import Column from "primevue/column";
 definePageMeta({
   layout: "auth",
 });
+
+const { filters } = useGlobalStore();
+const selectedField = ref();
 
 const columns = [
   { field: "firstName", header: "First Name" },
@@ -10,7 +16,13 @@ const columns = [
   { field: "mobileNumber", header: "Phone number" },
 ];
 
-const filters = ["firstName", "surname", "town", "mobileNumber"];
+const filtersBold = ["firstName", "surname", "town", "mobileNumber"];
+
+const router = useRouter();
+const onRowSelect = () => {
+  const id = selectedField.value.id;
+  router.push(`/admin/content/customers/${id}`);
+};
 
 const {
   pending,
@@ -44,7 +56,42 @@ const noCustomers = computed(() => customers.value?.length === 0);
       </div>
       <div v-else>
         <!-- <app-global-table-list :rows="customers" :columns="columns" /> -->
-        <pv-table :columns="columns" :value="customers" :filters="filters" />
+        <!-- <pv-table
+          :columns="columns"
+          :value="customers"
+          :filters="filtersBold"
+          @get-customer="onRowSelect"
+        /> -->
+
+        <ClientOnly>
+          <DataTable
+            ref="dt"
+            v-model:filters="filters"
+            sortMode="multiple"
+            :value="customers"
+            paginator
+            :rows="10"
+            dataKey="id"
+            filterDisplay="menu"
+            :rowsPerPageOptions="[5, 10, 20, 50]"
+            :globalFilterFields="filtersBold"
+            v-model:selection="selectedField"
+            selectionMode="single"
+            @rowSelect="onRowSelect"
+          >
+            <template #empty> No item found. </template>
+            <template #loading> Loading customers data. Please wait. </template>
+
+            <Column
+              sortable
+              v-for="col of columns"
+              :key="col.field"
+              :field="col.field"
+              :header="col.header"
+            >
+            </Column>
+          </DataTable>
+        </ClientOnly>
       </div>
     </div>
   </div>

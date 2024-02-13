@@ -7,4 +7,5 @@ export type CustomerType = {
   deliveryAddress?: string;
   digitalAddress?: string;
   streetName?: string;
+  id?: string;
 };
