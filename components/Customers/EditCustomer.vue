@@ -27,13 +27,12 @@ const closeModal = () => {
   }
 };
 
-const { data, error, execute } = useFetch<CustomerType>(
-  `/api/customers/update`,
-  {
-    method: "put",
-    body: formData.value,
-  }
-);
+const { error, execute } = useFetch<CustomerType>(`/api/customers/update`, {
+  method: "PUT",
+  body: formData.value,
+  immediate: false,
+  watch: false,
+});
 
 async function handleSubmit() {
   await execute();
@@ -43,6 +42,7 @@ async function handleSubmit() {
       severity: "success",
       summary: "Success",
       detail: "Customer details updated",
+      life: 4000,
     });
   }
 }

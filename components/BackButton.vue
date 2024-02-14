@@ -11,7 +11,7 @@ const goBack = () => {
       <UButton
         icon="i-heroicons-arrow-left"
         @click="goBack"
-        class="w-10 h-10 flex mr-3 text-gray-700 bg-[#F0F4F9] dark:bg-[#21262E] dark:text-gray-100 items-center justify-center rounded-full"
+        class="w-10 h-10 flex mr-3 text-gray-700 hover:text-gray-100 bg-[#F0F4F9] dark:bg-[#21262E] dark:text-gray-100 items-center justify-center rounded-full"
       />
     </UTooltip>
   </div>

@@ -4,8 +4,6 @@ import { useToast } from "primevue/usetoast";
 
 const toast = useToast();
 
-console.log("TOAST", toast);
-
 const router = useRouter();
 
 definePageMeta({
@@ -19,20 +17,19 @@ async function createCustomer() {
   loading.value = true;
   try {
     const customer = await $fetch("/api/customers/create", {
-      method: "post",
+      method: "POST",
       body: formData.value,
     });
 
     if (customer.id) {
-      // router.push(`/admin/content/customers`);
       router.push(`/admin/content/customers/${customer.id}`);
     }
     loading.value = false;
     toast.add({
       severity: "success",
       summary: "Success",
-      detail: "Customer created",
-      life: 10000,
+      detail: "Customer created.",
+      life: 4000,
     });
   } catch (e) {
     console.log(e);

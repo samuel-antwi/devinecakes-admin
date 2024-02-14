@@ -2,6 +2,7 @@
 import { useGlobalStore } from "@/composables/globalStore";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
+
 definePageMeta({
   layout: "auth",
 });
@@ -24,13 +25,9 @@ const onRowSelect = () => {
   router.push(`/admin/content/customers/${id}`);
 };
 
-const {
-  pending,
-  data: customers,
-  refresh,
-} = await useFetch(`/api/customers/customers`, {
-  server: false,
-});
+const { data: customers, pending } = await useAsyncData("customers", () =>
+  $fetch(`/api/customers/customers`)
+);
 
 const noCustomers = computed(() => customers.value?.length === 0);
 </script>

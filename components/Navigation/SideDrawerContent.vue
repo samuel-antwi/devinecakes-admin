@@ -10,13 +10,10 @@ const logout = async () => {
 };
 
 const isContentTab = computed(() => {
-  return (
-    route.path === "/admin/content/orders" ||
-    route.path === "/admin/content/customers"
-  );
+  return route.path.includes("content");
 });
 const isUsersTab = computed(() => {
-  return route.path.includes("/admin/users");
+  return route.path.includes("users");
 });
 </script>
 <template>
