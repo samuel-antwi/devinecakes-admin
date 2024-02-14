@@ -2,6 +2,7 @@
 import type { CustomerType } from "@/types/customers";
 import { useGlobalStore } from "@/composables/globalStore";
 import { useToast } from "primevue/usetoast";
+import { isEqual } from "lodash-es";
 
 const toast = useToast();
 
@@ -13,6 +14,18 @@ const { isOpen } = useGlobalStore();
 
 // make deep copy of customer object
 const formData = ref<CustomerType>(JSON.parse(JSON.stringify(props.customer)));
+
+const canSaveChanges = computed(() => {
+  return !isEqual(props.customer, formData.value);
+});
+
+const closeModal = () => {
+  if (canSaveChanges.value) {
+    if (confirm("You have unsaved changes. Are you sure you want to close?")) {
+      isOpen.value = false;
+    }
+  }
+};
 
 const { data, error, execute } = useFetch<CustomerType>(
   `/api/customers/update`,
@@ -36,7 +49,7 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <div class="w-[500px]">
+  <div>
     <UModal v-model="isOpen" prevent-close>
       <UCard>
         <template #header>
@@ -99,8 +112,13 @@ async function handleSubmit() {
         </div>
         <template #footer>
           <div class="flex items-center space-x-2">
-            <UButton @click="handleSubmit" type="button" label="Save" />
-            <UButton @click="isOpen = false" color="white" label="Cancel" />
+            <UButton
+              :disabled="!canSaveChanges"
+              @click="handleSubmit"
+              type="button"
+              label="Save"
+            />
+            <UButton @click="closeModal" color="white" label="Cancel" />
           </div>
         </template>
       </UCard>

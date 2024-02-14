@@ -26,6 +26,8 @@
   },
   "dependencies": {
     "@nuxt/ui": "latest",
-    "@prisma/client": "^5.8.1"
+    "@prisma/client": "^5.8.1",
+    "@types/lodash-es": "^4.17.12",
+    "lodash-es": "^4.17.21"
   }
 }
