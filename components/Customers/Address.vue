@@ -19,18 +19,26 @@ const props = defineProps<{
             }}</span>
           </p>
           <p v-if="customer.streetName">
-            <span>Street:</span>
+            <span>Street Name:</span>
             <span class="text-gray-950 font-medium ml-1">{{
               customer.streetName
             }}</span>
           </p>
-          <p>Accra</p>
+          <div>
+            <span>Region: </span>
+            <span class="text-gray-950 font-medium">Accra</span>
+          </div>
           <UDivider class="py-2" />
           <div v-if="customer.digitalAddress" class="text-gray-700 relative">
             <div class="mt-4">
-              <h1 class="mb-2">Digital Address</h1>
-              <span>DA:</span>
-              <span class="text-gray-950 font-medium ml-1">{{
+              <div class="flex items-center mb-2">
+                <UIcon
+                  name="i-heroicons-map-pin"
+                  class="text-gray-950 text-lg mr-2"
+                />
+                <h1>Digital Address</h1>
+              </div>
+              <span class="text-gray-950 font-medium">{{
                 customer.digitalAddress
               }}</span>
             </div>

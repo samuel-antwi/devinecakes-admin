@@ -54,7 +54,13 @@ async function handleSubmit() {
   <ClientOnly>
     <UModal v-model="isDeleteOpen">
       <div class="p-4">
-        <h1 class="text-lg font-medium">Delete Customer</h1>
+        <div class="flex items-center">
+          <UIcon
+            name="i-heroicons-exclamation-triangle"
+            class="text-red-500 text-2xl mr-2"
+          />
+          <h1 class="text-lg font-medium">Delete Customer</h1>
+        </div>
         <p class="mt-2">
           Are you sure you want to delete this customer? This action cannot be
           undone.
