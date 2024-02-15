@@ -1,27 +1,36 @@
 <script setup lang="ts">
 import { useCreateOrder } from "@/components/App/composables/createOrder";
+import type { CustomerType } from "@/types/customers";
+const props = defineProps(["customers"]);
 
 const { orderData } = useCreateOrder();
-const options = [
-  "Wade Cooper",
-  "Arlene Mccoy",
-  "Devon Webb",
-  "Tom Cook",
-  "Tanya Fox",
-  "Hellen Schmidt",
-  "Caroline Schultz",
-  "Mason Heaney",
-  "Claudie Smitham",
-  "Emil Schaefer",
-];
+const customer = ref<CustomerType>();
+
+const customerOptions = props.customers.map((customer: CustomerType) => {
+  return {
+    label:
+      customer.salutation + " " + customer.firstName + " " + customer.surname,
+    customer: customer,
+  };
+});
+
 const selected = ref([]);
 const quantityOptions = ["1", "2", "3", "4", "5"];
+
+const route = useRoute();
+const customerId = route.query.customer_id;
+
+onMounted(() => {
+  customer.value = customerOptions.find(
+    (customer: CustomerType) => customer?.customer?.id === customerId
+  );
+});
 </script>
 <template>
   <ClientOnly>
     <div class="max-w-2xl">
       <form class="flex flex-col space-y-10">
-        <div>
+        <div class="border p-5">
           <label class="text-lg font-medium mb-2 block" for="customer"
             >Customer *</label
           >
@@ -30,21 +39,24 @@ const quantityOptions = ["1", "2", "3", "4", "5"];
             size="xl"
             searchable
             searchable-placeholder="Search a person..."
-            placeholder="Select a person"
-            :options="[
-              'Wade Cooper',
-              'Arlene Mccoy',
-              'Devon Webb',
-              'Tom Cook',
-              'Tanya Fox',
-              'Hellen Schmidt',
-              'Caroline Schultz',
-              'Mason Heaney',
-              'Claudie Smitham',
-              'Emil Schaefer',
-            ]"
-            model-value="Tom Cook"
+            placeholder="Select customer"
+            :options="customerOptions"
+            v-model="customer"
           />
+          <div v-if="customer?.customer?.id" class="mt-3">
+            <div class="flex items-center justify-between">
+              <h1 class="uppercase text-sm mb-2 text-gray-600">
+                Delivery Address
+              </h1>
+              <span>
+                <h1 class="text-gray-600 uppercase text-sm mb-2">Mobile</h1>
+                <p>{{ customer?.customer?.mobileNumber }}</p>
+              </span>
+            </div>
+            <p>{{ customer?.customer?.town }}</p>
+            <p class="text-gray-600">{{ customer?.customer?.streetName }}</p>
+            <p class="text-gray-600">Accra</p>
+          </div>
         </div>
         <div>
           <label class="text-lg font-medium mb-2 block" for="payment reference"
@@ -74,7 +86,12 @@ const quantityOptions = ["1", "2", "3", "4", "5"];
           >
           <USelectMenu
             multiple
-            :options="options"
+            :options="[
+              'Wedding cake',
+              'Celebration cake',
+              'Birthday cake',
+              'Other',
+            ]"
             v-model="selected"
             :ui="{ spacing: 'py-4' }"
             id="cake"
@@ -97,7 +114,7 @@ const quantityOptions = ["1", "2", "3", "4", "5"];
             >Delivery Method</label
           >
           <UInputMenu
-            :options="['Pickup', 'Home Delivery']"
+            :options="['Shop pickup', 'Home delivery']"
             v-model="orderData.deliveryMethod"
             id="delivery method"
             size="xl"
@@ -112,7 +129,6 @@ const quantityOptions = ["1", "2", "3", "4", "5"];
           >
           <USelectMenu
             multiple
-            :options="options"
             v-model="selected"
             id="extras"
             size="xl"

@@ -8,4 +8,6 @@ export type CustomerType = {
   digitalAddress?: string;
   streetName?: string;
   id?: string;
+  label?: string;
+  customer?: any;
 };

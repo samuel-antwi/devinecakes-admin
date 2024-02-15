@@ -1,7 +1,13 @@
 <script setup lang="ts">
+import type { CustomerType } from "~/types/customers";
+
 definePageMeta({
   layout: "auth",
 });
+
+const { data: customers } = await useFetch<CustomerType>(
+  `/api/customers/customers`
+);
 </script>
 <template>
   <div>
@@ -15,7 +21,7 @@ definePageMeta({
       </template>
     </app-actions>
     <div class="mb-10">
-      <orders-create-order />
+      <orders-create-order :customers="customers" />
     </div>
   </div>
 </template>

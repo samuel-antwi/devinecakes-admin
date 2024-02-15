@@ -21,7 +21,7 @@ const props = defineProps<{
       </h1>
     </div>
     <div class="flex items-center space-x-2 md:space-x-3">
-      <NuxtLink :to="`/admin/content/orders/create?customer-id=${customer.id}`">
+      <NuxtLink :to="`/admin/content/orders/create?customer_id=${customer.id}`">
         <UTooltip
           :text="`Place new order for ${customer?.salutation} ${customer.firstName} ${customer.surname}`"
           :popper="{ arrow: true }"
