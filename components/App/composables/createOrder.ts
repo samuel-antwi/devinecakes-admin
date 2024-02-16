@@ -1,16 +1,17 @@
 import type { OrderType } from "@/types/order";
 
 const orderData = ref<OrderType>({
-  paymentReferenceNumber: "",
+  paymentReference: "",
   paymentStatus: "",
-  orderStatus: "",
+  orderStatus: "not delivered",
   cakeType: "",
   description: "",
   deliveryDate: "",
   deliveryMethod: "",
   quantity: "",
-  extras: "",
   createdBy: "",
+  orderNumber: "",
+  customerId: "",
 });
 
 export const useCreateOrder = () => {

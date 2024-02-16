@@ -1,3 +1,5 @@
+import type { OrderType } from "./order";
+
 export type CustomerType = {
   salutation?: string;
   firstName: string;
@@ -10,4 +12,5 @@ export type CustomerType = {
   id?: string;
   label?: string;
   customer?: any;
+  orders?: OrderType[];
 };

@@ -4,7 +4,12 @@ export default defineEventHandler(async (event) => {
 
   try {
     const customer = await prisma.customers.findUnique({
-      where: { id: id },
+      where: {
+        id: id,
+      },
+      include: {
+        orders: true,
+      },
     });
     return customer;
   } catch (e) {}

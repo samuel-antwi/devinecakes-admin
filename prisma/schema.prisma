@@ -11,6 +11,26 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+
+model orders{
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  paymentReference String
+  paymentStatus String
+  orderNumber String
+  createdBy String
+  customerId String @db.Uuid
+  customer customers @relation(fields: [customerId], references: [id])
+  orderDate DateTime @default(now())
+  deliveryDate DateTime?
+  deliveryMethod String?
+  orderStatus String?
+  description String?
+  quantity String?
+  cakeType String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model customers{
   id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   salutation String?
@@ -25,22 +45,6 @@ model customers{
   orders orders[]
 }
 
-model orders{
-  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  paymentReference Int?
-  paymentStatus String?
-  orderNumber String
-  customerId String @db.Uuid
-  customer customers @relation(fields: [customerId], references: [id])
-  orderDate DateTime @default(now())
-  deliveryDate DateTime
-  deliveryStatus String
-  deliveryMethod String
-  orderStatus String
-  description String?
-  cakeType String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
+
 
 

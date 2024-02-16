@@ -15,14 +15,14 @@ const route = useRoute();
 const id = ref(route.params.id) as Ref<string>;
 
 const {
-  pending,
   data: customer,
+  pending,
   refresh: refreshCustomers,
-} = await useFetch<CustomerType>(`/api/customers/${id.value}`);
+} = await useAsyncData("customer", () =>
+  $fetch<CustomerType>(`/api/customers/${id.value}`)
+);
 
-// Once page is mounted, listen to changes on the `collaborators` table and refresh collaborators when receiving event
 onMounted(() => {
-  // Real time listener for new workouts
   realtimeChannel = client
     .channel("public:customers")
     .on(
@@ -34,7 +34,6 @@ onMounted(() => {
   realtimeChannel.subscribe();
 });
 
-// Don't forget to unsubscribe when user left the page
 onUnmounted(() => {
   client.removeChannel(realtimeChannel);
 });

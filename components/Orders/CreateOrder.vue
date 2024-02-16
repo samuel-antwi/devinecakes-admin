@@ -14,16 +14,22 @@ const customerOptions = props.customers.map((customer: CustomerType) => {
   };
 });
 
-const selected = ref([]);
-const quantityOptions = ["1", "2", "3", "4", "5"];
-
 const route = useRoute();
 const customerId = route.query.customer_id;
+const user = useSupabaseUser();
 
+// Get some default valuesser
 onMounted(() => {
   customer.value = customerOptions.find(
     (customer: CustomerType) => customer?.customer?.id === customerId
   );
+  orderData.value.createdBy = user.value?.email || "";
+});
+
+watch(customer, () => {
+  if (customer.value) {
+    orderData.value.customerId = customer.value?.customer?.id;
+  }
 });
 </script>
 <template>
@@ -63,8 +69,7 @@ onMounted(() => {
             >Payment Reference *</label
           >
           <UInput
-            type="number"
-            v-model="orderData.paymentReferenceNumber"
+            v-model="orderData.paymentReference"
             id="payment reference"
             size="xl"
           />
@@ -84,7 +89,7 @@ onMounted(() => {
           <label class="text-lg font-medium mb-2 block" for="cake"
             >Cake *</label
           >
-          <USelectMenu
+          <UInputMenu
             multiple
             :options="[
               'Wedding cake',
@@ -92,7 +97,7 @@ onMounted(() => {
               'Birthday cake',
               'Other',
             ]"
-            v-model="selected"
+            v-model="orderData.cakeType"
             :ui="{ spacing: 'py-4' }"
             id="cake"
             size="xl"
@@ -103,7 +108,7 @@ onMounted(() => {
             >Quantity</label
           >
           <USelectMenu
-            :options="quantityOptions"
+            :options="['1', '2', '3', '4', '5']"
             v-model="orderData.quantity"
             id="quantity"
             size="xl"
@@ -122,18 +127,6 @@ onMounted(() => {
         </div>
         <div>
           <pv-calendar />
-        </div>
-        <div>
-          <label class="text-lg font-medium mb-2 block" for="extras"
-            >Extras</label
-          >
-          <USelectMenu
-            multiple
-            v-model="selected"
-            id="extras"
-            size="xl"
-            placeholder="Select extras"
-          />
         </div>
         <div>
           <label class="text-lg font-medium mb-2 block" for="description"
