@@ -3,7 +3,7 @@ import type { OrderType } from "@/types/order";
 const orderData = ref<OrderType>({
   paymentReference: "",
   paymentStatus: "",
-  orderStatus: "not delivered",
+  orderStatus: "pending",
   cakeType: "",
   description: "",
   deliveryDate: "",
@@ -12,7 +12,7 @@ const orderData = ref<OrderType>({
   createdBy: "",
   orderNumber: "",
   customerId: "",
-  amount: 0,
+  amount: "",
 });
 
 export const useCreateOrder = () => {

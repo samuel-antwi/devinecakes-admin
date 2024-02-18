@@ -11,11 +11,15 @@ const props = defineProps<{
   <div>
     <TabView>
       <TabPanel header="Overview">
-        <customers-details :customer="customer" />
-        <customers-address :customer="customer" class="mt-3" />
+        <div class="mt-10">
+          <customers-details :customer="customer" />
+          <customers-address :customer="customer" class="mt-3" />
+        </div>
       </TabPanel>
       <TabPanel header="Transactions">
-        <customers-transactions-purchase-orders :customer="customer" />
+        <div class="mt-10">
+          <customers-transactions-purchase-orders :customer="customer" />
+        </div>
       </TabPanel>
     </TabView>
   </div>

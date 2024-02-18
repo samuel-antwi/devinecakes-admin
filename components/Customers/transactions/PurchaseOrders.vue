@@ -71,7 +71,10 @@ onMounted(() => {
                 >
                   {{ formatDate(slotProps.data[col.field]) }}
                 </span>
-                <span v-else>{{ slotProps.data[col.field] }}</span>
+                <di v-else>
+                  <span v-show="col.field === 'amount'">GHS</span>
+                  <span>{{ slotProps.data[col.field] }}</span>
+                </di>
               </template>
             </Column>
           </DataTable>

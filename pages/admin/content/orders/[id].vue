@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { OrderType } from "@/types/order";
 import type { RealtimeChannel } from "@supabase/supabase-js";
+import OrdersDetails from "@/components/Orders/OrdersDetails.vue";
 
 definePageMeta({
   layout: "auth",
@@ -12,15 +13,13 @@ let realtimeChannel: RealtimeChannel;
 
 const route = useRoute();
 
-const id = ref(route.params.id) as Ref<string>;
+const id = route.params.id;
 
 const {
   data: order,
   pending,
   refresh: refreshOrders,
-} = await useAsyncData<OrderType>("orders", () =>
-  $fetch(`/api/orders/${id.value}`)
-);
+} = await useAsyncData<OrderType>("orders", () => $fetch(`/api/orders/${id}`));
 
 onMounted(() => {
   realtimeChannel = client
@@ -45,7 +44,8 @@ onUnmounted(() => {
     </div>
     <div v-else>
       <orders-header :order="order" class="mb-4" />
-      <!-- <orders-customer-tabs :customer="customer" /> -->
+      <UDivider />
+      <orders-details :order="order" />
     </div>
   </div>
 </template>

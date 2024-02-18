@@ -1,7 +1,10 @@
+import type { CustomerType } from "./customers";
+
 export type OrderType = {
   paymentReference: string;
   orderNumber: string;
   paymentStatus: string;
+  orderDate?: string;
   orderStatus?: string;
   cakeType: string;
   description: string;
@@ -11,5 +14,6 @@ export type OrderType = {
   extras?: string;
   createdBy: string;
   customerId: string;
-  amount?: number;
+  amount?: number | string;
+  customer?: CustomerType;
 };
