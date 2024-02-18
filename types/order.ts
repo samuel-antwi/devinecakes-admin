@@ -11,4 +11,5 @@ export type OrderType = {
   extras?: string;
   createdBy: string;
   customerId: string;
+  amount?: number;
 };

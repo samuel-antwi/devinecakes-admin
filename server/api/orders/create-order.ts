@@ -1,7 +1,6 @@
 import { prisma } from "@/utils/prisma";
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  console.log(body);
 
   try {
     const orders = await prisma.orders.create({
@@ -17,6 +16,7 @@ export default defineEventHandler(async (event) => {
         createdBy: body.createdBy,
         orderNumber: body.orderNumber,
         customerId: body.customerId,
+        amount: body.amount,
       },
     });
     return orders;

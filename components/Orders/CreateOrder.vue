@@ -75,6 +75,17 @@ watch(customer, () => {
           />
         </div>
         <div>
+          <label class="text-lg font-medium mb-2 block" for="amount"
+            >Amount *</label
+          >
+          <UInput
+            type="number"
+            v-model="orderData.amount"
+            id="amount"
+            size="xl"
+          />
+        </div>
+        <div>
           <label class="text-lg font-medium mb-2 block" for="payment status"
             >Payment Status *</label
           >

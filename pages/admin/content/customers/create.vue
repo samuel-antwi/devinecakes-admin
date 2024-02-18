@@ -21,6 +21,8 @@ async function createCustomer() {
       body: formData.value,
     });
 
+    console.log(customer);
+
     if (customer.id) {
       router.push(`/admin/content/customers/${customer.id}`);
     }
@@ -45,6 +47,22 @@ const enableSaveButton = computed(() => {
       !loading.value
   );
 });
+
+// onMounted(() => {
+//   realtimeChannel = client
+//     .channel("public:customers")
+//     .on(
+//       "postgres_changes",
+//       { event: "*", schema: "public", table: "customers" },
+//       () => refreshCustomers()
+//     );
+
+//   realtimeChannel.subscribe();
+// });
+
+// onUnmounted(() => {
+//   client.removeChannel(realtimeChannel);
+// });
 </script>
 <template>
   <div>

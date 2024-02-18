@@ -2,6 +2,7 @@
 import { useGlobalStore } from "@/composables/globalStore";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
+import type { RealtimeChannel } from "@supabase/supabase-js";
 
 definePageMeta({
   layout: "auth",
@@ -9,6 +10,10 @@ definePageMeta({
 
 const { filters } = useGlobalStore();
 const selectedField = ref();
+
+const client = useSupabaseClient();
+
+let realtimeChannel: RealtimeChannel;
 
 const columns = [
   { field: "firstName", header: "First Name" },
@@ -25,11 +30,29 @@ const onRowSelect = () => {
   router.push(`/admin/content/customers/${id}`);
 };
 
-const { data: customers, pending } = await useAsyncData("customers", () =>
-  $fetch(`/api/customers/customers`)
-);
+const {
+  data: customers,
+  pending,
+  refresh: refreshCustomers,
+} = await useAsyncData("customers", () => $fetch(`/api/customers/customers`));
 
 const noCustomers = computed(() => customers.value?.length === 0);
+
+onMounted(() => {
+  realtimeChannel = client
+    .channel("public:customers")
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "customers" },
+      () => refreshCustomers()
+    );
+
+  realtimeChannel.subscribe();
+});
+
+onUnmounted(() => {
+  client.removeChannel(realtimeChannel);
+});
 </script>
 <template>
   <div>

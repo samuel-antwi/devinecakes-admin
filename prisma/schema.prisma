@@ -27,6 +27,7 @@ model orders{
   description String?
   quantity String?
   cakeType String?
+  amount Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

@@ -27,23 +27,33 @@ const closeModal = () => {
   }
 };
 
-const { error, execute } = useFetch<CustomerType>(`/api/customers/update`, {
-  method: "PUT",
-  body: formData.value,
-  immediate: false,
-  watch: false,
-});
-
+const loading = ref(false);
 async function handleSubmit() {
-  await execute();
-  if (!error.value) {
+  loading.value = true;
+  try {
+    const customer = await $fetch("/api/customers/update", {
+      method: "PUT",
+      body: formData.value,
+    });
+
+    console.log(customer);
+
+    loading.value = false;
     isOpen.value = false;
     toast.add({
       severity: "success",
       summary: "Success",
-      detail: "Customer details updated",
+      detail: "Customer updated.",
       life: 4000,
     });
+  } catch (e) {
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "An error occurred. Please try again.",
+      life: 4000,
+    });
+    throw new Error(e.message);
   }
 }
 </script>

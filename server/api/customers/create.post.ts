@@ -3,7 +3,7 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
   try {
-    const customers = await prisma.customers.create({
+    const customer = await prisma.customers.create({
       data: {
         firstName: body.firstName,
         surname: body.surname,
@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
         streetName: body.streetName,
       },
     });
-    return customers;
+    return customer;
   } catch (e) {
     console.error(e);
   }
