@@ -1,14 +1,14 @@
 <script setup lang="ts">
+import type { CustomerType } from "@/types/customers";
+import type { OrderType } from "@/types/order";
 import { useGlobalStore } from "@/composables/globalStore";
+import Accordion from "primevue/accordion";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import { formatDate } from "@/utils/date-format";
-definePageMeta({
-  layout: "auth",
-});
-
-const { filters } = useGlobalStore();
-const selectedField = ref();
+const props = defineProps<{
+  customer: CustomerType;
+}>();
 
 const columns = [
   { field: "orderNumber", header: "Order #" },
@@ -19,13 +19,11 @@ const columns = [
   { field: "amount", header: "Amount" },
 ];
 
-const filtersBold = [
-  "orderNumber",
-  "paymentReference",
-  "deliveryDate",
-  "orderStatus",
-  "amount",
-];
+const customerOrders = ref<OrderType[]>([]);
+const canPaginate = computed(() => customerOrders.value.length > 10);
+
+const { filters } = useGlobalStore();
+const selectedField = ref();
 
 const router = useRouter();
 const onRowSelect = () => {
@@ -33,61 +31,33 @@ const onRowSelect = () => {
   router.push(`/admin/content/orders/${id}`);
 };
 
-const {
-  data: orders,
-  pending,
-  refresh,
-} = await useAsyncData("orders", () => $fetch(`/api/orders/orders`));
-const noOrdrs = computed(() => orders?.value?.length === 0);
-
-const route = useRoute();
-watch(
-  route,
-  (newVal, oldVal) => {
-    if (newVal) {
-      refresh();
-    }
-  },
-  { immediate: true }
-);
+onMounted(() => {
+  customerOrders.value = props.customer.orders ?? [];
+  console.log(customerOrders.value);
+});
 </script>
 <template>
   <div>
-    <app-actions :title="'Orders'" :icon="'i-heroicons-shopping-bag'">
-      <template #actions>
-        <search-input v-if="orders?.value?.length" />
-        <app-buttons-create-button />
-      </template>
-    </app-actions>
-    <div v-if="!pending">
-      <div v-if="noOrdrs">
-        <app-global-empty-content
-          description="You have no orders yet."
-          :icon="'i-heroicons-shopping-bag'"
-          create-link="/admin/content/orders/create"
-          button-label="Create Order"
-        />
-      </div>
-      <div class="my-10" v-else>
-        <ClientOnly>
+    <Accordion :activeIndex="0">
+      <AccordionTab header="Purchase Orders">
+        <div v-if="!customerOrders.length">
+          <h1>No Purchase orders found</h1>
+        </div>
+        <div v-else>
           <DataTable
             ref="dt"
             v-model:filters="filters"
-            sortMode="multiple"
-            :value="orders"
-            paginator
+            :value="customerOrders"
+            :paginator="canPaginate"
             :rows="10"
             dataKey="id"
-            filterDisplay="menu"
             :rowsPerPageOptions="[5, 10, 20, 50]"
-            :globalFilterFields="filtersBold"
             v-model:selection="selectedField"
             selectionMode="single"
             @rowSelect="onRowSelect"
           >
             <template #empty> No item found. </template>
             <template #loading> Loading customers data. Please wait. </template>
-
             <Column
               v-for="col of columns"
               :key="col.field"
@@ -105,11 +75,8 @@ watch(
               </template>
             </Column>
           </DataTable>
-        </ClientOnly>
-      </div>
-    </div>
-    <div v-else>
-      <h1>Loading...</h1>
-    </div>
+        </div>
+      </AccordionTab>
+    </Accordion>
   </div>
 </template>

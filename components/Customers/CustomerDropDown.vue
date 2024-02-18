@@ -6,24 +6,18 @@ const { isOpen } = useGlobalStore();
 const isDeleteOpen = ref(false);
 const router = useRouter();
 const route = useRoute();
-const deletionConfirmed = ref(false);
 
 const items = [
   [
     {
-      label: "Edit",
+      label: "Edit customer",
       icon: "i-heroicons-pencil-square-20-solid",
       click: () => {
         isOpen.value = true;
       },
     },
     {
-      label: "Duplicate",
-      icon: "i-heroicons-document-duplicate-20-solid",
-      disabled: true,
-    },
-    {
-      label: "Delete",
+      label: "Delete customer",
       icon: "i-heroicons-trash-20-solid",
       click: () => {
         isDeleteOpen.value = true;

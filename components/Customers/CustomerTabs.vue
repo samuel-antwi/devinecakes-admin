@@ -15,7 +15,7 @@ const props = defineProps<{
         <customers-address :customer="customer" class="mt-3" />
       </TabPanel>
       <TabPanel header="Transactions">
-        <p class="m-0">Customer transactions</p>
+        <customers-transactions-purchase-orders :customer="customer" />
       </TabPanel>
     </TabView>
   </div>

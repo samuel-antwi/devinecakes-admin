@@ -19,7 +19,7 @@ model orders{
   orderNumber String
   createdBy String
   customerId String @db.Uuid
-  customer customers @relation(fields: [customerId], references: [id])
+  customer customers @relation(fields: [customerId], references: [id], onDelete: Cascade)
   orderDate DateTime @default(now())
   deliveryDate DateTime?
   deliveryMethod String?
