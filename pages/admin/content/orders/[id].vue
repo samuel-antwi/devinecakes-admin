@@ -46,6 +46,7 @@ onUnmounted(() => {
       <orders-header :order="order" class="mb-4" />
       <UDivider />
       <orders-details :order="order" />
+      <orders-edit :order="order" />
     </div>
   </div>
 </template>

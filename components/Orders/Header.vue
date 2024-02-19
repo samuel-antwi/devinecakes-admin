@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import type { OrderType } from "@/types/order";
+import { useGlobalStore } from "@/composables/globalStore";
+
+const { editOrderModal } = useGlobalStore();
 const router = useRouter();
 
-const handleClick = () => {
+const handleGoBack = () => {
   router.push("/admin/content/orders");
 };
 
@@ -11,7 +14,7 @@ const props = defineProps<{
 }>();
 
 const handleEdit = () => {
-  console.log("Edit");
+  editOrderModal.value = true;
 };
 </script>
 <template>
@@ -30,7 +33,7 @@ const handleEdit = () => {
       <UIcon
         name="i-heroicons-x-mark"
         class="cursor-pointer text-2xl"
-        @click="handleClick"
+        @click="handleGoBack"
       />
     </div>
   </div>

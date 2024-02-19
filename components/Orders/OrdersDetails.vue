@@ -13,10 +13,20 @@ console.log(props.order);
 onMounted(() => {
   customerDetails.value = props.order.customer ?? null;
 });
+
+const statusClass = (data: any) => {
+  return [
+    "border-circle w-2rem h-2rem inline-flex font-bold justify-content-center align-items-center text-sm",
+    {
+      "bg-yellow-200 text-gray-800": data === "pending",
+      "bg-primary": data === "delivered",
+    },
+  ];
+};
 </script>
 
 <template>
-  <div class="mt-12 max-w-3xl mx-auto">
+  <div class="my-12 max-w-3xl mx-auto">
     <div class="md:flex items-center justify-between">
       <div>
         <h1 class="text-2xl mb-3 text-gray-800">PURCHASE ORDER</h1>
@@ -24,7 +34,12 @@ onMounted(() => {
           Purchase Order#
           <span class="font-medium text-gray-950">{{ order.orderNumber }}</span>
         </p>
-        <UBadge class="capitalize">{{ order.orderStatus }}</UBadge>
+        <UBadge
+          :ui="{ rounded: 'rounded-full' }"
+          class="capitalize"
+          :class="statusClass(order.orderStatus)"
+          >{{ order.orderStatus }}</UBadge
+        >
         <div class="mt-4">
           <div class="flex items-center justify-between mb-3">
             <p class="uppercase mr-12 text-gray-800 text-sm font-medium">

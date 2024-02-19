@@ -50,12 +50,22 @@ watch(
   },
   { immediate: true }
 );
+
+const statusClass = (data: any) => {
+  return [
+    "border-circle w-2rem h-2rem inline-flex font-bold justify-content-center align-items-center text-sm",
+    {
+      "bg-yellow-200 text-gray-800": data === "pending",
+      "bg-primary": data === "delivered",
+    },
+  ];
+};
 </script>
 <template>
   <div>
     <app-actions :title="'Orders'" :icon="'i-heroicons-shopping-bag'">
       <template #actions>
-        <search-input v-if="orders?.value?.length" />
+        <search-input v-if="!noOrdrs" />
         <app-buttons-create-button />
       </template>
     </app-actions>
@@ -101,10 +111,18 @@ watch(
                 >
                   {{ formatDate(slotProps.data[col.field]) }}
                 </span>
-                <di v-else>
+                <div v-else>
                   <span v-show="col.field === 'amount'">GHS</span>
-                  <span>{{ slotProps.data[col.field] }}</span>
-                </di>
+                  <span v-if="col.field === 'orderStatus'">
+                    <UBadge
+                      :ui="{ rounded: 'rounded-full' }"
+                      :class="statusClass(slotProps.data[col.field])"
+                    >
+                      {{ slotProps.data[col.field] }}
+                    </UBadge>
+                  </span>
+                  <span v-else>{{ slotProps.data[col.field] }}</span>
+                </div>
               </template>
             </Column>
           </DataTable>
