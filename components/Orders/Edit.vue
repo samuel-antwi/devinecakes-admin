@@ -26,6 +26,8 @@ const closeModal = () => {
     if (confirm("You have unsaved changes. Are you sure you want to close?")) {
       editOrderModal.value = false;
     }
+  } else {
+    editOrderModal.value = false;
   }
 };
 
@@ -115,12 +117,7 @@ async function handleSubmit() {
               >
               <UInputMenu
                 multiple
-                :options="[
-                  'Wedding cake',
-                  'Celebration cake',
-                  'Birthday cake',
-                  'Other',
-                ]"
+                :options="['Wedding cake', 'Celebration cake', 'Birthday cake']"
                 v-model="formData.cakeType"
                 :ui="{ spacing: 'py-4' }"
                 id="cake"

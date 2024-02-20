@@ -20,7 +20,7 @@ const handleEdit = () => {
 <template>
   <div class="flex items-center justify-between">
     <div v-if="order?.orderNumber">
-      <h1 class="flex items-center space-x-2 text-xl text-gray-800">
+      <h1 class="flex items-center font-medium space-x-2 text-xl text-gray-800">
         {{ order?.orderNumber }}
       </h1>
     </div>

@@ -36,28 +36,42 @@ const statusClass = (data: any) => {
         </p>
         <UBadge
           :ui="{ rounded: 'rounded-full' }"
-          class="capitalize"
-          :class="statusClass(order.orderStatus)"
+          :class="[
+            order.orderStatus === 'pending'
+              ? 'bg-yellow-50 text-yellow-700'
+              : 'bg-blue-50 text-blue-700',
+          ]"
+          class="px-2 py-1 capitalize text-xs font-medium shadow rounded-md"
           >{{ order.orderStatus }}</UBadge
         >
         <div class="mt-4">
-          <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center justify-between mb-2">
             <p class="uppercase mr-12 text-gray-800 text-sm font-medium">
               Order Date
             </p>
             <p>{{ formatDate(order.orderDate ?? "") }}</p>
           </div>
-          <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center justify-between mb-2">
             <p class="uppercase mr-12 text-gray-800 text-sm font-medium">
               Delivery Date
             </p>
             <p>{{ formatDate(order.deliveryDate ?? "") }}</p>
           </div>
-          <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center justify-between mb-2">
             <p class="uppercase mr-12 text-gray-800 text-sm font-medium">
               Payment status
             </p>
-            <p>{{ order.paymentStatus }}</p>
+            <p
+              class="bg-green-50 px-2 py-1 capitalize text-xs font-medium shadow rounded-md text-green-700"
+            >
+              {{ order.paymentStatus }}
+            </p>
+          </div>
+          <div class="flex items-center justify-between mb-2">
+            <p class="uppercase mr-12 text-gray-800 text-sm font-medium">
+              Payment ref #
+            </p>
+            <p class="text-primary">{{ order.paymentReference }}</p>
           </div>
         </div>
       </div>
@@ -88,6 +102,7 @@ const statusClass = (data: any) => {
         <p>{{ order.createdBy }}</p>
       </div>
     </div>
+    <orders-total-order :order="order" />
     <div class="mt-10">
       <h1 class="uppercase text-sm font-medium mb-2">Order Note</h1>
       <div class="border py-3 px-4 rounded">

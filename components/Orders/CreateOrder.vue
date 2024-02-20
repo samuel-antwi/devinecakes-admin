@@ -102,12 +102,7 @@ watch(customer, () => {
           >
           <UInputMenu
             multiple
-            :options="[
-              'Wedding cake',
-              'Celebration cake',
-              'Birthday cake',
-              'Other',
-            ]"
+            :options="['Wedding cake', 'Celebration cake', 'Birthday cake']"
             v-model="orderData.cakeType"
             :ui="{ spacing: 'py-4' }"
             id="cake"
