@@ -13,13 +13,13 @@ let realtimeChannel: RealtimeChannel;
 
 const route = useRoute();
 
-const id = route.params.id;
-
 const {
   data: order,
   pending,
   refresh: refreshOrders,
-} = await useAsyncData<OrderType>("orders", () => $fetch(`/api/orders/${id}`));
+} = await useAsyncData<OrderType>("orders", () =>
+  $fetch(`/api/orders/${route.params.id}`)
+);
 
 onMounted(() => {
   realtimeChannel = client

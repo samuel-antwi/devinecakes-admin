@@ -16,6 +16,7 @@ const columns = [
   { field: "orderDate", header: "Order Date" },
   { field: "deliveryDate", header: "Delivery Date" },
   { field: "orderStatus", header: "Status" },
+  { field: "paymentStatus", header: "Payment status" },
   { field: "amount", header: "Amount" },
 ];
 
