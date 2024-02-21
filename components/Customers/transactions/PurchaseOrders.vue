@@ -33,7 +33,6 @@ const onRowSelect = () => {
 
 onMounted(() => {
   customerOrders.value = props.customer.orders ?? [];
-  console.log(customerOrders.value);
 });
 </script>
 <template>
@@ -71,10 +70,10 @@ onMounted(() => {
                 >
                   {{ formatDate(slotProps.data[col.field]) }}
                 </span>
-                <di v-else>
+                <div v-else>
                   <span v-show="col.field === 'amount'">GHS</span>
                   <span>{{ slotProps.data[col.field] }}</span>
-                </di>
+                </div>
               </template>
             </Column>
           </DataTable>

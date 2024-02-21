@@ -7,10 +7,10 @@ interface ParamsType {
   errorMessage: string;
 }
 
+const isDeleteOpen = ref(false);
 export function useDeleteAction(params: ParamsType) {
   const toast = useToast();
-
-  const { execute } = useFetch(params.endpoint, {
+  const { execute } = useFetch(params?.endpoint || "", {
     method: "DELETE",
     body: { id: params.id },
     immediate: false,
@@ -36,5 +36,5 @@ export function useDeleteAction(params: ParamsType) {
     }
   }
 
-  return { handleDelete };
+  return { handleDelete, isDeleteOpen };
 }
