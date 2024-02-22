@@ -28,6 +28,8 @@
     "@nuxt/ui": "latest",
     "@prisma/client": "^5.8.1",
     "@types/lodash-es": "^4.17.12",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "lodash-es": "^4.17.21",
     "typescript": "^5.3.3"
   }

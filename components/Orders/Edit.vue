@@ -152,6 +152,20 @@ async function handleSubmit() {
             </div>
           </div>
           <div class="mb-10">
+            <div class="w-full">
+              <label class="text-lg font-medium mb-2 block" for="order status"
+                >Order Status</label
+              >
+              <UInputMenu
+                :ui="{ textTransform: 'capitalize' }"
+                :options="['delivered', 'pending']"
+                v-model="formData.orderStatus"
+                id="order status"
+                size="lg"
+              />
+            </div>
+          </div>
+          <div class="mb-10">
             <label class="text-lg font-medium block mb-2" for="calender"
               >Delivery Date *</label
             >

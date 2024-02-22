@@ -65,6 +65,19 @@ watch(customer, () => {
           </div>
         </div>
         <div>
+          <label class="text-lg font-medium mb-2 block" for="cake"
+            >Cake *</label
+          >
+          <UInputMenu
+            multiple
+            :options="['Wedding cake', 'Celebration cake', 'Birthday cake']"
+            v-model="orderData.cakeType"
+            :ui="{ spacing: 'py-4' }"
+            id="cake"
+            size="xl"
+          />
+        </div>
+        <div>
           <label class="text-lg font-medium mb-2 block" for="payment reference"
             >Payment Reference *</label
           >
@@ -93,19 +106,6 @@ watch(customer, () => {
             :options="['Fully Paid', 'Half Paid', 'Not Paid']"
             v-model="orderData.paymentStatus"
             id="payment status"
-            size="xl"
-          />
-        </div>
-        <div>
-          <label class="text-lg font-medium mb-2 block" for="cake"
-            >Cake *</label
-          >
-          <UInputMenu
-            multiple
-            :options="['Wedding cake', 'Celebration cake', 'Birthday cake']"
-            v-model="orderData.cakeType"
-            :ui="{ spacing: 'py-4' }"
-            id="cake"
             size="xl"
           />
         </div>

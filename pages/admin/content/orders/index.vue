@@ -3,6 +3,7 @@ import { useGlobalStore } from "@/composables/globalStore";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import { formatDate } from "@/utils/date-format";
+
 definePageMeta({
   layout: "auth",
 });
@@ -10,13 +11,24 @@ definePageMeta({
 const { filters } = useGlobalStore();
 const selectedField = ref();
 
+const statusClass = (data: any) => {
+  return [
+    "px-2 py-1 capitalize text-base font-medium shadow rounded-md",
+    {
+      "bg-yellow-50 text-yellow-700": data === "pending",
+      "bg-blue-50 text-blue-700": data === "delivered",
+      "bg-red-50 text-red-700": data === "cancelled",
+    },
+  ];
+};
+
 const columns = [
   { field: "orderNumber", header: "Order #" },
   { field: "paymentReference", header: "Payment Ref" },
   { field: "orderDate", header: "Order Date" },
   { field: "deliveryDate", header: "Delivery Date" },
   { field: "orderStatus", header: "Status" },
-  { field: "paymentStatus", header: "Payment status" },
+  { field: "paymentStatus", header: "Payment Status" },
   { field: "amount", header: "Amount" },
 ];
 
@@ -51,16 +63,6 @@ watch(
   },
   { immediate: true }
 );
-
-const statusClass = (data: any) => {
-  return [
-    "border-circle w-2rem h-2rem inline-flex font-bold justify-content-center align-items-center text-sm",
-    {
-      "bg-yellow-200 text-gray-800": data === "pending",
-      "bg-primary": data === "delivered",
-    },
-  ];
-};
 </script>
 <template>
   <div>
@@ -119,7 +121,9 @@ const statusClass = (data: any) => {
                       :ui="{ rounded: 'rounded-full' }"
                       :class="statusClass(slotProps.data[col.field])"
                     >
-                      {{ slotProps.data[col.field] }}
+                      <span class="capitalize">
+                        {{ slotProps.data[col.field] }}</span
+                      >
                     </UBadge>
                   </span>
                   <span v-else>{{ slotProps.data[col.field] }}</span>

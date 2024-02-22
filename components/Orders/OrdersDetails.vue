@@ -8,18 +8,17 @@ const props = defineProps<{
 
 const customerDetails = ref<CustomerType | null>(null);
 
-console.log(props.order);
-
 onMounted(() => {
   customerDetails.value = props.order.customer ?? null;
 });
 
 const statusClass = (data: any) => {
   return [
-    "border-circle w-2rem h-2rem inline-flex font-bold justify-content-center align-items-center text-sm",
+    "px-2 py-1 capitalize text-base font-medium shadow rounded-md",
     {
-      "bg-yellow-200 text-gray-800": data === "pending",
-      "bg-primary": data === "delivered",
+      "bg-yellow-50 text-yellow-700": data === "pending",
+      "bg-blue-50 text-blue-700": data === "delivered",
+      "bg-red-50 text-red-700": data === "cancelled",
     },
   ];
 };
@@ -36,12 +35,7 @@ const statusClass = (data: any) => {
         </p>
         <UBadge
           :ui="{ rounded: 'rounded-full' }"
-          :class="[
-            order.orderStatus === 'pending'
-              ? 'bg-yellow-50 text-yellow-700'
-              : 'bg-blue-50 text-blue-700',
-          ]"
-          class="px-2 py-1 capitalize text-xs font-medium shadow rounded-md"
+          :class="statusClass(order.orderStatus)"
           >{{ order.orderStatus }}</UBadge
         >
         <div class="mt-4">

@@ -2,10 +2,13 @@
 import type { OrderType } from "@/types/order";
 import { useGlobalStore } from "@/composables/globalStore";
 import { useDeleteAction } from "@/composables/deleteAction";
+import { useToast } from "primevue/usetoast";
 
 const props = defineProps<{
   order: OrderType;
 }>();
+
+const toast = useToast();
 
 const route = useRoute();
 const id = route.params.id;
@@ -31,7 +34,7 @@ const items = [
     {
       label: "Cancel Order",
       click: () => {
-        isDeleteOpen.value = true;
+        handleCancelOrder();
       },
     },
   ],
@@ -57,6 +60,19 @@ const handleEdit = () => {
 };
 const handleActions = () => {
   console.log("actions");
+};
+
+const handleCancelOrder = async () => {
+  await $fetch(`/api/orders/cancel`, {
+    method: "put",
+    body: { id: id },
+  });
+  toast.add({
+    severity: "success",
+    summary: "Success",
+    detail: "Order cancelled.",
+    life: 4000,
+  });
 };
 </script>
 <template>

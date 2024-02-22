@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
     if (!body || !body.id) {
       throw new Error("Invalid request data");
     }
-    const order = await prisma.orders.update({
+    const order = await prisma.orders.updateMany({
       where: { id: body.id },
       data: {
         paymentReference: body.paymentReference,
