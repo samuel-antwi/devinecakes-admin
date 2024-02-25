@@ -13,8 +13,8 @@ const {
   data: order,
   pending,
   refresh: refreshOrders,
-} = await useAsyncData<OrderType>("orders", () =>
-  $fetch(`/api/orders/${route?.params?.id}`)
+} = await useAsyncData<OrderType>("orders-details", () =>
+  $fetch(`/api/orders/${route?.params?.id as string}`)
 );
 
 const client = useSupabaseClient();

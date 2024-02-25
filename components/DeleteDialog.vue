@@ -19,6 +19,7 @@ const { handleDelete, isDeleteOpen } = useDeleteAction(props.params);
 const router = useRouter();
 async function handleSubmit() {
   await handleDelete();
+  isDeleteOpen.value = false;
   await router.push(props.callBackUrl || "/admin/content/orders");
 }
 </script>

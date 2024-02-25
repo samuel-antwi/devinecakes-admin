@@ -39,12 +39,23 @@ const filtersBold = [
   "deliveryDate",
   "orderStatus",
   "amount",
+  "paymentStatus",
 ];
 
 const router = useRouter();
 const onRowSelect = () => {
   const id = selectedField.value.id;
   router.push(`/admin/content/orders/${id}`);
+};
+
+const refreshing = ref(false);
+const refreshAll = async () => {
+  refreshing.value = true;
+  try {
+    await refreshNuxtData();
+  } finally {
+    refreshing.value = false;
+  }
 };
 
 const {
@@ -66,6 +77,7 @@ onMounted(() => {
     );
 
   realtimeChannel.subscribe();
+  refreshAll();
 });
 
 onUnmounted(() => {

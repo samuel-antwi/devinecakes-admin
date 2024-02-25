@@ -25,6 +25,7 @@ const params = {
   endpoint: "/api/orders/delete-order",
   successMessage: "Order deleted",
   errorMessage: "Error deleting order",
+  callBackUrl: "/admin/content/orders",
 };
 
 const { isDeleteOpen } = useDeleteAction(params);

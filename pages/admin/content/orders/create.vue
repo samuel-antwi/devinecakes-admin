@@ -34,7 +34,22 @@ async function createOrder() {
       body: orderData.value,
     });
     loading.value = false;
-    await router.push(`/admin/content/orders`);
+    orderData.value = {
+      orderNumber: "",
+      orderDate: "",
+      customerId: "",
+      paymentStatus: "",
+      deliveryMethod: "",
+      deliveryDate: "",
+      paymentReference: "",
+      cakeType: "",
+      description: "",
+      amount: "",
+      quantity: "",
+    };
+
+    await router.push("/admin/content/orders");
+
     toast.add({
       severity: "success",
       summary: "Success",
