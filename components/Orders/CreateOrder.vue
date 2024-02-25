@@ -18,6 +18,11 @@ const route = useRoute();
 const customerId = route.query.customer_id;
 const user = useSupabaseUser();
 
+// Computed properties
+const disableAmoutField = computed(() => {
+  return orderData.value.paymentStatus === "Not Paid";
+});
+
 // Get some default valuesser
 onMounted(() => {
   customer.value = customerOptions.find(
@@ -70,7 +75,7 @@ watch(customer, () => {
           >
           <UInputMenu
             multiple
-            :options="['Wedding cake', 'Celebration cake', 'Birthday cake']"
+            :options="['Wedding Cake', 'Celebration Cake', 'Birthday Cake']"
             v-model="orderData.cakeType"
             :ui="{ spacing: 'py-4' }"
             id="cake"
@@ -82,7 +87,7 @@ watch(customer, () => {
             >Payment Status *</label
           >
           <UInputMenu
-            :options="['Fully Paid', 'Half Paid', 'Not Paid']"
+            :options="['Paid', 'Half Paid', 'Not Paid']"
             v-model="orderData.paymentStatus"
             id="payment status"
             size="xl"
@@ -100,9 +105,13 @@ watch(customer, () => {
         </div>
         <div>
           <label class="text-lg font-medium mb-2 block" for="amount"
-            >Amount *</label
-          >
+            >Amount
+            <span v-show="disableAmoutField" class="text-red-300 text-xs italic"
+              >Can't set amount if Payment status is 'Not Paid'</span
+            >
+          </label>
           <UInput
+            :disabled="disableAmoutField"
             type="number"
             v-model="orderData.amount"
             id="amount"
@@ -125,7 +134,7 @@ watch(customer, () => {
             >Delivery Method</label
           >
           <UInputMenu
-            :options="['Shop pickup', 'Home delivery']"
+            :options="['Shop Pickup', 'Home Delivery']"
             v-model="orderData.deliveryMethod"
             id="delivery method"
             size="xl"

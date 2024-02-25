@@ -15,5 +15,5 @@ export type OrderType = {
   createdBy: string;
   customerId: string;
   amount?: number | string;
-  customer?: CustomerType;
+  customer?: CustomerType | null;
 };

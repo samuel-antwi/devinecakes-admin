@@ -33,10 +33,8 @@ async function createOrder() {
       method: "POST",
       body: orderData.value,
     });
-
-    await router.push(`/admin/content/orders`);
-
     loading.value = false;
+    await router.push(`/admin/content/orders`);
     toast.add({
       severity: "success",
       summary: "Success",
@@ -57,7 +55,10 @@ async function createOrder() {
       :can-go-back="true"
     >
       <template #actions>
-        <app-buttons-save-button @save-item="createOrder" :can-save="true" />
+        <app-buttons-save-button
+          @save-item="createOrder"
+          :can-save="!loading"
+        />
       </template>
     </app-actions>
     <div class="mb-10">

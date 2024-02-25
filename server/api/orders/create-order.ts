@@ -6,12 +6,12 @@ export default defineEventHandler(async (event) => {
     const orders = await prisma.orders.create({
       data: {
         paymentReference: body.paymentReference,
-        paymentStatus: body.paymentStatus,
-        orderStatus: body.orderStatus,
-        cakeType: body.cakeType,
+        paymentStatus: body.paymentStatus.toLowerCase(),
+        orderStatus: body.orderStatus.toLowerCase(),
+        cakeType: body.cakeType.toLowerCase(),
         description: body.description,
         deliveryDate: body.deliveryDate,
-        deliveryMethod: body.deliveryMethod,
+        deliveryMethod: body.deliveryMethod.toLowerCase(),
         quantity: body.quantity,
         createdBy: body.createdBy,
         orderNumber: body.orderNumber,

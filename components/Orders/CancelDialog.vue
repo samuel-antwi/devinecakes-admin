@@ -13,10 +13,11 @@ const cancelOrder = () => {
 const isCancelOpen = defineModel("isCancelOpen");
 const checked = defineModel("checked");
 
+// Does the order have a payment associated with it?
 const orderWithPayment = computed(() => {
   return (
-    props.order.paymentStatus === "Fully Paid" ||
-    props.order.paymentStatus === "Half Paid"
+    props.order.paymentStatus === "paid" ||
+    props.order.paymentStatus === "half paid"
   );
 });
 </script>
