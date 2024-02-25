@@ -8,9 +8,17 @@ const props = defineProps<{
   order: OrderType;
 }>();
 
-const toast = useToast();
-
 const route = useRoute();
+
+const toast = useToast();
+const isCancelOpen = ref(false);
+const checked = ref(false);
+const cancelData = ref({
+  orderStatus: "cancelled",
+  paymentStatus: "refunded",
+  id: route.params.id,
+});
+
 const id = route.params.id;
 const params = {
   id: id.toString(),
@@ -34,8 +42,11 @@ const items = [
     {
       label: "Cancel Order",
       click: () => {
-        handleCancelOrder();
+        isCancelOpen.value = true;
       },
+      disabled:
+        props.order.orderStatus === "cancelled" ||
+        props.order.orderStatus === "delivered",
     },
   ],
   [
@@ -62,11 +73,18 @@ const handleActions = () => {
   console.log("actions");
 };
 
+watch(checked, (newVal) => {
+  if (newVal) {
+    cancelData.value.paymentStatus = "no refund";
+  }
+});
+
 const handleCancelOrder = async () => {
   await $fetch(`/api/orders/cancel`, {
     method: "put",
-    body: { id: id },
+    body: cancelData.value,
   });
+  isCancelOpen.value = false;
   toast.add({
     severity: "success",
     summary: "Success",
@@ -114,6 +132,12 @@ const handleCancelOrder = async () => {
       :message="'Are you sure you want to delete this order? This action cannot be undone.'"
       :params="params"
       :call-back-url="'/admin/content/orders'"
+    />
+    <orders-cancel-dialog
+      :order="order"
+      @cancel="handleCancelOrder"
+      v-model:is-cancel-open="isCancelOpen"
+      v-model:checked="checked"
     />
   </div>
 </template>

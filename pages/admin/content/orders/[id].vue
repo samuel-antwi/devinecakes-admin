@@ -7,10 +7,6 @@ definePageMeta({
   layout: "auth",
 });
 
-const client = useSupabaseClient();
-
-let realtimeChannel: RealtimeChannel;
-
 const route = useRoute();
 
 const {
@@ -18,9 +14,11 @@ const {
   pending,
   refresh: refreshOrders,
 } = await useAsyncData<OrderType>("orders", () =>
-  $fetch(`/api/orders/${route.params.id}`)
+  $fetch(`/api/orders/${route?.params?.id}`)
 );
 
+const client = useSupabaseClient();
+let realtimeChannel: RealtimeChannel;
 onMounted(() => {
   realtimeChannel = client
     .channel("public:orders")
@@ -39,14 +37,9 @@ onUnmounted(() => {
 </script>
 <template>
   <div>
-    <div v-if="pending">
-      <h1>Loading...</h1>
-    </div>
-    <div v-else>
-      <orders-header :order="order" class="mb-4" />
-      <UDivider />
-      <orders-details :order="order" />
-      <orders-edit :order="order" />
-    </div>
+    <orders-header :order="order" class="mb-4" />
+    <UDivider />
+    <orders-details :order="order" />
+    <orders-edit :order="order" />
   </div>
 </template>

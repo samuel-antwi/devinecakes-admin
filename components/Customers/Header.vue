@@ -3,7 +3,7 @@ import CustomerDropDown from "@/components/Customers/CustomerDropDown.vue";
 import type { CustomerType } from "@/types/customers";
 const router = useRouter();
 
-const handleClick = () => {
+const handleGoBack = () => {
   router.push("/admin/content/customers");
 };
 
@@ -13,7 +13,12 @@ const props = defineProps<{
 </script>
 <template>
   <div class="flex items-center justify-between">
-    <div>
+    <div class="flex items-center">
+      <UIcon
+        @click="handleGoBack"
+        name="i-heroicons-chevron-left"
+        class="text-gray-600 mr-3 cursor-pointer hover:text-primary text-2xl"
+      />
       <h1 class="flex items-center space-x-2 text-2xl text-gray-800">
         <span v-if="customer.salutation">{{ customer.salutation }}.</span>
         <span>{{ customer.firstName }}</span>
@@ -35,12 +40,6 @@ const props = defineProps<{
         </UTooltip>
       </NuxtLink>
       <customer-drop-down />
-      <button @click="handleClick">
-        <UIcon
-          name="i-heroicons-x-mark"
-          class="text-gray-600 hover:text-gray-800 text-2xl"
-        />
-      </button>
     </div>
   </div>
 </template>

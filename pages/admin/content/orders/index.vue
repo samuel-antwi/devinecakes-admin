@@ -3,6 +3,7 @@ import { useGlobalStore } from "@/composables/globalStore";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import { formatDate } from "@/utils/date-format";
+import type { RealtimeChannel } from "@supabase/supabase-js";
 
 definePageMeta({
   layout: "auth",
@@ -16,7 +17,7 @@ const statusClass = (data: any) => {
     "px-2 py-1 capitalize text-base font-medium shadow rounded-md",
     {
       "bg-yellow-50 text-yellow-700": data === "pending",
-      "bg-blue-50 text-blue-700": data === "delivered",
+      "bg-green-50 text-green-700": data === "delivered",
       "bg-red-50 text-red-700": data === "cancelled",
     },
   ];
@@ -49,20 +50,27 @@ const onRowSelect = () => {
 const {
   data: orders,
   pending,
-  refresh,
+  refresh: refreshOrders,
 } = await useAsyncData("orders", () => $fetch(`/api/orders/orders`));
 const noOrdrs = computed(() => orders?.value?.length === 0);
 
-const route = useRoute();
-watch(
-  route,
-  (newVal, oldVal) => {
-    if (newVal) {
-      refresh();
-    }
-  },
-  { immediate: true }
-);
+const client = useSupabaseClient();
+let realtimeChannel: RealtimeChannel;
+onMounted(() => {
+  realtimeChannel = client
+    .channel("public:orders")
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "orders" },
+      () => refreshOrders()
+    );
+
+  realtimeChannel.subscribe();
+});
+
+onUnmounted(() => {
+  client.removeChannel(realtimeChannel);
+});
 </script>
 <template>
   <div>
@@ -72,7 +80,10 @@ watch(
         <app-buttons-create-button />
       </template>
     </app-actions>
-    <div v-if="!pending">
+    <div v-if="pending">
+      <loading-spinner />
+    </div>
+    <div v-else>
       <div v-if="noOrdrs">
         <app-global-empty-content
           description="You have no orders yet."
@@ -133,9 +144,6 @@ watch(
           </DataTable>
         </ClientOnly>
       </div>
-    </div>
-    <div v-else>
-      <h1>Loading...</h1>
     </div>
   </div>
 </template>

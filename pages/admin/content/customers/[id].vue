@@ -41,7 +41,7 @@ onUnmounted(() => {
 <template>
   <div>
     <div v-if="pending">
-      <h1>Loading...</h1>
+      <loading-spinner />
     </div>
     <div v-else>
       <customers-header :customer="customer" class="mb-4" />

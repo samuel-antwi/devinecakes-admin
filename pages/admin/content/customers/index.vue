@@ -63,7 +63,7 @@ onUnmounted(() => {
       </template>
     </app-actions>
     <div v-if="pending">
-      <h1>Loading</h1>
+      <loading-spinner />
     </div>
     <div v-else>
       <div v-if="noCustomers">

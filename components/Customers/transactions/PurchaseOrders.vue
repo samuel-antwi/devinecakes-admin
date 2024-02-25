@@ -10,6 +10,17 @@ const props = defineProps<{
   customer: CustomerType;
 }>();
 
+const statusClass = (data: any) => {
+  return [
+    "px-2 py-1 capitalize text-base font-medium shadow rounded-md",
+    {
+      "bg-yellow-50 text-yellow-700": data === "pending",
+      "bg-green-50 text-green-700": data === "delivered",
+      "bg-red-50 text-red-700": data === "cancelled",
+    },
+  ];
+};
+
 const columns = [
   { field: "orderNumber", header: "Order #" },
   { field: "paymentReference", header: "Payment Ref" },
@@ -72,7 +83,17 @@ onMounted(() => {
                 </span>
                 <div v-else>
                   <span v-show="col.field === 'amount'">GHS</span>
-                  <span>{{ slotProps.data[col.field] }}</span>
+                  <span v-if="col.field === 'orderStatus'">
+                    <UBadge
+                      :ui="{ rounded: 'rounded-full' }"
+                      :class="statusClass(slotProps.data[col.field])"
+                    >
+                      <span class="capitalize">
+                        {{ slotProps.data[col.field] }}</span
+                      >
+                    </UBadge>
+                  </span>
+                  <span v-else>{{ slotProps.data[col.field] }}</span>
                 </div>
               </template>
             </Column>

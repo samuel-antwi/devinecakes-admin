@@ -17,7 +17,7 @@ const statusClass = (data: any) => {
     "px-2 py-1 capitalize text-base font-medium shadow rounded-md",
     {
       "bg-yellow-50 text-yellow-700": data === "pending",
-      "bg-blue-50 text-blue-700": data === "delivered",
+      "bg-green-50 text-green-700": data === "delivered",
       "bg-red-50 text-red-700": data === "cancelled",
     },
   ];
@@ -31,7 +31,9 @@ const statusClass = (data: any) => {
         <h1 class="text-2xl mb-3 text-gray-800">PURCHASE ORDER</h1>
         <p class="text-gray-800 mb-3">
           Purchase Order#
-          <span class="font-medium text-gray-950">{{ order.orderNumber }}</span>
+          <span class="font-medium text-gray-950">{{
+            order?.orderNumber
+          }}</span>
         </p>
         <UBadge
           :ui="{ rounded: 'rounded-full' }"

@@ -78,6 +78,17 @@ watch(customer, () => {
           />
         </div>
         <div>
+          <label class="text-lg font-medium mb-2 block" for="payment status"
+            >Payment Status *</label
+          >
+          <UInputMenu
+            :options="['Fully Paid', 'Half Paid', 'Not Paid']"
+            v-model="orderData.paymentStatus"
+            id="payment status"
+            size="xl"
+          />
+        </div>
+        <div>
           <label class="text-lg font-medium mb-2 block" for="payment reference"
             >Payment Reference *</label
           >
@@ -95,17 +106,6 @@ watch(customer, () => {
             type="number"
             v-model="orderData.amount"
             id="amount"
-            size="xl"
-          />
-        </div>
-        <div>
-          <label class="text-lg font-medium mb-2 block" for="payment status"
-            >Payment Status *</label
-          >
-          <UInputMenu
-            :options="['Fully Paid', 'Half Paid', 'Not Paid']"
-            v-model="orderData.paymentStatus"
-            id="payment status"
             size="xl"
           />
         </div>
@@ -132,7 +132,10 @@ watch(customer, () => {
           />
         </div>
         <div>
-          <pv-calendar />
+          <label class="text-lg font-medium mb-2 block" for="delivery date"
+            >Delivery Date *</label
+          >
+          <pv-calendar id=" delivery date" />
         </div>
         <div>
           <label class="text-lg font-medium mb-2 block" for="description"
