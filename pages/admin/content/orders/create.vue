@@ -32,6 +32,9 @@ async function createOrder() {
     await $fetch("/api/orders/create-order", {
       method: "POST",
       body: orderData.value,
+      headers: {
+        "Cache-Control": "no-cache",
+      },
     });
     loading.value = false;
     orderData.value = {

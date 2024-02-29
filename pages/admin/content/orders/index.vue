@@ -48,41 +48,47 @@ const onRowSelect = () => {
   router.push(`/admin/content/orders/${id}`);
 };
 
-const refreshing = ref(false);
-const refreshAll = async () => {
-  refreshing.value = true;
-  try {
-    await refreshNuxtData();
-  } finally {
-    refreshing.value = false;
-  }
-};
-
+// const refreshing = ref(false);
+// const refreshAll = async () => {
+//   refreshing.value = true;
+//   try {
+//     await refreshNuxtData();
+//   } finally {
+//     refreshing.value = false;
+//   }
+// };
+const nuxtApp = useNuxtApp();
 const {
   data: orders,
   pending,
   refresh: refreshOrders,
-} = await useAsyncData("orders", () => $fetch(`/api/orders/orders`));
+} = await useAsyncData(`orders`, () => $fetch(`/api/orders/orders`));
+
 const noOrdrs = computed(() => orders?.value?.length === 0);
 
-const client = useSupabaseClient();
-let realtimeChannel: RealtimeChannel;
-onMounted(() => {
-  realtimeChannel = client
-    .channel("public:orders")
-    .on(
-      "postgres_changes",
-      { event: "*", schema: "public", table: "orders" },
-      () => refreshOrders()
-    );
+// const refresh = () => refreshNuxtData("orders");
 
-  realtimeChannel.subscribe();
-  refreshAll();
-});
+// const client = useSupabaseClient();
+// let realtimeChannel: RealtimeChannel;
+// onMounted(() => {
+//   realtimeChannel = client
+//     .channel("public:orders")
+//     .on(
+//       "postgres_changes",
+//       { event: "*", schema: "public", table: "orders" },
+//       () => refreshOrders()
+//     );
 
-onUnmounted(() => {
-  client.removeChannel(realtimeChannel);
-});
+//   realtimeChannel.subscribe();
+// });
+
+// onUnmounted(() => {
+//   client.removeChannel(realtimeChannel);
+// });
+
+// watchEffect(() => {
+//   refreshOrders();
+// });
 </script>
 <template>
   <div>
