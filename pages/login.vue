@@ -69,11 +69,12 @@ watch(
             color="rose"
           />
           <div class="absolute right-3 top-3">
-            <UButton
-              color="gray"
-              icon="i-heroicons-x-mark"
-              @click="errorMsg = ''"
-            />
+            <button @click="errorMsg = ''">
+              <UIcon
+                class="text-2xl hover:text-gray-500"
+                name="i-heroicons-x-mark"
+              />
+            </button>
           </div>
         </div>
         <div
