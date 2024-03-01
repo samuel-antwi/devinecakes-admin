@@ -59,24 +59,15 @@ watch(
   <div>
     <div class="flex items-center justify-center h-screen">
       <form @submit.prevent="handleLogin" class="max-w-sm mx-auto w-full">
-        <div class="relative" v-if="errorMsg">
-          <UAlert
-            variant="soft"
-            icon="i-heroicons-exclamation-triangle"
-            class="mb-4"
-            type="error"
-            :title="errorMsg"
-            color="rose"
-          />
-          <div class="absolute right-3 top-3">
-            <button @click="errorMsg = ''">
-              <UIcon
-                class="text-2xl hover:text-gray-500"
-                name="i-heroicons-x-mark"
-              />
-            </button>
-          </div>
-        </div>
+        <UAlert
+          v-if="errorMsg"
+          variant="soft"
+          icon="i-heroicons-exclamation-triangle"
+          class="mb-4 relative"
+          type="error"
+          :title="errorMsg"
+          color="rose"
+        />
         <div
           class="header border border-b-0 border-gray-700 bg-indigo-800 py-2 px-5 shadow-md text-gray-50 rounded-t-md"
         >
