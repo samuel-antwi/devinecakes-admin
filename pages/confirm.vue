@@ -11,5 +11,5 @@ watch(
 );
 </script>
 <template>
-  <div>Waiting for login...</div>
+  <loading-spinner />
 </template>

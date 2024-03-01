@@ -58,7 +58,24 @@ watch(
 <template>
   <div>
     <div class="flex items-center justify-center h-screen">
-      <form @click.prevent="handleLogin" class="max-w-sm mx-auto w-full">
+      <form @submit.prevent="handleLogin" class="max-w-sm mx-auto w-full">
+        <div class="relative" v-if="errorMsg">
+          <UAlert
+            variant="soft"
+            icon="i-heroicons-exclamation-triangle"
+            class="mb-4"
+            type="error"
+            :title="errorMsg"
+            color="rose"
+          />
+          <div class="absolute right-3 top-3">
+            <UButton
+              color="gray"
+              icon="i-heroicons-x-mark"
+              @click="errorMsg = ''"
+            />
+          </div>
+        </div>
         <div
           class="header border border-b-0 border-gray-700 bg-indigo-800 py-2 px-5 shadow-md text-gray-50 rounded-t-md"
         >
@@ -89,7 +106,7 @@ watch(
             />
           </div>
           <div class="mt-5">
-            <UButton block class="rounded-full" label="Log in">
+            <UButton type="submit" block class="rounded-full" label="Log in">
               <template #trailing>
                 <UIcon name="i-heroicons-lock-closed" />
               </template>
