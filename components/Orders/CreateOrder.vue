@@ -36,6 +36,17 @@ watch(customer, () => {
     orderData.value.customerId = customer.value?.customer?.id;
   }
 });
+watch(
+  orderData,
+  (newVal) => {
+    if (newVal) {
+      orderData.value.balance =
+        orderData.value?.price * orderData.value?.quantity -
+        orderData.value?.receivedAmount;
+    }
+  },
+  { deep: true }
+);
 </script>
 <template>
   <ClientOnly>
@@ -83,38 +94,13 @@ watch(customer, () => {
           />
         </div>
         <div>
-          <label class="text-lg font-medium mb-2 block" for="payment status"
-            >Payment Status *</label
-          >
-          <UInputMenu
-            :options="['Paid', 'Half Paid', 'Not Paid']"
-            v-model="orderData.paymentStatus"
-            id="payment status"
-            size="xl"
-          />
-        </div>
-        <div>
-          <label class="text-lg font-medium mb-2 block" for="payment reference"
-            >Payment Reference *</label
-          >
-          <UInput
-            v-model="orderData.paymentReference"
-            id="payment reference"
-            size="xl"
-          />
-        </div>
-        <div>
-          <label class="text-lg font-medium mb-2 block" for="amount"
-            >Amount
-            <span v-show="disableAmoutField" class="text-red-300 text-xs italic"
-              >Can't set amount if Payment status is 'Not Paid'</span
-            >
+          <label class="text-lg font-medium mb-2 block" for="price"
+            >Price *
           </label>
           <UInput
-            :disabled="disableAmoutField"
             type="number"
-            v-model="orderData.amount"
-            id="amount"
+            v-model="orderData.price"
+            id="price"
             size="xl"
           />
         </div>
@@ -126,6 +112,55 @@ watch(customer, () => {
             :options="['1', '2', '3', '4', '5']"
             v-model="orderData.quantity"
             id="quantity"
+            size="xl"
+          />
+        </div>
+        <div>
+          <label class="text-lg font-medium mb-2 block" for="payment status"
+            >Payment Status *</label
+          >
+          <UInputMenu
+            :options="['Paid', 'Part Paid', 'Not Paid']"
+            v-model="orderData.paymentStatus"
+            id="payment status"
+            size="xl"
+          />
+        </div>
+        <div>
+          <label class="text-lg font-medium mb-2 block" for="payment reference"
+            >Payment Reference *</label
+          >
+          <UInput
+            :disabled="disableAmoutField"
+            v-model="orderData.paymentReference"
+            id="payment reference"
+            size="xl"
+          />
+        </div>
+        <div>
+          <label class="text-lg font-medium mb-2 block" for="amount"
+            >Amount Received
+            <span v-show="disableAmoutField" class="text-red-300 text-xs italic"
+              >Can't set amount if Payment status is 'Not Paid'</span
+            >
+          </label>
+          <UInput
+            :disabled="disableAmoutField"
+            type="number"
+            v-model="orderData.receivedAmount"
+            id="amount"
+            size="xl"
+          />
+        </div>
+        <div>
+          <label class="text-lg font-medium mb-2 block" for="balance due"
+            >Balance Due
+          </label>
+          <UInput
+            disabled
+            type="number"
+            v-model="orderData.balance"
+            id="balance due"
             size="xl"
           />
         </div>

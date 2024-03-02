@@ -14,6 +14,9 @@ export type OrderType = {
   extras?: string;
   createdBy: string;
   customerId: string;
-  amount?: number | string;
+  amount?: number;
+  receivedAmount?: number;
+  balance?: number;
+  price?: number;
   customer?: CustomerType | null;
 };

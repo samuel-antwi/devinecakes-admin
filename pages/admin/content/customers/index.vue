@@ -75,14 +75,6 @@ onUnmounted(() => {
         />
       </div>
       <div v-else>
-        <!-- <app-global-table-list :rows="customers" :columns="columns" /> -->
-        <!-- <pv-table
-          :columns="columns"
-          :value="customers"
-          :filters="filtersBold"
-          @get-customer="onRowSelect"
-        /> -->
-
         <ClientOnly>
           <DataTable
             ref="dt"

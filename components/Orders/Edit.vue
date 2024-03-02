@@ -105,7 +105,7 @@ async function handleSubmit() {
                 >Payment Status *</label
               >
               <UInputMenu
-                :options="['Paid', 'Half Paid', 'Not Paid']"
+                :options="['Paid', 'Part Paid', 'Not Paid']"
                 v-model="formData.paymentStatus"
                 id="payment status"
                 size="lg"

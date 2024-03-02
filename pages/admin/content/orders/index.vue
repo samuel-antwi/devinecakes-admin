@@ -30,7 +30,7 @@ const columns = [
   { field: "deliveryDate", header: "Delivery Date" },
   { field: "orderStatus", header: "Status" },
   { field: "paymentStatus", header: "Payment Status" },
-  { field: "amount", header: "Amount" },
+  { field: "receivedAmount", header: "Amount" },
 ];
 
 const filtersBold = [
@@ -68,27 +68,23 @@ const noOrdrs = computed(() => orders?.value?.length === 0);
 
 // const refresh = () => refreshNuxtData("orders");
 
-// const client = useSupabaseClient();
-// let realtimeChannel: RealtimeChannel;
-// onMounted(() => {
-//   realtimeChannel = client
-//     .channel("public:orders")
-//     .on(
-//       "postgres_changes",
-//       { event: "*", schema: "public", table: "orders" },
-//       () => refreshOrders()
-//     );
+const client = useSupabaseClient();
+let realtimeChannel: RealtimeChannel;
+onMounted(() => {
+  realtimeChannel = client
+    .channel("public:orders")
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "orders" },
+      () => refreshOrders()
+    );
 
-//   realtimeChannel.subscribe();
-// });
+  realtimeChannel.subscribe();
+});
 
-// onUnmounted(() => {
-//   client.removeChannel(realtimeChannel);
-// });
-
-// watchEffect(() => {
-//   refreshOrders();
-// });
+onUnmounted(() => {
+  client.removeChannel(realtimeChannel);
+});
 </script>
 <template>
   <div>
@@ -144,7 +140,7 @@ const noOrdrs = computed(() => orders?.value?.length === 0);
                   {{ formatDate(slotProps.data[col.field]) }}
                 </span>
                 <div v-else>
-                  <span v-show="col.field === 'amount'">GHS</span>
+                  <span v-show="col.field === 'receivedAmount'">GHS</span>
                   <span v-if="col.field === 'orderStatus'">
                     <UBadge
                       :ui="{ rounded: 'rounded-full' }"

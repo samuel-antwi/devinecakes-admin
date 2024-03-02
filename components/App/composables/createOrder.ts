@@ -13,6 +13,9 @@ const orderData = ref<OrderType>({
   orderNumber: "",
   customerId: "",
   amount: 0,
+  receivedAmount: 0,
+  balance: 0,
+  price: 0,
 });
 
 export const useCreateOrder = () => {

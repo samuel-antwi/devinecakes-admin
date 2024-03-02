@@ -25,9 +25,12 @@ model orders{
   deliveryMethod String?
   orderStatus String?
   description String?
-  quantity String?
+  quantity Int?
   cakeType String?
   amount Int?
+  price Int?
+  receivedAmount Int?
+  balance Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

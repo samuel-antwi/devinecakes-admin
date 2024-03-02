@@ -3,7 +3,9 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-const isContentPage = computed(() => route.path.includes("/content"));
+const isContentPage = computed(
+  () => route.path.includes("/content") || route.path.includes("/invoices")
+);
 </script>
 
 <template>
@@ -33,6 +35,19 @@ const isContentPage = computed(() => route.path.includes("/content"));
         name="i-heroicons-user-group"
       />
       <h1 class="text-sm tracking-wide">Customers</h1>
+    </NuxtLink>
+    <NuxtLink
+      :class="
+        route.path.includes('invoices') ? 'dark:bg-[#30363D] bg-[#E4EAF1]' : ''
+      "
+      to="/admin/invoices"
+      class="flex items-center w-full mb-1.5 hover:bg-[#E4EAF1] dark:hover:bg-[#30363D] py-1.5 px-4 rounded transition-all duration-150 ease-in-out"
+    >
+      <UIcon
+        class="text-2xl text-indigo-500 mr-2"
+        name="i-heroicons-banknotes"
+      />
+      <h1 class="text-sm tracking-wide">Invoice</h1>
     </NuxtLink>
   </div>
 </template>

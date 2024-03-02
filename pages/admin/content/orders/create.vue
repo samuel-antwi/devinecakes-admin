@@ -32,9 +32,6 @@ async function createOrder() {
     await $fetch("/api/orders/create-order", {
       method: "POST",
       body: orderData.value,
-      headers: {
-        "Cache-Control": "no-cache",
-      },
     });
     loading.value = false;
     orderData.value = {
@@ -47,8 +44,10 @@ async function createOrder() {
       paymentReference: "",
       cakeType: "",
       description: "",
-      amount: "",
+      amount: 0,
       quantity: "",
+      receivedAmount: 0,
+      price: 0,
     };
 
     await router.push("/admin/content/orders");

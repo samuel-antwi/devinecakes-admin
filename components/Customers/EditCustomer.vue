@@ -24,6 +24,8 @@ const closeModal = () => {
     if (confirm("You have unsaved changes. Are you sure you want to close?")) {
       isOpen.value = false;
     }
+  } else {
+    isOpen.value = false;
   }
 };
 
@@ -35,9 +37,6 @@ async function handleSubmit() {
       method: "PUT",
       body: formData.value,
     });
-
-    console.log(customer);
-
     loading.value = false;
     isOpen.value = false;
     toast.add({
