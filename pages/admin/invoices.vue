@@ -95,19 +95,31 @@ interface Customer {
 const customerList = ref([] as Customer[]);
 const selectedField = ref();
 const selected = ref();
-const queryParams = ref({
-  filterBy: "",
-  query: "",
-});
+// const queryParams = ref({
+//   filterBy: "",
+//   query: "",
+// });
+
+const filterBy = ref("");
+const query = ref("");
 
 const onRowSelect = () => {
   router.push(`/admin/content/customers`);
 };
 
-const { data: invoice, pending } = await useAsyncData("invoice", () =>
-  $fetch(`/api/invoice/invoice`, {
-    query: { filter_by: route.query.filter_by, query: route.query.query },
-  })
+const {
+  data: invoice,
+  pending,
+  refresh,
+} = await useAsyncData(
+  "invoice",
+  () =>
+    $fetch(`/api/invoice/invoice`, {
+      query: { filter_by: filterBy.value, query: query.value },
+    }),
+  {
+    watch: [query],
+  }
 );
 
 // Computed properties
@@ -117,39 +129,39 @@ const paginator = computed(() => {
   }
 });
 
-watch(
-  queryParams,
-  (newVal) => {
-    if (newVal.filterBy === "all-invoices") {
-      router.push({
-        path: "/admin/invoices",
-        query: { filter_by: "all-invoice", query: "all" },
-      });
-    }
-    if (newVal.filterBy && newVal.query) {
-      router.push({
-        path: "/admin/invoices",
-        query: { filter_by: newVal.filterBy, query: newVal.query },
-      });
-    }
-  },
-  { deep: true }
-);
+watch(query, (newVal) => {
+  if (newVal) {
+    router.push({
+      path: "/admin/invoices",
+      query: { filter_by: filterBy.value, query: query.value },
+    });
+  }
+});
 
 // Get value for customer when filter by customer is selected
 watch(
   selected,
   (newVal) => {
     if (newVal) {
-      queryParams.value.query = newVal.label;
+      query.value = newVal.label;
+    }
+  },
+  { deep: true }
+);
+
+watch(
+  query,
+  (val) => {
+    if (val) {
+      refresh();
     }
   },
   { deep: true }
 );
 
 function getFilterByValue(value: string) {
-  queryParams.value.filterBy = value;
-  queryParams.value.query = "";
+  filterBy.value = value;
+  query.value = "";
 }
 
 onMounted(() => {
@@ -157,12 +169,7 @@ onMounted(() => {
     const customers = invoice?.value?.map((customer: any) => customer.customer);
     const customerOptions = customers.map((customer: CustomerType) => {
       return {
-        label:
-          customer.salutation +
-          " " +
-          customer.firstName +
-          " " +
-          customer.surname,
+        label: customer.firstName + " " + customer.surname,
       };
     });
     customerList.value = customerOptions;
@@ -170,12 +177,12 @@ onMounted(() => {
 });
 
 function clearAllFilters() {
-  queryParams.value.filterBy = "";
-  queryParams.value.query = "";
+  filterBy.value = "";
+  query.value = "";
   selected.value = "";
+  refresh();
   router.push({
     path: "/admin/invoices",
-    query: { filter_by: "all-invoice", query: "all" },
   });
 }
 </script>
@@ -187,15 +194,12 @@ function clearAllFilters() {
         class="md:flex flex-col md:flex-row space-y-3 md:space-y-0 items-center space-x-4"
       >
         <h1 class="text-xl ml-4 md:ml-0 font-medium">
-          <span
-            v-show="
-              queryParams.filterBy === 'all-invoices' || !queryParams.filterBy
-            "
+          <span v-show="filterBy === 'all-invoices' || !filterBy"
             >All Invoices</span
           >
-          <span v-show="queryParams.filterBy === 'date'">Date Created</span>
-          <span v-show="queryParams.filterBy === 'status'">Status</span>
-          <span v-show="queryParams.filterBy === 'customer'">Customer</span>
+          <span v-show="filterBy === 'date'">Date Created</span>
+          <span v-show="filterBy === 'status'">Status</span>
+          <span v-show="filterBy === 'customer'">Customer</span>
         </h1>
         <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
           <UButton
@@ -206,18 +210,18 @@ function clearAllFilters() {
         </UDropdown>
         <Calendar
           :pt="myInputStyle"
-          v-if="queryParams.filterBy === 'date'"
+          v-if="filterBy === 'date'"
           dateFormat="dd M yy"
-          v-model="queryParams.query"
+          v-model="query"
         />
-        <div v-if="queryParams.filterBy === 'status'">
+        <div v-if="filterBy === 'status'">
           <USelect
             placeholder="Select status"
-            v-model="queryParams.query"
+            v-model="query"
             :options="['Paid', 'Partially Paid', 'Not Paid']"
           />
         </div>
-        <div v-if="queryParams.filterBy === 'customer'">
+        <div v-if="filterBy === 'customer'">
           <USelectMenu
             id="customer"
             size="sm"
@@ -229,7 +233,8 @@ function clearAllFilters() {
           />
         </div>
         <UButton
-          v-if="queryParams.query || queryParams.filterBy"
+          type="button"
+          v-if="query"
           @click="clearAllFilters"
           label="Clear All"
         />
