@@ -84,18 +84,18 @@ async function handleSubmit() {
               <UInput
                 v-model="formData.paymentReference"
                 id="payment reference"
-                size="lg"
+                size="md"
               />
             </div>
             <div class="w-full">
               <label class="text-lg font-medium mb-2 block" for="amount"
-                >Amount *</label
+                >Amount Received *</label
               >
               <UInput
                 type="number"
-                v-model="formData.amount"
+                v-model="formData.receivedAmount"
                 id="amount"
-                size="lg"
+                size="md"
               />
             </div>
           </div>
@@ -105,10 +105,10 @@ async function handleSubmit() {
                 >Payment Status *</label
               >
               <UInputMenu
-                :options="['Paid', 'Part Paid', 'Not Paid']"
+                :options="['Paid', 'Partially Paid', 'Not Paid']"
                 v-model="formData.paymentStatus"
                 id="payment status"
-                size="lg"
+                size="md"
               />
             </div>
             <div class="w-full">
@@ -116,12 +116,13 @@ async function handleSubmit() {
                 >Cake *</label
               >
               <UInputMenu
+                class="capitalize"
                 multiple
                 :options="['Wedding Cake', 'Celebration Cake', 'Birthday Cake']"
                 v-model="formData.cakeType"
                 :ui="{ spacing: 'py-4' }"
                 id="cake"
-                size="lg"
+                size="md"
               />
             </div>
           </div>
@@ -134,7 +135,7 @@ async function handleSubmit() {
                 :options="['1', '2', '3', '4', '5']"
                 v-model="formData.quantity"
                 id="quantity"
-                size="lg"
+                size="md"
               />
             </div>
             <div class="w-full">
@@ -147,8 +148,9 @@ async function handleSubmit() {
                 :options="['Shop Pickup', 'Home Delivery']"
                 v-model="formData.deliveryMethod"
                 id="delivery method"
-                size="lg"
-              />
+                size="md"
+              >
+              </UInputMenu>
             </div>
           </div>
           <div class="mb-10">
@@ -161,7 +163,7 @@ async function handleSubmit() {
                 :options="['Delivered', 'Pending']"
                 v-model="formData.orderStatus"
                 id="order status"
-                size="lg"
+                size="md"
               />
             </div>
           </div>
@@ -184,7 +186,7 @@ async function handleSubmit() {
               :rows="5"
               v-model="formData.description"
               id="description"
-              size="lg"
+              size="md"
             />
           </div>
         </form>

@@ -17,7 +17,7 @@ const checked = defineModel("checked");
 const orderWithPayment = computed(() => {
   return (
     props.order.paymentStatus === "paid" ||
-    props.order.paymentStatus === "part paid"
+    props.order.paymentStatus === "partially paid"
   );
 });
 </script>

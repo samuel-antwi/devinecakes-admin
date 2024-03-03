@@ -102,7 +102,8 @@ const statusClass = (data: any) => {
     <div class="mt-10">
       <h1 class="uppercase text-sm font-medium mb-2">Order Note</h1>
       <div class="border py-3 px-4 rounded">
-        <p>{{ order.description }}</p>
+        <p v-if="order.description">{{ order.description }}</p>
+        <p v-else>No note</p>
       </div>
     </div>
   </div>

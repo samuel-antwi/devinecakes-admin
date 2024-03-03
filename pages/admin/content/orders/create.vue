@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CustomerType } from "~/types/customers";
+import type { CustomerType } from "@/types/customers";
 import { useCreateOrder } from "@/components/App/composables/createOrder";
 import { useToast } from "primevue/usetoast";
 
@@ -11,6 +11,16 @@ const loading = ref(false);
 const { orderData } = useCreateOrder();
 const router = useRouter();
 const toast = useToast();
+
+const canCreateOrder = computed(() => {
+  return Boolean(
+    orderData.value.customerId &&
+      orderData.value.cakeType.length > 0 &&
+      orderData.value.price &&
+      orderData.value.paymentStatus &&
+      orderData.value.deliveryDate
+  );
+});
 
 // Function that generates 6 random numbers and append 'DV' to it at the start
 async function generateOrderNumber() {
@@ -61,6 +71,12 @@ async function createOrder() {
   } catch (e) {
     console.log(e);
     throw new Error(e.message);
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "Error creating Order.",
+      life: 4000,
+    });
   }
 }
 </script>
@@ -73,8 +89,9 @@ async function createOrder() {
     >
       <template #actions>
         <app-buttons-save-button
+          class="fixed top-5 right-10"
           @save-item="createOrder"
-          :can-save="!loading"
+          :can-save="!loading && canCreateOrder"
         />
       </template>
     </app-actions>

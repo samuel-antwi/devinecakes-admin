@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
       data: {
         paymentReference: body.paymentReference,
         paymentStatus: body.paymentStatus.toLowerCase(),
-        orderStatus: body.orderStatus.toLowerCase(),
+        orderStatus: body.orderStatus?.toLowerCase(),
         cakeType: body.cakeType.toLowerCase(),
         description: body.description,
         deliveryDate: body.deliveryDate,

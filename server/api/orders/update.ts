@@ -16,11 +16,14 @@ export default defineEventHandler(async (event) => {
         description: body.description,
         deliveryDate: body.deliveryDate,
         deliveryMethod: body.deliveryMethod,
-        quantity: body.quantity,
+        quantity: Number(body.quantity),
         createdBy: body.createdBy.toLowerCase(),
         orderNumber: body.orderNumber,
         customerId: body.customerId,
         amount: body.amount,
+        receivedAmount: body.receivedAmount,
+        balance: body.balance,
+        price: body.price,
       },
     });
     return order;

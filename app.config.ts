@@ -23,6 +23,11 @@ export default defineAppConfig({
         xl: "text-xl",
       },
     },
+    inputMenu: {
+      option: {
+        size: "text-base",
+      },
+    },
     select: {
       padding: {
         "2xs": "px-2 py-1",

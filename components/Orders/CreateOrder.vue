@@ -19,8 +19,8 @@ const customerId = route.query.customer_id;
 const user = useSupabaseUser();
 
 // Computed properties
-const disableAmoutField = computed(() => {
-  return orderData.value.paymentStatus === "Not Paid";
+const disableAmountReceivedField = computed(() => {
+  return orderData.value.paymentStatus !== "Partially Paid";
 });
 
 // Get some default valuesser
@@ -43,6 +43,13 @@ watch(
       orderData.value.balance =
         orderData.value?.price * orderData.value?.quantity -
         orderData.value?.receivedAmount;
+    }
+    if (newVal.paymentStatus === "Paid") {
+      orderData.value.receivedAmount =
+        orderData.value.price * orderData.value.quantity;
+    }
+    if (newVal.paymentStatus === "Not Paid") {
+      orderData.value.receivedAmount = 0;
     }
   },
   { deep: true }
@@ -106,10 +113,10 @@ watch(
         </div>
         <div>
           <label class="text-lg font-medium mb-2 block" for="cake"
-            >Quantity</label
+            >Quantity *</label
           >
           <USelectMenu
-            :options="['1', '2', '3', '4', '5']"
+            :options="[1, 2, 3, 4, 5]"
             v-model="orderData.quantity"
             id="quantity"
             size="xl"
@@ -120,7 +127,7 @@ watch(
             >Payment Status *</label
           >
           <UInputMenu
-            :options="['Paid', 'Part Paid', 'Not Paid']"
+            :options="['Paid', 'Partially Paid', 'Not Paid']"
             v-model="orderData.paymentStatus"
             id="payment status"
             size="xl"
@@ -131,7 +138,7 @@ watch(
             >Payment Reference *</label
           >
           <UInput
-            :disabled="disableAmoutField"
+            :disabled="orderData.paymentStatus === 'Not Paid'"
             v-model="orderData.paymentReference"
             id="payment reference"
             size="xl"
@@ -140,12 +147,15 @@ watch(
         <div>
           <label class="text-lg font-medium mb-2 block" for="amount"
             >Amount Received
-            <span v-show="disableAmoutField" class="text-red-300 text-xs italic"
-              >Can't set amount if Payment status is 'Not Paid'</span
-            >
+            <!-- <span
+              v-show="disableAmountReceivedField"
+              class="text-red-300 text-xs italic"
+              >You can only edit this field if Payment Status is 'Part
+              Paid'</span
+            > -->
           </label>
           <UInput
-            :disabled="disableAmoutField"
+            :disabled="disableAmountReceivedField"
             type="number"
             v-model="orderData.receivedAmount"
             id="amount"

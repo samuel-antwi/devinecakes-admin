@@ -1,12 +1,13 @@
 import { prisma } from "@/utils/prisma";
 
 export default defineEventHandler(async (event) => {
-  const query = getQuery(event);
-  console.log(query);
+  const { query } = getQuery(event);
+  console.log("VALUE", query);
+
   try {
     const invoice = await prisma.orders.findMany({
       where: {
-        OR: [{ paymentStatus: "paid" }, { paymentStatus: "part paid" }],
+        OR: [{ paymentStatus: "paid" }, { paymentStatus: "partially paid" }],
       },
       orderBy: {
         deliveryDate: "asc",

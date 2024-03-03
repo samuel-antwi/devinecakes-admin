@@ -70,9 +70,6 @@ const handleGoBack = () => {
 const handleEdit = () => {
   editOrderModal.value = true;
 };
-const handleActions = () => {
-  console.log("actions");
-};
 
 watch(checked, (newVal) => {
   if (newVal) {
@@ -123,7 +120,6 @@ const handleCancelOrder = async () => {
         <UIcon
           name="i-heroicons-ellipsis-vertical"
           class="cursor-pointer text-2xl"
-          @click="handleActions"
         />
       </UDropdown>
     </div>

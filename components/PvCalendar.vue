@@ -13,7 +13,7 @@ const props = defineProps<{
     <Calendar
       :placeholder="placeholder"
       v-model="orderData.deliveryDate"
-      dateFormat="dd/mm/yy"
+      dateFormat="dd/M/yy"
     >
     </Calendar>
   </div>

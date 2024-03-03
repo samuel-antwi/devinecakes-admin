@@ -10,7 +10,7 @@ const logout = async () => {
 };
 
 const isContentTab = computed(() => {
-  return route.path.includes("content");
+  return route.path.includes("content") || route.path.includes("invoices");
 });
 const isUsersTab = computed(() => {
   return route.path.includes("users");

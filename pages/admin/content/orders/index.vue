@@ -48,15 +48,6 @@ const onRowSelect = () => {
   router.push(`/admin/content/orders/${id}`);
 };
 
-// const refreshing = ref(false);
-// const refreshAll = async () => {
-//   refreshing.value = true;
-//   try {
-//     await refreshNuxtData();
-//   } finally {
-//     refreshing.value = false;
-//   }
-// };
 const nuxtApp = useNuxtApp();
 const {
   data: orders,
@@ -65,8 +56,6 @@ const {
 } = await useAsyncData(`orders`, () => $fetch(`/api/orders/orders`));
 
 const noOrdrs = computed(() => orders?.value?.length === 0);
-
-// const refresh = () => refreshNuxtData("orders");
 
 const client = useSupabaseClient();
 let realtimeChannel: RealtimeChannel;
@@ -151,7 +140,9 @@ onUnmounted(() => {
                       >
                     </UBadge>
                   </span>
-                  <span v-else>{{ slotProps.data[col.field] }}</span>
+                  <span class="capitalize" v-else>{{
+                    slotProps.data[col.field]
+                  }}</span>
                 </div>
               </template>
             </Column>

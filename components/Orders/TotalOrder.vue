@@ -4,8 +4,8 @@ const props = defineProps<{
   order: OrderType;
 }>();
 
-const orderTotal = (quantity: number, amount: number) => {
-  return quantity * amount;
+const orderTotal = (order: OrderType) => {
+  return order?.quantity * order?.receivedAmount;
 };
 </script>
 
@@ -40,13 +40,25 @@ const orderTotal = (quantity: number, amount: number) => {
                   scope="col"
                   class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                 >
-                  RATE
+                  PRICE
                 </th>
                 <th
                   scope="col"
                   class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                 >
-                  AMOUNT
+                  RECEIVED
+                </th>
+                <th
+                  scope="col"
+                  class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                >
+                  BALANCE
+                </th>
+                <th
+                  scope="col"
+                  class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                >
+                  TOTAL
                 </th>
               </tr>
             </thead>
@@ -66,10 +78,16 @@ const orderTotal = (quantity: number, amount: number) => {
                   {{ order.orderStatus }}
                 </td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                  GHS{{ order.amount }}
+                  GHS{{ order.price }}
                 </td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                  GHS{{ orderTotal(order.amount, order.quantity) }}
+                  GHS{{ order?.receivedAmount }}
+                </td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                  GHS{{ order?.balance }}
+                </td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                  GHS{{ orderTotal(order) }}
                 </td>
               </tr>
             </tbody>
@@ -81,7 +99,7 @@ const orderTotal = (quantity: number, amount: number) => {
               >
                 <h1>Sub Total</h1>
                 <h1 class="font-medium text-gray-800">
-                  GHS{{ orderTotal(order.amount, order.quantity) }}
+                  GHS{{ orderTotal(order) }}
                 </h1>
               </div>
               <p class="text-sm text-gray-700">
@@ -96,7 +114,7 @@ const orderTotal = (quantity: number, amount: number) => {
                 >
                   <h1>Total</h1>
                   <h1 class="font-medium text-gray-800">
-                    GHS{{ orderTotal(order.amount, order.quantity) }}
+                    GHS{{ orderTotal(order) }}
                   </h1>
                 </div>
               </div>
