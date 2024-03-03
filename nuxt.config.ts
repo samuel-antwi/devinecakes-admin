@@ -40,6 +40,7 @@ export default defineNuxtConfig({
         "AccordionTab",
         "Dialog",
         "InputText",
+        "FloatLabel",
       ],
     },
     importPT: { from: path.resolve(__dirname, "./presets/lara/") },

@@ -25,7 +25,7 @@ export default {
       "border border-gray-300 dark:border-gray-600",
 
       // Spacing
-      "m-0 px-3 py-5 w-full",
+      "m-0 px-3 w-full",
 
       // Shape
       "appearance-none",

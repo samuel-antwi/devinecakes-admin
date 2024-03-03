@@ -40,7 +40,7 @@ const isContentPage = computed(
       :class="
         route.path.includes('invoices') ? 'dark:bg-[#30363D] bg-[#E4EAF1]' : ''
       "
-      to="/admin/invoices"
+      to="/admin/invoices?filyer_by=all-invoices&query=all"
       class="flex items-center w-full mb-1.5 hover:bg-[#E4EAF1] dark:hover:bg-[#30363D] py-1.5 px-4 rounded transition-all duration-150 ease-in-out"
     >
       <UIcon

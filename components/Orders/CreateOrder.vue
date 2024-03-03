@@ -147,12 +147,6 @@ watch(
         <div>
           <label class="text-lg font-medium mb-2 block" for="amount"
             >Amount Received
-            <!-- <span
-              v-show="disableAmountReceivedField"
-              class="text-red-300 text-xs italic"
-              >You can only edit this field if Payment Status is 'Part
-              Paid'</span
-            > -->
           </label>
           <UInput
             :disabled="disableAmountReceivedField"
@@ -186,10 +180,10 @@ watch(
           />
         </div>
         <div>
-          <label class="text-lg font-medium mb-2 block" for="delivery date"
+          <label class="text-lg font-medium mb-2 block" for="delivery_date"
             >Delivery Date *</label
           >
-          <pv-calendar id=" delivery date" />
+          <pv-calendar id="delivery_date" />
         </div>
         <div>
           <label class="text-lg font-medium mb-2 block" for="description"
