@@ -15,7 +15,7 @@ definePageMeta({
 
 const myInputStyle = ref({
   input:
-    "relative disabled:cursor-not-allowed text-sm disabled:opacity-75 w-[200px] focus:outline-none border-0 form-input rounded-md placeholder-gray-400 dark:placeholder-gray-500 text-xl px-3.5 py-1 shadow-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400",
+    "relative disabled:cursor-not-allowed disabled:opacity-75 w-[200px] focus:outline-none border-0 form-input rounded-md placeholder-gray-400 dark:placeholder-gray-500 text-xl px-3.5 py-1 shadow-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400",
 });
 
 const globalFiltersList = [

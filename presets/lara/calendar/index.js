@@ -13,41 +13,41 @@ export default {
       },
     ],
   }),
-  input: ({ props }) => ({
-    class: [
-      // Font
-      "font-sans leading-none text-lg",
+  // input: ({ props }) => ({
+  //   class: [
+  //     // Font
+  //     "font-sans leading-none",
 
-      // Colors
-      "text-surface-600 dark:text-surface-200",
-      "placeholder:text-surface-400 dark:placeholder:text-surface-500",
-      "bg-surface-0 dark:bg-[#0F172A]",
-      "border border-gray-300 dark:border-gray-600",
+  //     // Colors
+  //     "text-surface-600 dark:text-surface-200",
+  //     "placeholder:text-surface-400 dark:placeholder:text-surface-500",
+  //     "bg-surface-0 dark:bg-[#0F172A]",
+  //     "border border-gray-300 dark:border-gray-600",
 
-      // Spacing
-      "m-0 px-3 w-full",
+  //     // Spacing
+  //     "m-0 px-3 w-full",
 
-      // Shape
-      "appearance-none",
-      { "rounded-md": !props.showIcon || props.iconDisplay == "input" },
-      {
-        "rounded-l-md  flex-1 pr-9":
-          props.showIcon && props.iconDisplay !== "input",
-      },
-      {
-        "rounded-md flex-1 pr-9":
-          props.showIcon && props.iconDisplay === "input",
-      },
+  //     // Shape
+  //     "appearance-none",
+  //     { "rounded-md": !props.showIcon || props.iconDisplay == "input" },
+  //     {
+  //       "rounded-l-md  flex-1 pr-9":
+  //         props.showIcon && props.iconDisplay !== "input",
+  //     },
+  //     {
+  //       "rounded-md flex-1 pr-9":
+  //         props.showIcon && props.iconDisplay === "input",
+  //     },
 
-      // Transitions
-      "transition-colors",
-      "duration-200",
+  //     // Transitions
+  //     "transition-colors",
+  //     "duration-200",
 
-      // States
-      "hover:border-primary-500 dark:hover:border-primary-400",
-      "focus:outline-none focus:outline-offset-0 focus:ring focus:ring-primary-500/50 dark:focus:ring-primary-400/50",
-    ],
-  }),
+  //     // States
+  //     "hover:border-primary-500 dark:hover:border-primary-400",
+  //     "focus:outline-none focus:outline-offset-0 focus:ring focus:ring-primary-500/50 dark:focus:ring-primary-400/50",
+  //   ],
+  // }),
   inputicon: {
     class: [
       "absolute top-[50%] -mt-2",
