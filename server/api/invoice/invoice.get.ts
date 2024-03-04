@@ -1,50 +1,34 @@
 import { prisma } from "@/utils/prisma";
+import { defineEventHandler, getQuery } from "h3";
 
 export default defineEventHandler(async (event) => {
-  const { filter_by, query } = getQuery(event);
-  console.log("Filter By", filter_by, "Query", query);
-
-  let whereCondition = {
-    OR: [{ paymentStatus: "paid" }, { paymentStatus: "partially paid" }],
+  const { filter_by, query } = getQuery(event) as {
+    filter_by: string;
+    query: string;
   };
 
-  if (query) {
-    switch (filter_by) {
-      case "customer":
-        const queryParts = query.split(" ").filter(Boolean); // Split the query by spaces and remove any empty strings
-        const nameConditions = queryParts.map((part) => ({
-          OR: [
-            {
-              customer: { firstName: { contains: part, mode: "insensitive" } },
-            },
-            { customer: { surname: { contains: part, mode: "insensitive" } } },
-          ],
-        }));
-        whereCondition = {
-          AND: [whereCondition, ...nameConditions],
-        };
-        break;
-      case "paymentReference":
-        whereCondition = {
-          AND: [
-            whereCondition,
-            { paymentReference: { contains: query, mode: "insensitive" } },
-          ],
-        };
-        break;
-      case "paymentStatus":
-        // This assumes you want to match the exact payment status
-        whereCondition = {
-          AND: [
-            whereCondition,
-            { paymentStatus: { contains: query, mode: "insensitive" } }, // Consider adjusting if you need case-insensitive matching or partial matches
-          ],
-        };
-        break;
-      // Add more cases here if you need to filter by other fields.
-      default:
-        // No additional filtering based on `filter_by` if it doesn't match known criteria
-        break;
+  let whereCondition = {};
+
+  // Check if the query param exists and is related to a date filter
+  if (filter_by === "date" && query) {
+    // Remove quotes that might be surrounding the query parameter
+    const cleanedQuery = query.replace(/^"|"$/g, "");
+
+    try {
+      const dateQuery = new Date(cleanedQuery);
+      if (isNaN(dateQuery.getTime())) {
+        throw new Error("Provided Date object is invalid.");
+      }
+      // Assuming you want to filter orders based on the orderDate
+      whereCondition = {
+        orderDate: {
+          gte: dateQuery,
+          lt: new Date(dateQuery.getTime() + 24 * 60 * 60 * 1000), // Adds one day in milliseconds
+        },
+      };
+    } catch (error) {
+      console.error("Date parsing error:", error);
+      return { error: "Invalid date format" };
     }
   }
 
@@ -66,5 +50,6 @@ export default defineEventHandler(async (event) => {
     return invoice;
   } catch (e) {
     console.error(e);
+    return { error: e.message };
   }
 });

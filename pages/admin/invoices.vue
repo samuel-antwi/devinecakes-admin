@@ -46,14 +46,14 @@ const columns = [
 ];
 
 const items = [
-  [
-    {
-      label: "All Invoices",
-      click: () => {
-        getFilterByValue("all-invoices");
-      },
-    },
-  ],
+  // [
+  //   {
+  //     label: "All Invoices",
+  //     click: () => {
+  //       getFilterByValue("all-invoices");
+  //     },
+  //   },
+  // ],
   [
     {
       label: "By Date",
@@ -62,30 +62,30 @@ const items = [
       },
     },
   ],
-  [
-    {
-      label: "Status",
-      click: () => {
-        getFilterByValue("status");
-      },
-    },
-  ],
-  [
-    {
-      label: "Customer",
-      click: () => {
-        getFilterByValue("customer");
-      },
-    },
-  ],
-  [
-    {
-      label: "Reference #",
-      click: () => {
-        getFilterByValue("payment-reference");
-      },
-    },
-  ],
+  // [
+  //   {
+  //     label: "Status",
+  //     click: () => {
+  //       getFilterByValue("status");
+  //     },
+  //   },
+  // ],
+  // [
+  //   {
+  //     label: "Customer",
+  //     click: () => {
+  //       getFilterByValue("customer");
+  //     },
+  //   },
+  // ],
+  // [
+  //   {
+  //     label: "Reference #",
+  //     click: () => {
+  //       getFilterByValue("payment-reference");
+  //     },
+  //   },
+  // ],
 ];
 
 interface Customer {
@@ -95,10 +95,6 @@ interface Customer {
 const customerList = ref([] as Customer[]);
 const selectedField = ref();
 const selected = ref();
-// const queryParams = ref({
-//   filterBy: "",
-//   query: "",
-// });
 
 const filterBy = ref("");
 const query = ref("");
@@ -149,16 +145,6 @@ watch(
   { deep: true }
 );
 
-watch(
-  query,
-  (val) => {
-    if (val) {
-      refresh();
-    }
-  },
-  { deep: true }
-);
-
 function getFilterByValue(value: string) {
   filterBy.value = value;
   query.value = "";
@@ -198,8 +184,8 @@ function clearAllFilters() {
             >All Invoices</span
           >
           <span v-show="filterBy === 'date'">Date Created</span>
-          <span v-show="filterBy === 'status'">Status</span>
-          <span v-show="filterBy === 'customer'">Customer</span>
+          <!-- <span v-show="filterBy === 'status'">Status</span>
+          <span v-show="filterBy === 'customer'">Customer</span> -->
         </h1>
         <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
           <UButton
@@ -214,14 +200,14 @@ function clearAllFilters() {
           dateFormat="dd M yy"
           v-model="query"
         />
-        <div v-if="filterBy === 'status'">
+        <!-- <div v-if="filterBy === 'status'">
           <USelect
             placeholder="Select status"
             v-model="query"
             :options="['Paid', 'Partially Paid', 'Not Paid']"
           />
-        </div>
-        <div v-if="filterBy === 'customer'">
+        </div> -->
+        <!-- <div v-if="filterBy === 'customer'">
           <USelectMenu
             id="customer"
             size="sm"
@@ -231,7 +217,7 @@ function clearAllFilters() {
             :options="customerList"
             v-model="selected"
           />
-        </div>
+        </div> -->
         <UButton
           type="button"
           v-if="query"
