@@ -2,12 +2,9 @@
 import DataTable from "primevue/datatable";
 import Calendar from "primevue/calendar";
 import Column from "primevue/column";
-import moment from "moment";
 import type { CustomerType } from "@/types/customers";
 
-const route = useRoute();
 const router = useRouter();
-
 const { filters } = useGlobalStore();
 definePageMeta({
   layout: "auth",
@@ -15,7 +12,7 @@ definePageMeta({
 
 const myInputStyle = ref({
   input:
-    "relative disabled:cursor-not-allowed disabled:opacity-75 w-[200px] focus:outline-none border-0 form-input rounded-md placeholder-gray-400 dark:placeholder-gray-500 text-sm px-3.5 py-1.5 shadow-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400",
+    "relative disabled:cursor-not-allowed disabled:opacity-75 md:w-[200px] w-[140px] focus:outline-none border-0 form-input rounded-md placeholder-gray-400 dark:placeholder-gray-500 text-sm px-3.5 py-1.5 shadow-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400",
 });
 
 const globalFiltersList = [
@@ -48,14 +45,6 @@ const columns = [
 ];
 
 const items = [
-  // [
-  //   {
-  //     label: "All Invoices",
-  //     click: () => {
-  //       getFilterByValue("all-invoices");
-  //     },
-  //   },
-  // ],
   [
     {
       label: "By Date",
@@ -64,30 +53,6 @@ const items = [
       },
     },
   ],
-  // [
-  //   {
-  //     label: "Status",
-  //     click: () => {
-  //       getFilterByValue("status");
-  //     },
-  //   },
-  // ],
-  // [
-  //   {
-  //     label: "Customer",
-  //     click: () => {
-  //       getFilterByValue("customer");
-  //     },
-  //   },
-  // ],
-  // [
-  //   {
-  //     label: "Reference #",
-  //     click: () => {
-  //       getFilterByValue("payment-reference");
-  //     },
-  //   },
-  // ],
 ];
 
 interface Customer {
@@ -177,17 +142,18 @@ function clearAllFilters() {
 
 <template>
   <div>
+    <div class="flex lg:hidden items-center mb-4 lg:mb-0 justify-between">
+      <navigation-side-drawer />
+      <search-input size="md" />
+    </div>
+    <UDivider class="py-3 md:hidden" />
     <div class="flex items-center justify-between">
-      <div
-        class="md:flex flex-col md:flex-row space-y-3 md:space-y-0 items-center space-x-4"
-      >
-        <h1 class="text-xl ml-4 md:ml-0 font-medium">
+      <div class="flex items-center space-x-4">
+        <h1 class="md:text-xl text-sm font-medium">
           <span v-show="filterBy === 'all-invoices' || !filterBy"
             >All Invoices</span
           >
           <span v-show="filterBy === 'date'">Date Created</span>
-          <!-- <span v-show="filterBy === 'status'">Status</span>
-          <span v-show="filterBy === 'customer'">Customer</span> -->
         </h1>
         <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
           <UButton
@@ -202,32 +168,26 @@ function clearAllFilters() {
           dateFormat="dd M yy"
           v-model="query"
         />
-        <!-- <div v-if="filterBy === 'status'">
-          <USelect
-            placeholder="Select status"
-            v-model="query"
-            :options="['Paid', 'Partially Paid', 'Not Paid']"
+        <div class="hidden md:block">
+          <UButton
+            type="button"
+            v-if="query"
+            @click="clearAllFilters"
+            label="Clear All"
           />
-        </div> -->
-        <!-- <div v-if="filterBy === 'customer'">
-          <USelectMenu
-            id="customer"
-            size="sm"
-            searchable
-            searchable-placeholder="Search a person..."
-            placeholder="Select customer"
-            :options="customerList"
-            v-model="selected"
-          />
-        </div> -->
-        <UButton
-          type="button"
-          v-if="query"
-          @click="clearAllFilters"
-          label="Clear All"
-        />
+        </div>
       </div>
-      <search-input />
+      <search-input class="hidden lg:block" />
+    </div>
+    <div class="md:hidden flex justify-end">
+      <button
+        class="bg-primary px-2 py-1 rounded-md text-white text-sm"
+        type="button"
+        v-if="query"
+        @click="clearAllFilters"
+      >
+        Clear
+      </button>
     </div>
     <UDivider class="py-3" />
     <div>
@@ -251,9 +211,8 @@ function clearAllFilters() {
           :globalFilterFields="globalFiltersList"
         >
           <template #empty> No item found. </template>
-          <template #loading> Loading customers data. Please wait. </template>
-
           <Column
+            style="min-width: 10rem"
             v-for="col of columns"
             :key="col.field"
             :header="col.header"

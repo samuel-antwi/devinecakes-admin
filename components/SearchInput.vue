@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { useGlobalStore } from "@/composables/globalStore";
 const { filters } = useGlobalStore();
+const props = defineProps({
+  size: {
+    type: String,
+    default: "lg",
+  },
+});
 </script>
 
 <template>
@@ -9,7 +15,7 @@ const { filters } = useGlobalStore();
     <UInput
       v-model="filters['global'].value"
       :name="filters['global'].value"
-      size="lg"
+      :size="size"
       placeholder="Search items..."
       icon="i-heroicons-magnifying-glass-20-solid"
       autocomplete="off"
