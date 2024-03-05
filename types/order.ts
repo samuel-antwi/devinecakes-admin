@@ -18,5 +18,6 @@ export type OrderType = {
   receivedAmount?: number;
   balance?: number;
   price?: number;
+  total?: number;
   customer?: CustomerType | null;
 };

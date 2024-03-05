@@ -45,6 +45,7 @@ export default defineEventHandler(async (event) => {
         customer: true,
         paymentStatus: true,
         receivedAmount: true,
+        balance: true,
       },
     });
     return invoice;

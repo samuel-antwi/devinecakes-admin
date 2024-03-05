@@ -29,6 +29,7 @@ model orders{
   cakeType String?
   amount Int?
   price Int?
+  total Int?
   receivedAmount Int?
   balance Int?
   createdAt DateTime @default(now())

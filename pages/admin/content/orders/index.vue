@@ -24,13 +24,14 @@ const statusClass = (data: any) => {
 };
 
 const columns = [
+  { field: "orderDate", header: "Order Date" },
   { field: "orderNumber", header: "Order #" },
   { field: "paymentReference", header: "Payment Ref" },
-  { field: "orderDate", header: "Order Date" },
   { field: "deliveryDate", header: "Delivery Date" },
-  { field: "orderStatus", header: "Status" },
-  { field: "paymentStatus", header: "Payment Status" },
-  { field: "receivedAmount", header: "Amount" },
+  { field: "orderStatus", header: "Order Status" },
+  { field: "total", header: "Total" },
+  { field: "receivedAmount", header: "Recieved" },
+  { field: "balance", header: "Balance" },
 ];
 
 const filtersBold = [
@@ -129,7 +130,14 @@ onUnmounted(() => {
                   {{ formatDate(slotProps.data[col.field]) }}
                 </span>
                 <div v-else>
-                  <span v-show="col.field === 'receivedAmount'">GHS</span>
+                  <span
+                    v-show="
+                      col.field === 'receivedAmount' ||
+                      col.field === 'balance' ||
+                      col.field === 'total'
+                    "
+                    >GHS</span
+                  >
                   <span v-if="col.field === 'orderStatus'">
                     <UBadge
                       :ui="{ rounded: 'rounded-full' }"

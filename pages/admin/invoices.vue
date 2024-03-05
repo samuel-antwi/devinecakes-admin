@@ -15,7 +15,7 @@ definePageMeta({
 
 const myInputStyle = ref({
   input:
-    "relative disabled:cursor-not-allowed disabled:opacity-75 w-[200px] focus:outline-none border-0 form-input rounded-md placeholder-gray-400 dark:placeholder-gray-500 text-xl px-3.5 py-1 shadow-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400",
+    "relative disabled:cursor-not-allowed disabled:opacity-75 w-[200px] focus:outline-none border-0 form-input rounded-md placeholder-gray-400 dark:placeholder-gray-500 text-sm px-3.5 py-1.5 shadow-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400",
 });
 
 const globalFiltersList = [
@@ -25,6 +25,7 @@ const globalFiltersList = [
   "customer.surname",
   "paymentStatus",
   "receivedAmount",
+  "balance",
 ];
 
 const statusClass = (data: any) => {
@@ -43,6 +44,7 @@ const columns = [
   { field: "customerName", header: "Customer" },
   { field: "paymentStatus", header: "Status" },
   { field: "receivedAmount", header: " Received Amout" },
+  { field: "balance", header: "Balance" },
 ];
 
 const items = [
@@ -270,7 +272,12 @@ function clearAllFilters() {
                   {{ slotProps.data.customer.firstName }}
                   {{ slotProps.data.customer.surname }}
                 </span>
-                <span v-show="col.field === 'receivedAmount'">GHS</span>
+                <span
+                  v-show="
+                    col.field === 'receivedAmount' || col.field === 'balance'
+                  "
+                  >GHS</span
+                >
                 <span v-if="col.field === 'paymentStatus'">
                   <UBadge
                     :ui="{ rounded: 'rounded-full' }"
