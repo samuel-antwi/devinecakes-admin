@@ -3,7 +3,7 @@ import Toast from "primevue/toast";
 </script>
 <template>
   <div>
-    <Toast position="bottom-right" />
+    <Toast position="top-center" />
     <div>
       <div class="hidden lg:block">
         <navigation-side-drawer-content />

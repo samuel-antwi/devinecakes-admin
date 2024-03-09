@@ -51,7 +51,7 @@ onMounted(() => {
     <Accordion :activeIndex="0">
       <AccordionTab header="Purchase Orders">
         <div v-if="!customerOrders.length">
-          <h1>No Purchase orders found</h1>
+          <h1>No purchase orders found</h1>
         </div>
         <div v-else>
           <DataTable
