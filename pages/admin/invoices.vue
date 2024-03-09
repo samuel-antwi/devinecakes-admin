@@ -194,7 +194,7 @@ function clearAllFilters() {
       <div v-if="pending">
         <loading-spinner />
       </div>
-      <div v-else class="bg-white md:p-5 mb-10">
+      <div v-else class="bg-white md:p-5 mt-5 mb-10">
         <DataTable
           ref="dt"
           v-model:filters="filters"
