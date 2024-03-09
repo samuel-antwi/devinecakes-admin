@@ -5,7 +5,7 @@ const props = defineProps<{
 }>();
 
 const orderTotal = (order: OrderType) => {
-  return order?.quantity * order?.receivedAmount;
+  return Number(order?.quantity) * Number(order?.price);
 };
 </script>
 

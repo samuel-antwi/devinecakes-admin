@@ -74,7 +74,7 @@ onUnmounted(() => {
           button-label="Add Customer"
         />
       </div>
-      <div v-else>
+      <div class="bg-white md:p-5 mb-10" v-else>
         <ClientOnly>
           <DataTable
             ref="dt"

@@ -8,19 +8,9 @@ definePageMeta({
 });
 
 const loading = ref(false);
-const { orderData } = useCreateOrder();
+const { orderData, canCreateOrder } = useCreateOrder();
 const router = useRouter();
 const toast = useToast();
-
-const canCreateOrder = computed(() => {
-  return Boolean(
-    orderData.value.customerId &&
-      orderData.value.cakeType.length > 0 &&
-      orderData.value.price &&
-      orderData.value.paymentStatus &&
-      orderData.value.deliveryDate
-  );
-});
 
 // Function that generates 6 random numbers and append 'DV' to it at the start
 async function generateOrderNumber() {
@@ -70,7 +60,6 @@ async function createOrder() {
     });
   } catch (e) {
     console.log(e);
-    throw new Error(e.message);
     toast.add({
       severity: "error",
       summary: "Error",
@@ -81,7 +70,7 @@ async function createOrder() {
 }
 </script>
 <template>
-  <div>
+  <div class="create-order">
     <app-actions
       :title="'Creating an Order'"
       :icon="'i-heroicons-shopping-bag'"
@@ -89,14 +78,14 @@ async function createOrder() {
     >
       <template #actions>
         <app-buttons-save-button
-          class="fixed top-5 right-10"
+          class="fixed top-5 hidden lg:block z-20 right-10"
           @save-item="createOrder"
           :can-save="!loading && canCreateOrder"
         />
       </template>
     </app-actions>
     <div class="mb-10">
-      <orders-create-order :customers="customers" />
+      <orders-create-order :customers="customers" @create-order="createOrder" />
     </div>
   </div>
 </template>

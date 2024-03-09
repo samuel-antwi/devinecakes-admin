@@ -96,7 +96,7 @@ onUnmounted(() => {
           button-label="Create Order"
         />
       </div>
-      <div class="my-10" v-else>
+      <div class="bg-white md:p-5 mb-10" v-else>
         <ClientOnly>
           <DataTable
             ref="dt"

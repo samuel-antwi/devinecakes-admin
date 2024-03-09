@@ -2,8 +2,9 @@
 import { useCreateOrder } from "@/components/App/composables/createOrder";
 import type { CustomerType } from "@/types/customers";
 const props = defineProps(["customers"]);
+const emit = defineEmits(["createOrder"]);
 
-const { orderData } = useCreateOrder();
+const { orderData, canCreateOrder } = useCreateOrder();
 const customer = ref<CustomerType>();
 
 const customerOptions = props.customers.map((customer: CustomerType) => {
@@ -54,14 +55,20 @@ watch(
   },
   { deep: true }
 );
+
+// Emits
+const handleCreateOrder = () => {
+  emit("createOrder", orderData.value);
+};
 </script>
 <template>
   <ClientOnly>
-    <div class="max-w-2xl">
+    <div class="max-w-4xl mx-auto">
       <form class="flex flex-col space-y-10">
-        <div class="border p-5">
+        <UCard>
+          <h1 class="mb-5 font-medium">Customer details</h1>
           <label class="text-lg font-medium mb-2 block" for="customer"
-            >Customer *</label
+            >Name *</label
           >
           <USelectMenu
             id="customer"
@@ -86,116 +93,143 @@ watch(
             <p class="text-gray-600">{{ customer?.customer?.streetName }}</p>
             <p class="text-gray-600">Accra</p>
           </div>
-        </div>
-        <div>
-          <label class="text-lg font-medium mb-2 block" for="cake"
-            >Cake *</label
+        </UCard>
+        <UCard>
+          <h1 class="mb-5 font-medium">Product details</h1>
+          <div class="mb-4">
+            <label class="text-lg font-medium mb-2 block" for="cake"
+              >Cake *</label
+            >
+            <UInputMenu
+              multiple
+              :options="['Wedding Cake', 'Celebration Cake', 'Birthday Cake']"
+              v-model="orderData.cakeType"
+              :ui="{ spacing: 'py-4' }"
+              id="cake"
+              size="xl"
+            />
+          </div>
+          <div class="mb-4">
+            <label class="text-lg font-medium mb-2 block" for="price"
+              >Price *
+            </label>
+            <UInput
+              type="number"
+              v-model="orderData.price"
+              id="price"
+              size="xl"
+            />
+          </div>
+          <div>
+            <label class="text-lg font-medium mb-2 block" for="cake"
+              >Quantity *</label
+            >
+            <USelectMenu
+              :options="[1, 2, 3, 4, 5]"
+              v-model="orderData.quantity"
+              id="quantity"
+              size="xl"
+            />
+          </div>
+        </UCard>
+        <UCard>
+          <h1 class="mb-5 font-medium">Payment details</h1>
+          <div class="mb-4">
+            <label class="text-lg font-medium mb-2 block" for="payment status"
+              >Payment Status *</label
+            >
+            <UInputMenu
+              :options="['Paid', 'Partially Paid', 'Not Paid']"
+              v-model="orderData.paymentStatus"
+              id="payment status"
+              size="xl"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              class="text-lg font-medium mb-2 block"
+              for="payment reference"
+              >Payment Reference *</label
+            >
+            <UInput
+              :disabled="orderData.paymentStatus === 'Not Paid'"
+              v-model="orderData.paymentReference"
+              id="payment reference"
+              size="xl"
+            />
+          </div>
+          <div class="mb-4">
+            <label class="text-lg font-medium mb-2 block" for="amount"
+              >Amount Received
+            </label>
+            <UInput
+              :disabled="disableAmountReceivedField"
+              type="number"
+              v-model="orderData.receivedAmount"
+              id="amount"
+              size="xl"
+            />
+          </div>
+          <div>
+            <label class="text-lg font-medium mb-2 block" for="balance due"
+              >Balance Due
+            </label>
+            <UInput
+              disabled
+              type="number"
+              v-model="orderData.balance"
+              id="balance due"
+              size="xl"
+            />
+          </div>
+        </UCard>
+        <UCard>
+          <h1 class="mb-5 font-medium">Shipment details</h1>
+          <div class="mb-4">
+            <label class="text-lg font-medium mb-2 block" for="delivery method"
+              >Delivery Method</label
+            >
+            <UInputMenu
+              :options="['Shop Pickup', 'Home Delivery']"
+              v-model="orderData.deliveryMethod"
+              id="delivery method"
+              size="xl"
+            />
+          </div>
+          <div>
+            <label class="text-lg font-medium mb-2 block" for="delivery_date"
+              >Delivery Date *</label
+            >
+            <pv-calendar id="delivery_date" />
+          </div>
+        </UCard>
+        <UCard>
+          <h1 class="mb-5 font-medium">Additional details</h1>
+          <div>
+            <label class="text-lg font-medium mb-2 block" for="description"
+              >Description</label
+            >
+            <UTextarea
+              autoresize
+              :rows="10"
+              v-model="orderData.description"
+              id="description"
+              size="xl"
+            />
+          </div>
+        </UCard>
+        <!-- This is only for mobile view -->
+        <div class="lg:hidden">
+          <UButton
+            @click="handleCreateOrder"
+            block
+            size="md"
+            :ui="{ rounded: 'rounded-full' }"
+            label="Create Order"
+            :disabled="!canCreateOrder"
           >
-          <UInputMenu
-            multiple
-            :options="['Wedding Cake', 'Celebration Cake', 'Birthday Cake']"
-            v-model="orderData.cakeType"
-            :ui="{ spacing: 'py-4' }"
-            id="cake"
-            size="xl"
-          />
-        </div>
-        <div>
-          <label class="text-lg font-medium mb-2 block" for="price"
-            >Price *
-          </label>
-          <UInput
-            type="number"
-            v-model="orderData.price"
-            id="price"
-            size="xl"
-          />
-        </div>
-        <div>
-          <label class="text-lg font-medium mb-2 block" for="cake"
-            >Quantity *</label
-          >
-          <USelectMenu
-            :options="[1, 2, 3, 4, 5]"
-            v-model="orderData.quantity"
-            id="quantity"
-            size="xl"
-          />
-        </div>
-        <div>
-          <label class="text-lg font-medium mb-2 block" for="payment status"
-            >Payment Status *</label
-          >
-          <UInputMenu
-            :options="['Paid', 'Partially Paid', 'Not Paid']"
-            v-model="orderData.paymentStatus"
-            id="payment status"
-            size="xl"
-          />
-        </div>
-        <div>
-          <label class="text-lg font-medium mb-2 block" for="payment reference"
-            >Payment Reference *</label
-          >
-          <UInput
-            :disabled="orderData.paymentStatus === 'Not Paid'"
-            v-model="orderData.paymentReference"
-            id="payment reference"
-            size="xl"
-          />
-        </div>
-        <div>
-          <label class="text-lg font-medium mb-2 block" for="amount"
-            >Amount Received
-          </label>
-          <UInput
-            :disabled="disableAmountReceivedField"
-            type="number"
-            v-model="orderData.receivedAmount"
-            id="amount"
-            size="xl"
-          />
-        </div>
-        <div>
-          <label class="text-lg font-medium mb-2 block" for="balance due"
-            >Balance Due
-          </label>
-          <UInput
-            disabled
-            type="number"
-            v-model="orderData.balance"
-            id="balance due"
-            size="xl"
-          />
-        </div>
-        <div>
-          <label class="text-lg font-medium mb-2 block" for="delivery method"
-            >Delivery Method</label
-          >
-          <UInputMenu
-            :options="['Shop Pickup', 'Home Delivery']"
-            v-model="orderData.deliveryMethod"
-            id="delivery method"
-            size="xl"
-          />
-        </div>
-        <div>
-          <label class="text-lg font-medium mb-2 block" for="delivery_date"
-            >Delivery Date *</label
-          >
-          <pv-calendar id="delivery_date" />
-        </div>
-        <div>
-          <label class="text-lg font-medium mb-2 block" for="description"
-            >Description</label
-          >
-          <UTextarea
-            autoresize
-            :rows="10"
-            v-model="orderData.description"
-            id="description"
-            size="xl"
-          />
+            Create Order
+          </UButton>
         </div>
       </form>
     </div>

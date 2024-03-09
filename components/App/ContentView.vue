@@ -12,9 +12,9 @@ const isContentPage = computed(
   <div v-if="isContentPage" class="dark:bg-[#21262E] p-3">
     <NuxtLink
       to="/admin/content/orders"
-      class="flex items-center w-full mb-1.5 hover:bg-[#E4EAF1] dark:hover:bg-[#30363D] py-1.5 px-4 rounded transition-all duration-150 ease-in-out"
+      class="flex items-center w-full mb-1.5 hover:bg-gray-50 dark:hover:bg-[#30363D] py-1.5 px-4 rounded transition-all duration-150 ease-in-out"
       :class="
-        route.path.includes('orders') ? 'dark:bg-[#30363D] bg-[#E4EAF1]' : ''
+        route.path.includes('orders') ? 'dark:bg-[#30363D] bg-gray-50' : ''
       "
     >
       <UIcon
@@ -24,11 +24,11 @@ const isContentPage = computed(
       <h1 class="text-sm tracking-wide">Orders</h1>
     </NuxtLink>
     <NuxtLink
-      :class="
-        route.path.includes('customers') ? 'dark:bg-[#30363D] bg-[#E4EAF1]' : ''
-      "
       to="/admin/content/customers"
-      class="flex items-center w-full mb-1.5 hover:bg-[#E4EAF1] dark:hover:bg-[#30363D] py-1.5 px-4 rounded transition-all duration-150 ease-in-out"
+      class="flex items-center w-full mb-1.5 hover:bg-gray-50 dark:hover:bg-[#30363D] py-1.5 px-4 rounded transition-all duration-150 ease-in-out"
+      :class="
+        route.path.includes('customers') ? 'dark:bg-[#30363D] bg-gray-50' : ''
+      "
     >
       <UIcon
         class="text-2xl text-indigo-500 mr-2"
@@ -37,11 +37,11 @@ const isContentPage = computed(
       <h1 class="text-sm tracking-wide">Customers</h1>
     </NuxtLink>
     <NuxtLink
-      :class="
-        route.path.includes('invoices') ? 'dark:bg-[#30363D] bg-[#E4EAF1]' : ''
-      "
       to="/admin/invoices"
-      class="flex items-center w-full mb-1.5 hover:bg-[#E4EAF1] dark:hover:bg-[#30363D] py-1.5 px-4 rounded transition-all duration-150 ease-in-out"
+      class="flex items-center w-full mb-1.5 hover:bg-gray-50 dark:hover:bg-[#30363D] py-1.5 px-4 rounded transition-all duration-150 ease-in-out"
+      :class="
+        route.path.includes('invoices') ? 'dark:bg-[#30363D] bg-gray-50' : ''
+      "
     >
       <UIcon
         class="text-2xl text-indigo-500 mr-2"
