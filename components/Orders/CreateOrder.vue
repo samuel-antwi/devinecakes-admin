@@ -36,6 +36,7 @@ watch(customer, () => {
   if (customer.value) {
     orderData.value.customerId = customer.value?.customer?.id;
   }
+  console.log("customer", customer.value);
 });
 watch(
   orderData,
@@ -66,13 +67,20 @@ const handleCreateOrder = () => {
     <div class="max-w-4xl mx-auto">
       <form class="flex flex-col space-y-10">
         <UCard>
-          <h1 class="mb-5 font-medium">Customer details</h1>
+          <div class="flex items-center mb-5">
+            <UIcon
+              v-show="customer?.customer?.id"
+              class="mr-2 text-xl text-green-600"
+              name="i-heroicons-check-circle"
+            />
+            <h1 class="font-medium">Customer details</h1>
+          </div>
           <label class="text-lg font-medium mb-2 block" for="customer"
             >Name *</label
           >
           <USelectMenu
             id="customer"
-            size="xl"
+            size="lg"
             searchable
             searchable-placeholder="Search a person..."
             placeholder="Select customer"
@@ -95,7 +103,16 @@ const handleCreateOrder = () => {
           </div>
         </UCard>
         <UCard>
-          <h1 class="mb-5 font-medium">Product details</h1>
+          <div class="flex items-center mb-5">
+            <UIcon
+              v-show="
+                orderData.cakeType && orderData.price && orderData.quantity
+              "
+              class="mr-2 text-xl text-green-600"
+              name="i-heroicons-check-circle"
+            />
+            <h1 class="font-medium">Product details</h1>
+          </div>
           <div class="mb-4">
             <label class="text-lg font-medium mb-2 block" for="cake"
               >Cake *</label
@@ -106,7 +123,7 @@ const handleCreateOrder = () => {
               v-model="orderData.cakeType"
               :ui="{ spacing: 'py-4' }"
               id="cake"
-              size="xl"
+              size="lg"
             />
           </div>
           <div class="mb-4">
@@ -117,7 +134,7 @@ const handleCreateOrder = () => {
               type="number"
               v-model="orderData.price"
               id="price"
-              size="xl"
+              size="lg"
             />
           </div>
           <div>
@@ -128,12 +145,23 @@ const handleCreateOrder = () => {
               :options="[1, 2, 3, 4, 5]"
               v-model="orderData.quantity"
               id="quantity"
-              size="xl"
+              size="lg"
             />
           </div>
         </UCard>
         <UCard>
-          <h1 class="mb-5 font-medium">Payment details</h1>
+          <div class="flex items-center mb-5">
+            <UIcon
+              v-show="
+                orderData.paymentStatus &&
+                orderData.paymentReference &&
+                orderData.receivedAmount
+              "
+              class="mr-2 text-xl text-green-600"
+              name="i-heroicons-check-circle"
+            />
+            <h1 class="font-medium">Payment details</h1>
+          </div>
           <div class="mb-4">
             <label class="text-lg font-medium mb-2 block" for="payment status"
               >Payment Status *</label
@@ -142,7 +170,7 @@ const handleCreateOrder = () => {
               :options="['Paid', 'Partially Paid', 'Not Paid']"
               v-model="orderData.paymentStatus"
               id="payment status"
-              size="xl"
+              size="lg"
             />
           </div>
           <div class="mb-4">
@@ -155,7 +183,7 @@ const handleCreateOrder = () => {
               :disabled="orderData.paymentStatus === 'Not Paid'"
               v-model="orderData.paymentReference"
               id="payment reference"
-              size="xl"
+              size="lg"
             />
           </div>
           <div class="mb-4">
@@ -167,7 +195,7 @@ const handleCreateOrder = () => {
               type="number"
               v-model="orderData.receivedAmount"
               id="amount"
-              size="xl"
+              size="lg"
             />
           </div>
           <div>
@@ -179,13 +207,26 @@ const handleCreateOrder = () => {
               type="number"
               v-model="orderData.balance"
               id="balance due"
-              size="xl"
+              size="lg"
             />
           </div>
         </UCard>
         <UCard>
-          <h1 class="mb-5 font-medium">Shipment details</h1>
+          <div class="flex items-center mb-5">
+            <UIcon
+              v-show="orderData.deliveryDate"
+              class="mr-2 text-xl text-green-600"
+              name="i-heroicons-check-circle"
+            />
+            <h1 class="font-medium">Shipment details</h1>
+          </div>
           <div class="mb-4">
+            <label class="text-lg font-medium mb-2 block" for="delivery_date"
+              >Delivery Date *</label
+            >
+            <pv-calendar id="delivery_date" />
+          </div>
+          <div>
             <label class="text-lg font-medium mb-2 block" for="delivery method"
               >Delivery Method</label
             >
@@ -193,18 +234,19 @@ const handleCreateOrder = () => {
               :options="['Shop Pickup', 'Home Delivery']"
               v-model="orderData.deliveryMethod"
               id="delivery method"
-              size="xl"
+              size="lg"
             />
-          </div>
-          <div>
-            <label class="text-lg font-medium mb-2 block" for="delivery_date"
-              >Delivery Date *</label
-            >
-            <pv-calendar id="delivery_date" />
           </div>
         </UCard>
         <UCard>
-          <h1 class="mb-5 font-medium">Additional details</h1>
+          <div class="flex items-center mb-5">
+            <UIcon
+              v-show="orderData.description"
+              class="mr-2 text-xl text-green-600"
+              name="i-heroicons-check-circle"
+            />
+            <h1 class="font-medium">Additional details</h1>
+          </div>
           <div>
             <label class="text-lg font-medium mb-2 block" for="description"
               >Description</label
@@ -214,7 +256,7 @@ const handleCreateOrder = () => {
               :rows="10"
               v-model="orderData.description"
               id="description"
-              size="xl"
+              size="lg"
             />
           </div>
         </UCard>

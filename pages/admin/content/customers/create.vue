@@ -21,12 +21,19 @@ async function createCustomer() {
       body: formData.value,
     });
 
-    console.log(customer);
-
     if (customer.id) {
       router.push(`/admin/content/customers/${customer.id}`);
     }
     loading.value = false;
+    formData.value = {
+      salutation: "",
+      firstName: "",
+      surname: "",
+      mobileNumber: "",
+      town: "",
+      streetName: "",
+      digitalAddress: "",
+    };
     toast.add({
       severity: "success",
       summary: "Success",
@@ -47,22 +54,6 @@ const enableSaveButton = computed(() => {
       !loading.value
   );
 });
-
-// onMounted(() => {
-//   realtimeChannel = client
-//     .channel("public:customers")
-//     .on(
-//       "postgres_changes",
-//       { event: "*", schema: "public", table: "customers" },
-//       () => refreshCustomers()
-//     );
-
-//   realtimeChannel.subscribe();
-// });
-
-// onUnmounted(() => {
-//   client.removeChannel(realtimeChannel);
-// });
 </script>
 <template>
   <div>
@@ -78,7 +69,7 @@ const enableSaveButton = computed(() => {
         />
       </template>
     </app-actions>
-    <div>
+    <div class="mb-5">
       <customers-create-customer />
     </div>
   </div>

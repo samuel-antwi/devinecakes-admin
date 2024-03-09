@@ -156,11 +156,7 @@ function clearAllFilters() {
           <span v-show="filterBy === 'date'">Date Created</span>
         </h1>
         <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
-          <UButton
-            color="white"
-            label="Filters"
-            trailing-icon="i-heroicons-funnel"
-          />
+          <UButton color="white" label="Filters" icon="i-heroicons-funnel" />
         </UDropdown>
         <Calendar
           :pt="myInputStyle"

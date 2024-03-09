@@ -20,7 +20,7 @@ const props = defineProps<{
           </p>
           <p v-if="customer.streetName">
             <span>Street Name:</span>
-            <span class="text-gray-950 font-medium ml-1">{{
+            <span class="text-gray-950 capitalize font-medium ml-1">{{
               customer.streetName
             }}</span>
           </p>
