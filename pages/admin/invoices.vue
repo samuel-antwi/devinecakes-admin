@@ -88,7 +88,7 @@ const {
 // Computed properties
 const paginator = computed(() => {
   if (invoice?.value) {
-    return invoice?.value?.length > 10;
+    return invoice?.value?.length >= 10;
   }
 });
 
@@ -194,7 +194,7 @@ function clearAllFilters() {
       <div v-if="pending">
         <loading-spinner />
       </div>
-      <div v-else>
+      <div v-else class="bg-white md:p-5 mt-5 mb-10">
         <DataTable
           ref="dt"
           v-model:filters="filters"

@@ -20,5 +20,14 @@ const orderData = ref<OrderType>({
 });
 
 export const useCreateOrder = () => {
-  return { orderData };
+  const canCreateOrder = computed(() => {
+    return Boolean(
+      orderData.value.customerId &&
+        orderData.value.cakeType.length > 0 &&
+        orderData.value.price &&
+        orderData.value.paymentStatus &&
+        orderData.value.deliveryDate
+    );
+  });
+  return { orderData, canCreateOrder };
 };
