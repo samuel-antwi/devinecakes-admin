@@ -261,11 +261,11 @@ const handleCreateOrder = () => {
           </div>
         </UCard>
         <!-- This is only for mobile view -->
-        <div class="lg:hidden">
+        <div class="lg:hidden px-4">
           <UButton
             @click="handleCreateOrder"
             block
-            size="md"
+            size="lg"
             :ui="{ rounded: 'rounded-full' }"
             label="Create Order"
             :disabled="!canCreateOrder"

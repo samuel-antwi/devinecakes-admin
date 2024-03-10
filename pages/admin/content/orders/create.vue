@@ -70,7 +70,7 @@ async function createOrder() {
 }
 </script>
 <template>
-  <div class="create-order">
+  <div class="create-order mb-10">
     <app-actions
       class="px-4 lg:px-8"
       :title="'Creating an Order'"
