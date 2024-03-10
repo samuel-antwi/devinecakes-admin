@@ -37,7 +37,7 @@ onUnmounted(() => {
 </script>
 <template>
   <div class="mb-10">
-    <orders-header :order="order" class="mb-10" />
+    <orders-header :order="order" class="mb-10 px-4 lg:px-8" />
     <UDivider />
     <div class="bg-white py-5">
       <orders-details :order="order" />

@@ -142,12 +142,14 @@ function clearAllFilters() {
 
 <template>
   <div>
-    <div class="flex lg:hidden items-center mb-4 lg:mb-0 justify-between">
+    <div
+      class="flex lg:hidden px-4 lg:px-8 items-center mb-4 lg:mb-0 justify-between"
+    >
       <navigation-side-drawer />
       <search-input size="md" />
     </div>
     <UDivider class="py-3 md:hidden" />
-    <div class="flex items-center justify-between">
+    <div class="flex px-4 lg:px-8 items-center justify-between">
       <div class="flex items-center space-x-4">
         <h1 class="md:text-xl text-sm font-medium">
           <span v-show="filterBy === 'all-invoices' || !filterBy"

@@ -56,7 +56,11 @@ onUnmounted(() => {
 </script>
 <template>
   <div>
-    <app-actions :title="'Customers'" :icon="'i-heroicons-user-group'">
+    <app-actions
+      class="px-4 lg:px-8"
+      :title="'Customers'"
+      :icon="'i-heroicons-user-group'"
+    >
       <template #actions>
         <search-input />
         <app-buttons-create-button />

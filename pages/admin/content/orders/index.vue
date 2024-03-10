@@ -78,7 +78,11 @@ onUnmounted(() => {
 </script>
 <template>
   <div>
-    <app-actions :title="'Orders'" :icon="'i-heroicons-shopping-bag'">
+    <app-actions
+      class="px-4 lg:px-8"
+      :title="'Orders'"
+      :icon="'i-heroicons-shopping-bag'"
+    >
       <template #actions>
         <search-input v-if="!noOrdrs" />
         <app-buttons-create-button />

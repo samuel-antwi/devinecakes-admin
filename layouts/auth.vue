@@ -9,7 +9,7 @@ import Toast from "primevue/toast";
         <navigation-side-drawer-content />
       </div>
       <div>
-        <div class="mt-6 lg:ml-[300px] px-4 lg:px-8">
+        <div class="mt-6 lg:ml-[300px]">
           <slot />
         </div>
       </div>

@@ -72,6 +72,7 @@ async function createOrder() {
 <template>
   <div class="create-order">
     <app-actions
+      class="px-4 lg:px-8"
       :title="'Creating an Order'"
       :icon="'i-heroicons-shopping-bag'"
       :can-go-back="true"
