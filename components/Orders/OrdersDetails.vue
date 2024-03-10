@@ -26,7 +26,7 @@ const statusClass = (data: any) => {
 </script>
 
 <template>
-  <div class="my-12 max-w-3xl mx-auto">
+  <div class="my-12 max-w-4xl md:px-8 px-4">
     <div class="md:flex items-center justify-between">
       <div>
         <h1 class="text-2xl mb-3 text-gray-800">PURCHASE ORDER</h1>

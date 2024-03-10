@@ -117,10 +117,14 @@ const handleCancelOrder = async () => {
         <span class="group-hover:text-primary">Print</span>
       </button>
       <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
-        <UIcon
+        <!-- <UIcon
           name="i-heroicons-ellipsis-vertical"
           class="cursor-pointer text-2xl"
-        />
+        /> -->
+        <UButton>
+          <span>More</span>
+          <UIcon name="i-heroicons-chevron-down" class="text-lg" />
+        </UButton>
       </UDropdown>
     </div>
     <DeleteDialog

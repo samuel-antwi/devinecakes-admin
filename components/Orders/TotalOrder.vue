@@ -92,7 +92,7 @@ const orderTotal = (order: OrderType) => {
               </tr>
             </tbody>
           </table>
-          <div class="mt-10 flex justify-end items-end">
+          <div class="mt-10 px-4 flex justify-end items-end">
             <div class="w-[300px]">
               <div
                 class="flex font-semibold text-lg items-center justify-between"

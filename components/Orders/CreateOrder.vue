@@ -64,7 +64,7 @@ const handleCreateOrder = () => {
 </script>
 <template>
   <ClientOnly>
-    <div class="max-w-4xl mx-auto">
+    <div class="max-w-4xl px-4 md:px-8">
       <form class="flex flex-col space-y-10">
         <UCard>
           <div class="flex items-center mb-5">

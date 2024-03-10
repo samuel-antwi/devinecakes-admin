@@ -30,8 +30,8 @@ const columns = [
   { field: "paymentReference", header: "Payment Ref" },
   { field: "deliveryDate", header: "Delivery Date" },
   { field: "orderStatus", header: "Order Status" },
-  { field: "total", header: "Total" },
   { field: "receivedAmount", header: "Recieved" },
+  { field: "total", header: "Total" },
   { field: "balance", header: "Balance" },
 ];
 

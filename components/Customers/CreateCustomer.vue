@@ -6,7 +6,7 @@ const options = ["Mr", "Mrs", "Miss", "Dr", "Prof", "Rev", "Other"];
 </script>
 <template>
   <ClientOnly>
-    <div class="max-w-3xl mx-auto">
+    <div class="max-w-3xl px-4 md:px-8">
       <form class="flex flex-col space-y-10">
         <UCard>
           <h1 class="font-medium mb-6">Personal details</h1>
