@@ -3,6 +3,7 @@ import Toast from "primevue/toast";
 </script>
 <template>
   <div>
+    <orders-update-bar />
     <Toast position="top-center" />
     <div>
       <div class="hidden lg:block">

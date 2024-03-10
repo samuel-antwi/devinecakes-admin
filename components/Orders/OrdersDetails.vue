@@ -19,6 +19,7 @@ const statusClass = (data: any) => {
       "bg-yellow-50 text-yellow-700": data === "pending",
       "bg-green-50 text-green-700": data === "delivered",
       "bg-red-50 text-red-700": data === "cancelled",
+      "bg-red-50 text-red-600": data === "overdue",
     },
   ];
 };

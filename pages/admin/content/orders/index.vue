@@ -19,6 +19,7 @@ const statusClass = (data: any) => {
       "bg-yellow-50 text-yellow-700": data === "pending",
       "bg-green-50 text-green-700": data === "delivered",
       "bg-red-50 text-red-700": data === "cancelled",
+      "bg-red-50 text-red-600": data === "overdue",
     },
   ];
 };
@@ -49,7 +50,6 @@ const onRowSelect = () => {
   router.push(`/admin/content/orders/${id}`);
 };
 
-const nuxtApp = useNuxtApp();
 const {
   data: orders,
   pending,
@@ -108,7 +108,7 @@ onUnmounted(() => {
             sortMode="multiple"
             :value="orders"
             paginator
-            :rows="10"
+            :rows="7"
             dataKey="id"
             filterDisplay="menu"
             :rowsPerPageOptions="[5, 10, 20, 50]"
@@ -121,6 +121,7 @@ onUnmounted(() => {
             <template #loading> Loading customers data. Please wait. </template>
 
             <Column
+              style="min-width: 8rem"
               v-for="col of columns"
               :key="col.field"
               :header="col.header"
