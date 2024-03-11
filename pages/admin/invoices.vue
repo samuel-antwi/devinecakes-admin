@@ -3,6 +3,7 @@ import DataTable from "primevue/datatable";
 import Calendar from "primevue/calendar";
 import Column from "primevue/column";
 import type { CustomerType } from "@/types/customers";
+import moment from "moment";
 
 const router = useRouter();
 const { filters } = useGlobalStore();
@@ -63,8 +64,10 @@ const customerList = ref([] as Customer[]);
 const selectedField = ref();
 const selected = ref();
 
-const filterBy = ref("");
-const query = ref("");
+const route = useRoute();
+const filterBy = ref(route?.query?.filter_by || "");
+const query = ref(route?.query?.query || "");
+const initialQuery = ref(route?.query?.query || "");
 
 const onRowSelect = () => {
   router.push(`/admin/content/customers`);
@@ -92,14 +95,22 @@ const paginator = computed(() => {
   }
 });
 
-watch(query, (newVal) => {
-  if (newVal) {
-    router.push({
-      path: "/admin/invoices",
-      query: { filter_by: filterBy.value, query: query.value },
-    });
-  }
-});
+// Watchers
+watch(
+  query,
+  (newQuery) => {
+    if (filterBy.value === "date" && newQuery) {
+      const formattedForURL = moment(newQuery, "DD MMM YYYY").format(
+        "YYYY-MM-DD"
+      );
+      router.push({
+        path: "/admin/invoices",
+        query: { filter_by: filterBy.value, query: formattedForURL },
+      });
+    }
+  },
+  { immediate: true, deep: true }
+);
 
 // Get value for customer when filter by customer is selected
 watch(
@@ -126,6 +137,12 @@ onMounted(() => {
       };
     });
     customerList.value = customerOptions;
+  }
+
+  if (initialQuery.value) {
+    query.value = moment(initialQuery.value, "YYYY-MM-DD").format(
+      "DD MMM YYYY"
+    );
   }
 });
 

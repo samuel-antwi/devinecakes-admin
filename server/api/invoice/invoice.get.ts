@@ -1,11 +1,14 @@
 import { prisma } from "@/utils/prisma";
-import { defineEventHandler, getQuery } from "h3";
+
 
 export default defineEventHandler(async (event) => {
   const { filter_by, query } = getQuery(event) as {
     filter_by: string;
     query: string;
   };
+
+  console.log("Filter by:", filter_by);
+  console.log("Query:", query);
 
   let whereCondition = {};
 
