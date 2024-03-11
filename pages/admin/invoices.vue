@@ -13,7 +13,7 @@ definePageMeta({
 
 const myInputStyle = ref({
   input:
-    "relative disabled:cursor-not-allowed disabled:opacity-75 md:w-[200px] w-[140px] focus:outline-none border-0 form-input rounded-md placeholder-gray-400 dark:placeholder-gray-500 text-sm px-3.5 py-1.5 shadow-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400",
+    "relative disabled:cursor-not-allowed disabled:opacity-75 md:w-[200px] w-[120px] focus:outline-none border-0 form-input rounded-md placeholder-gray-400 dark:placeholder-gray-500 text-sm px-3.5 py-1.5 shadow-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400",
 });
 
 const globalFiltersList = [
@@ -167,7 +167,7 @@ function clearAllFilters() {
     </div>
     <UDivider class="py-3 md:hidden" />
     <div class="flex px-4 lg:px-8 items-center justify-between">
-      <div class="flex items-center space-x-4">
+      <div class="flex items-center md:space-x-4 space-x-2">
         <h1 class="md:text-xl text-sm font-medium">
           <span v-show="filterBy === 'all-invoices' || !filterBy"
             >All Invoices</span
@@ -183,18 +183,18 @@ function clearAllFilters() {
           dateFormat="dd M yy"
           v-model="query"
         />
-        <div class="hidden md:block">
+        <div>
           <UButton
             type="button"
             v-if="query"
             @click="clearAllFilters"
-            label="Clear All"
+            label="Clear"
           />
         </div>
       </div>
       <search-input class="hidden lg:block" />
     </div>
-    <div class="md:hidden flex justify-end">
+    <!-- <div class="md:hidden flex justify-end">
       <button
         class="bg-primary px-2 py-1 rounded-md text-white text-sm"
         type="button"
@@ -203,7 +203,7 @@ function clearAllFilters() {
       >
         Clear
       </button>
-    </div>
+    </div> -->
     <UDivider class="py-3" />
     <div>
       <div v-if="pending">
