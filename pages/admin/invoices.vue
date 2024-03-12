@@ -174,9 +174,11 @@ function clearAllFilters() {
           >
           <span v-show="filterBy === 'date'">Date Created</span>
         </h1>
-        <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
-          <UButton color="white" label="Filters" icon="i-heroicons-funnel" />
-        </UDropdown>
+        <ClientOnly>
+          <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
+            <UButton color="white" label="Filters" icon="i-heroicons-funnel" />
+          </UDropdown>
+        </ClientOnly>
         <Calendar
           :pt="myInputStyle"
           v-if="filterBy === 'date'"
@@ -194,16 +196,6 @@ function clearAllFilters() {
       </div>
       <search-input class="hidden lg:block" />
     </div>
-    <!-- <div class="md:hidden flex justify-end">
-      <button
-        class="bg-primary px-2 py-1 rounded-md text-white text-sm"
-        type="button"
-        v-if="query"
-        @click="clearAllFilters"
-      >
-        Clear
-      </button>
-    </div> -->
     <UDivider class="py-3" />
     <div>
       <div v-if="pending">
