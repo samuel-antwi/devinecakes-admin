@@ -176,7 +176,11 @@ function clearAllFilters() {
         </h1>
         <ClientOnly>
           <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
-            <UButton color="white" label="Filters" icon="i-heroicons-funnel" />
+            <UButton
+              color="white"
+              label="Filters"
+              icon="i-mdi-filter-variant"
+            />
           </UDropdown>
         </ClientOnly>
         <Calendar
