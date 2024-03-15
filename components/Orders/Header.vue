@@ -19,6 +19,8 @@ const cancelData = ref({
   id: route.params.id,
 });
 
+const { userPermissions } = usePermissions();
+
 const id = route.params.id;
 const params = {
   id: id.toString(),
@@ -116,11 +118,11 @@ const handleCancelOrder = async () => {
         />
         <span class="group-hover:text-primary">Print</span>
       </button>
-      <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
-        <!-- <UIcon
-          name="i-heroicons-ellipsis-vertical"
-          class="cursor-pointer text-2xl"
-        /> -->
+      <UDropdown
+        v-if="userPermissions.adminRole"
+        :items="items"
+        :popper="{ placement: 'bottom-start' }"
+      >
         <UButton>
           <span>More</span>
           <UIcon name="i-heroicons-chevron-down" class="text-lg" />

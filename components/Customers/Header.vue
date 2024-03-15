@@ -3,8 +3,13 @@ import CustomerDropDown from "@/components/Customers/CustomerDropDown.vue";
 import type { CustomerType } from "@/types/customers";
 const router = useRouter();
 
+console.log(router);
+
 const handleGoBack = () => {
-  router.push("/admin/content/customers");
+  const canGoBack = router.options.history.base !== "";
+  if (canGoBack) {
+    router.go(-1);
+  } else router.push("/admin/content/customers");
 };
 
 const props = defineProps<{

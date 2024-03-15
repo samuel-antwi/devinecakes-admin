@@ -4,6 +4,7 @@ import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import { formatDate } from "@/utils/date-format";
 import type { RealtimeChannel } from "@supabase/supabase-js";
+import { statusClass } from "@/libs/status-class";
 
 definePageMeta({
   layout: "auth",
@@ -12,17 +13,17 @@ definePageMeta({
 const { filters } = useGlobalStore();
 const selectedField = ref();
 
-const statusClass = (data: any) => {
-  return [
-    "px-2 py-1 capitalize text-sm font-medium shadow rounded-md",
-    {
-      "bg-yellow-50 text-yellow-700": data === "pending",
-      "bg-green-50 text-green-700": data === "delivered",
-      "bg-red-50 text-red-700": data === "cancelled",
-      "bg-red-50 text-red-600": data === "overdue",
-    },
-  ];
-};
+// const statusClass = (data: any) => {
+//   return [
+//     "px-2 py-1 capitalize text-sm font-medium shadow rounded-md",
+//     {
+//       "bg-yellow-50 text-yellow-700": data === "pending",
+//       "bg-green-50 text-green-700": data === "delivered",
+//       "bg-red-50 text-red-700": data === "cancelled",
+//       "bg-red-50 text-red-600": data === "overdue",
+//     },
+//   ];
+// };
 
 const columns = [
   { field: "orderDate", header: "Order Date" },

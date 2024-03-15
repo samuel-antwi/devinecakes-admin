@@ -6,20 +6,21 @@ import Accordion from "primevue/accordion";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import { formatDate } from "@/utils/date-format";
+import { statusClass } from "@/libs/status-class";
 const props = defineProps<{
   customer: CustomerType;
 }>();
 
-const statusClass = (data: any) => {
-  return [
-    "px-2 py-1 capitalize text-base font-medium shadow rounded-md",
-    {
-      "bg-yellow-50 text-yellow-700": data === "pending",
-      "bg-green-50 text-green-700": data === "delivered",
-      "bg-red-50 text-red-700": data === "cancelled",
-    },
-  ];
-};
+// const statusClass = (data: any) => {
+//   return [
+//     "px-2 py-1 capitalize text-base font-medium shadow rounded-md",
+//     {
+//       "bg-yellow-50 text-yellow-700": data === "pending",
+//       "bg-green-50 text-green-700": data === "delivered",
+//       "bg-red-50 text-red-700": data === "cancelled",
+//     },
+//   ];
+// };
 
 const columns = [
   { field: "orderNumber", header: "Order #" },
@@ -27,7 +28,7 @@ const columns = [
   { field: "orderDate", header: "Order Date" },
   { field: "deliveryDate", header: "Delivery Date" },
   { field: "orderStatus", header: "Status" },
-  { field: "amount", header: "Amount" },
+  { field: "total", header: "Total" },
 ];
 
 const customerOrders = ref<OrderType[]>([]);
@@ -82,7 +83,7 @@ onMounted(() => {
                   {{ formatDate(slotProps.data[col.field]) }}
                 </span>
                 <div v-else>
-                  <span v-show="col.field === 'amount'">GHS</span>
+                  <span v-show="col.field === 'total'">GHS</span>
                   <span v-if="col.field === 'orderStatus'">
                     <UBadge
                       :ui="{ rounded: 'rounded-full' }"
