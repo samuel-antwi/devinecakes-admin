@@ -66,7 +66,7 @@ const { editOrderModal } = useGlobalStore();
 const router = useRouter();
 
 const handleGoBack = () => {
-  router.push("/admin/content/orders");
+  router.go(-1);
 };
 
 const handleEdit = () => {

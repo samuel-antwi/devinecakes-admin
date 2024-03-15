@@ -44,9 +44,9 @@ onUnmounted(() => {
       <loading-spinner />
     </div>
     <div v-else>
-      <customers-header :customer="customer" class="mb-10 px-4 lg:px-8" />
+      <customers-header :customer class="mb-10 px-4 lg:px-8" />
       <UCard>
-        <customers-customer-tabs :customer="customer" />
+        <customers-customer-tabs :customer />
       </UCard>
     </div>
   </div>

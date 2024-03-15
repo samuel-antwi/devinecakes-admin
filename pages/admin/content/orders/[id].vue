@@ -9,12 +9,9 @@ definePageMeta({
 
 const route = useRoute();
 
-const {
-  data: order,
-  pending,
-  refresh: refreshOrders,
-} = await useAsyncData<OrderType>("orders-details", () =>
-  $fetch(`/api/orders/${route?.params?.id as string}`)
+const { data: order, refresh: refreshOrders } = await useAsyncData<OrderType>(
+  "orders-details",
+  () => $fetch(`/api/orders/${route?.params?.id as string}`)
 );
 
 const client = useSupabaseClient();
@@ -37,11 +34,11 @@ onUnmounted(() => {
 </script>
 <template>
   <div class="mb-10">
-    <orders-header :order="order" class="mb-10 px-4 lg:px-8" />
+    <orders-header :order class="mb-10 px-4 lg:px-8" />
     <UDivider />
     <div class="bg-white py-5">
-      <orders-details :order="order" />
-      <orders-edit :order="order" />
+      <orders-details :order />
+      <orders-edit :order />
     </div>
   </div>
 </template>

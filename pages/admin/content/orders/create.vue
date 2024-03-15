@@ -86,7 +86,7 @@ async function createOrder() {
       </template>
     </app-actions>
     <div class="mb-10">
-      <orders-create-order :customers="customers" @create-order="createOrder" />
+      <orders-create-order :customers @create-order="createOrder" />
     </div>
   </div>
 </template>
