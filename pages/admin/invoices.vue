@@ -1,19 +1,13 @@
 <script setup lang="ts">
 import DataTable from "primevue/datatable";
-import Calendar from "primevue/calendar";
 import Column from "primevue/column";
 import type { CustomerType } from "@/types/customers";
-import moment from "moment";
+import { statusClass } from "@/libs/status-class";
 
 const router = useRouter();
 const { filters } = useGlobalStore();
 definePageMeta({
   layout: "auth",
-});
-
-const myInputStyle = ref({
-  input:
-    "relative disabled:cursor-not-allowed disabled:opacity-75 md:w-[200px] w-[120px] focus:outline-none border-0 form-input rounded-md placeholder-gray-400 dark:placeholder-gray-500 text-sm px-3.5 py-1.5 shadow-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400",
 });
 
 const globalFiltersList = [
@@ -26,16 +20,6 @@ const globalFiltersList = [
   "balance",
 ];
 
-const statusClass = (data: any) => {
-  return [
-    "px-2 py-1 capitalize text-sm font-medium shadow rounded-md",
-    {
-      "bg-green-50 text-green-700":
-        data === "paid" || data === "partially paid",
-      "bg-red-50 text-red-700": data === "cancelled",
-    },
-  ];
-};
 const columns = [
   { field: "orderDate", header: "Date" },
   { field: "paymentReference", header: "Reference Number" },
@@ -62,9 +46,8 @@ interface Customer {
 
 const customerList = ref([] as Customer[]);
 const selectedField = ref();
-const selected = ref();
-
 const route = useRoute();
+const selected = ref("");
 const filterBy = ref(route?.query?.filter_by || "");
 const query = ref(route?.query?.query || "");
 const initialQuery = ref(route?.query?.query || "");
@@ -73,11 +56,7 @@ const onRowSelect = () => {
   router.push(`/admin/content/customers`);
 };
 
-const {
-  data: invoice,
-  pending,
-  refresh,
-} = await useAsyncData(
+const { data: invoice, pending } = await useAsyncData(
   "invoice",
   () =>
     $fetch(`/api/invoice/invoice`, {
@@ -95,34 +74,6 @@ const paginator = computed(() => {
   }
 });
 
-// Watchers
-watch(
-  query,
-  (newQuery) => {
-    if (filterBy.value === "date" && newQuery) {
-      const formattedForURL = moment(newQuery, "DD MMM YYYY").format(
-        "YYYY-MM-DD"
-      );
-      router.push({
-        path: "/admin/invoices",
-        query: { filter_by: filterBy.value, query: formattedForURL },
-      });
-    }
-  },
-  { immediate: true, deep: true }
-);
-
-// Get value for customer when filter by customer is selected
-watch(
-  selected,
-  (newVal) => {
-    if (newVal) {
-      query.value = newVal.label;
-    }
-  },
-  { deep: true }
-);
-
 function getFilterByValue(value: string) {
   filterBy.value = value;
   query.value = "";
@@ -138,23 +89,7 @@ onMounted(() => {
     });
     customerList.value = customerOptions;
   }
-
-  if (initialQuery.value) {
-    query.value = moment(initialQuery.value, "YYYY-MM-DD").format(
-      "DD MMM YYYY"
-    );
-  }
 });
-
-function clearAllFilters() {
-  filterBy.value = "";
-  query.value = "";
-  selected.value = "";
-  refresh();
-  router.push({
-    path: "/admin/invoices",
-  });
-}
 </script>
 
 <template>
@@ -167,37 +102,15 @@ function clearAllFilters() {
     </div>
     <UDivider class="py-3 md:hidden" />
     <div class="flex px-4 lg:px-8 items-center justify-between">
-      <div class="flex items-center md:space-x-4 space-x-2">
-        <h1 class="md:text-xl text-sm font-medium">
-          <span v-show="filterBy === 'all-invoices' || !filterBy"
-            >All Invoices</span
-          >
-          <span v-show="filterBy === 'date'">Date Created</span>
-        </h1>
-        <ClientOnly>
-          <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
-            <UButton
-              color="white"
-              label="Filters"
-              icon="i-mdi-filter-variant"
-            />
-          </UDropdown>
-        </ClientOnly>
-        <Calendar
-          :pt="myInputStyle"
-          v-if="filterBy === 'date'"
-          dateFormat="dd M yy"
-          v-model="query"
-        />
-        <div>
-          <UButton
-            type="button"
-            v-if="query"
-            @click="clearAllFilters"
-            label="Clear"
-          />
-        </div>
-      </div>
+      <global-filters
+        :url="'/admin/invoices'"
+        :filter-label="filterBy === 'date' ? 'Date Created' : 'All Invoices'"
+        :items
+        v-model:filter-by="filterBy"
+        v-model:query="query"
+        v-model:initial-query="initialQuery"
+        v-model:selected="selected"
+      />
       <search-input class="hidden lg:block" />
     </div>
     <UDivider class="py-3" />

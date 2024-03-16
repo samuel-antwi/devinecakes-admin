@@ -100,10 +100,10 @@ onUnmounted(() => {
 
             <Column
               sortable
-              v-for="col of columns"
-              :key="col.field"
-              :field="col.field"
-              :header="col.header"
+              v-for="{ field, header } of columns"
+              :key="field"
+              :field="field"
+              :header="header"
             >
             </Column>
           </DataTable>

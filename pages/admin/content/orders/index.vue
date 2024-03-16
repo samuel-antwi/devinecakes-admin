@@ -6,24 +6,29 @@ import { formatDate } from "@/utils/date-format";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { statusClass } from "@/libs/status-class";
 
+const route = useRoute();
+
 definePageMeta({
   layout: "auth",
 });
 
+const items = [
+  [
+    {
+      label: "By Date",
+      click: () => {
+        getFilterByValue("date");
+      },
+    },
+  ],
+];
+
 const { filters } = useGlobalStore();
 const selectedField = ref();
-
-// const statusClass = (data: any) => {
-//   return [
-//     "px-2 py-1 capitalize text-sm font-medium shadow rounded-md",
-//     {
-//       "bg-yellow-50 text-yellow-700": data === "pending",
-//       "bg-green-50 text-green-700": data === "delivered",
-//       "bg-red-50 text-red-700": data === "cancelled",
-//       "bg-red-50 text-red-600": data === "overdue",
-//     },
-//   ];
-// };
+const selected = ref("");
+const filterBy = ref(route?.query?.filter_by || "");
+const query = ref(route?.query?.query || "");
+const initialQuery = ref(route?.query?.query || "");
 
 const columns = [
   { field: "orderDate", header: "Order Date" },
@@ -55,9 +60,18 @@ const {
   data: orders,
   pending,
   refresh: refreshOrders,
-} = await useAsyncData(`orders`, () => $fetch(`/api/orders/orders`));
+} = await useAsyncData(
+  `orders`,
+  () =>
+    $fetch(`/api/orders/orders`, {
+      query: { filter_by: filterBy.value, query: query.value },
+    }),
+  {
+    watch: [query],
+  }
+);
 
-const noOrdrs = computed(() => orders?.value?.length === 0);
+const noOrdrs = computed(() => orders?.value?.length === 0 && !query.value);
 
 const client = useSupabaseClient();
 let realtimeChannel: RealtimeChannel;
@@ -76,6 +90,11 @@ onMounted(() => {
 onUnmounted(() => {
   client.removeChannel(realtimeChannel);
 });
+
+function getFilterByValue(value: string) {
+  filterBy.value = value;
+  query.value = "";
+}
 </script>
 <template>
   <div>
@@ -101,8 +120,19 @@ onUnmounted(() => {
           button-label="Create Order"
         />
       </div>
-      <div class="bg-white md:p-5 mb-10" v-else>
-        <ClientOnly>
+      <div v-else>
+        <div class="px-4 md:px-8 mb-5">
+          <global-filters
+            :url="'/admin/content/orders'"
+            :filter-label="filterBy === 'date' ? 'Date Created' : 'All Orders'"
+            :items
+            v-model:filter-by="filterBy"
+            v-model:query="query"
+            v-model:initial-query="initialQuery"
+            v-model:selected="selected"
+          />
+        </div>
+        <div class="bg-white md:p-5 mb-10">
           <DataTable
             ref="dt"
             v-model:filters="filters"
@@ -119,10 +149,8 @@ onUnmounted(() => {
             @rowSelect="onRowSelect"
           >
             <template #empty> No item found. </template>
-            <template #loading> Loading customers data. Please wait. </template>
-
             <Column
-              style="min-width: 8rem"
+              style="min-width: 9rem"
               v-for="col of columns"
               :key="col.field"
               :header="col.header"
@@ -161,7 +189,7 @@ onUnmounted(() => {
               </template>
             </Column>
           </DataTable>
-        </ClientOnly>
+        </div>
       </div>
     </div>
   </div>
