@@ -1,8 +1,4 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: "login-layout",
-});
-
 const supabase = useSupabaseClient();
 const isLoading = ref(false);
 const user = useSupabaseUser();
@@ -83,7 +79,7 @@ watch(
             <label class="mb-1" for="email">Email address</label>
             <UInput
               id="email"
-              size="sm"
+              size="md"
               v-model="formData.email"
               type="email"
             />
@@ -92,7 +88,7 @@ watch(
             <label class="mb-1" for="password">Password</label>
             <UInput
               id="password"
-              size="sm"
+              size="md"
               v-model="formData.password"
               type="password"
             />
@@ -100,7 +96,7 @@ watch(
           <div class="mt-5">
             <UButton type="submit" block class="rounded-full" label="Log in">
               <template #trailing>
-                <UIcon name="i-heroicons-lock-closed" />
+                <UIcon name="i-mdi-lock-outline" />
               </template>
             </UButton>
           </div>
