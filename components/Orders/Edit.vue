@@ -3,9 +3,15 @@ import type { OrderType } from "@/types/order";
 import { useGlobalStore } from "@/composables/globalStore";
 import { useToast } from "primevue/usetoast";
 import { isEqual, cloneDeep } from "lodash-es";
+import Calendar from "primevue/calendar";
 import { formatDate } from "@/utils/date-format";
 
 const toast = useToast();
+const minDate = ref(new Date());
+const myInputStyle = ref({
+  input:
+    "relative block w-full disabled:cursor-not-allowed disabled:opacity-75 focus:outline-none border-0 form-input rounded-tl-md rounded-bl-md placeholder-gray-400 dark:placeholder-gray-500 text-md px-3.5 py-2 shadow-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 pe-12",
+});
 
 const props = defineProps<{
   order: OrderType;
@@ -21,6 +27,10 @@ const canSaveChanges = computed(() => {
   return !isEqual(props.order, formData.value);
 });
 
+const formatteddate = computed(() => {
+  return formatDate(formData.value.deliveryDate);
+});
+
 const closeModal = () => {
   if (canSaveChanges.value) {
     if (confirm("You have unsaved changes. Are you sure you want to close?")) {
@@ -34,6 +44,7 @@ const closeModal = () => {
 const loading = ref(false);
 async function handleSubmit() {
   loading.value = true;
+  console.log("FORM_DATA", formData.value);
   try {
     const order = await $fetch("/api/orders/update", {
       method: "PUT",
@@ -171,10 +182,14 @@ async function handleSubmit() {
             <label class="text-lg font-medium block mb-2" for="calender"
               >Delivery Date *</label
             >
-            <pv-calendar
-              :placeholder="
-                formData.orderDate ? formatDate(formData.orderDate) : ''
-              "
+            <Calendar
+              showIcon
+              :pt="myInputStyle"
+              :minDate="minDate"
+              :manualInput="false"
+              v-model="formData.deliveryDate"
+              dateFormat="dd M yy"
+              inputId="delivery_date"
             />
           </div>
           <div>

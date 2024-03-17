@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   ui: {
     icons: ['mdi']
   },
-  debug: true,
+  // debug: true,
   supabase: {
     redirectOptions: {
       login: "/login",

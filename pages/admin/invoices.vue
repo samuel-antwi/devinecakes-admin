@@ -3,6 +3,7 @@ import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import type { CustomerType } from "@/types/customers";
 import { statusClass } from "@/libs/status-class";
+import moment from "moment";
 
 const router = useRouter();
 const { filters } = useGlobalStore();
@@ -50,7 +51,7 @@ const route = useRoute();
 const selected = ref("");
 const filterBy = ref(route?.query?.filter_by || "");
 const query = ref(route?.query?.query || "");
-const initialQuery = ref(route?.query?.query || "");
+const initialQuery = route?.query?.query || "";
 
 const onRowSelect = () => {
   router.push(`/admin/content/customers`);
@@ -80,6 +81,9 @@ function getFilterByValue(value: string) {
 }
 
 onMounted(() => {
+  if (filterBy.value === "date" && initialQuery) {
+    query.value = moment(initialQuery, "YYYY-MM-DD").format("DD MMM YYYY");
+  }
   if (invoice?.value?.length) {
     const customers = invoice?.value?.map((customer: any) => customer.customer);
     const customerOptions = customers.map((customer: CustomerType) => {
@@ -103,6 +107,7 @@ onMounted(() => {
     <UDivider class="py-3 md:hidden" />
     <div class="flex px-4 lg:px-8 items-center justify-between">
       <global-filters
+        :label="'Invoices'"
         :url="'/admin/invoices'"
         :filter-label="filterBy === 'date' ? 'Date Created' : 'All Invoices'"
         :items

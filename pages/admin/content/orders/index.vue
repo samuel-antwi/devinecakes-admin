@@ -5,6 +5,7 @@ import Column from "primevue/column";
 import { formatDate } from "@/utils/date-format";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { statusClass } from "@/libs/status-class";
+import moment from "moment";
 
 const route = useRoute();
 
@@ -15,9 +16,25 @@ definePageMeta({
 const items = [
   [
     {
-      label: "By Date",
+      label: "Date Ordered",
       click: () => {
         getFilterByValue("date");
+      },
+    },
+  ],
+  [
+    {
+      label: "Due Today",
+      click: () => {
+        getFilterByValue("due-today");
+      },
+    },
+  ],
+  [
+    {
+      label: "Due Tomorrow",
+      click: () => {
+        getFilterByValue("due-tomorrow");
       },
     },
   ],
@@ -28,7 +45,7 @@ const selectedField = ref();
 const selected = ref("");
 const filterBy = ref(route?.query?.filter_by || "");
 const query = ref(route?.query?.query || "");
-const initialQuery = ref(route?.query?.query || "");
+const initialQuery = route?.query?.query || "";
 
 const columns = [
   { field: "orderDate", header: "Order Date" },
@@ -76,6 +93,9 @@ const noOrdrs = computed(() => orders?.value?.length === 0 && !query.value);
 const client = useSupabaseClient();
 let realtimeChannel: RealtimeChannel;
 onMounted(() => {
+  if (filterBy.value === "date" && initialQuery) {
+    query.value = moment(initialQuery, "YYYY-MM-DD").format("DD MMM YYYY");
+  }
   realtimeChannel = client
     .channel("public:orders")
     .on(
@@ -92,8 +112,18 @@ onUnmounted(() => {
 });
 
 function getFilterByValue(value: string) {
-  filterBy.value = value;
   query.value = "";
+  if (value === "date") {
+    filterBy.value = value;
+  } else if (value === "due-today") {
+    filterBy.value = value;
+    const today = moment().format("YYYY-MM-DD");
+    query.value = today;
+  } else if (value === "due-tomorrow") {
+    filterBy.value = value;
+    const tomorrow = moment().add(1, "days").format("YYYY-MM-DD");
+    query.value = tomorrow;
+  }
 }
 </script>
 <template>
@@ -123,8 +153,8 @@ function getFilterByValue(value: string) {
       <div v-else>
         <div class="px-4 md:px-8 mb-5">
           <global-filters
+            :label="'Orders'"
             :url="'/admin/content/orders'"
-            :filter-label="filterBy === 'date' ? 'Date Created' : 'All Orders'"
             :items
             v-model:filter-by="filterBy"
             v-model:query="query"

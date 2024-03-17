@@ -10,9 +10,10 @@ export default defineEventHandler(async (event) => {
   console.log("Query:", query);
 
   let whereCondition = {};
+  const isDateFilter = filter_by === "date" || filter_by === "due-today" || filter_by === 'due-tomorrow';
 
   // Check if the query param exists and is related to a date filter
-  if ((filter_by === "date" || filter_by === "deliveryDate") && query) {
+  if ((filter_by === "date" || filter_by === "due-today" || filter_by === 'due-tomorrow') && query) {
     // Remove quotes that might be surrounding the query parameter
     const cleanedQuery = query.replace(/^"|"$/g, "");
 
