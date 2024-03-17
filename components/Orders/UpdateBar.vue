@@ -1,9 +1,10 @@
 <script setup lang="ts">
-const isVisible = ref(false);
+import { useStorage } from "@vueuse/core";
+const isVisible = useStorage("update-bar-visible", false);
 
 const refresh = async () => {
   await updateCronJob();
-  isVisible.value = false;
+  isVisible.value = null;
 };
 
 // Function to calculate the milliseconds until the next midnight
@@ -45,13 +46,15 @@ async function updateCronJob() {
 </script>
 
 <template>
-  <div v-if="isVisible" class="bg-[#FCFFEC]">
-    <div class="flex items-center justify-center py-2.5">
-      <p class="mr-3 text-sm">
-        There have been an update on Order data. Refresh this tab to get the
-        latest update.
-      </p>
-      <UButton size="sm" label="Refresh" color="primary" @click="refresh" />
+  <ClientOnly>
+    <div v-if="isVisible" class="bg-[#FCFFEC]">
+      <div class="flex items-center justify-center py-2.5">
+        <p class="mr-3 text-sm">
+          There have been an update on Order data. Refresh this tab to get the
+          latest update.
+        </p>
+        <UButton size="sm" label="Refresh" color="primary" @click="refresh" />
+      </div>
     </div>
-  </div>
+  </ClientOnly>
 </template>
