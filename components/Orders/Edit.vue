@@ -88,7 +88,7 @@ async function handleSubmit() {
           <div class="flex items-center space-x-4 mb-10">
             <div class="w-full">
               <label
-                class="text-lg font-medium mb-2 block"
+                class="md:text-lg text-sm font-medium mb-2 block"
                 for="payment reference"
                 >Payment Reference *</label
               >
@@ -99,7 +99,9 @@ async function handleSubmit() {
               />
             </div>
             <div class="w-full">
-              <label class="text-lg font-medium mb-2 block" for="amount"
+              <label
+                class="md:text-lg text-sm font-medium mb-2 block"
+                for="amount"
                 >Amount Received *</label
               >
               <UInput
@@ -112,7 +114,9 @@ async function handleSubmit() {
           </div>
           <div class="flex items-center space-x-4 mb-10">
             <div class="w-full">
-              <label class="text-lg font-medium mb-2 block" for="payment status"
+              <label
+                class="md:text-lg text-sm font-medium mb-2 block"
+                for="payment status"
                 >Payment Status *</label
               >
               <UInputMenu
@@ -123,7 +127,9 @@ async function handleSubmit() {
               />
             </div>
             <div class="w-full">
-              <label class="text-lg font-medium mb-2 block" for="cake"
+              <label
+                class="md:text-lg text-sm font-medium mb-2 block"
+                for="cake"
                 >Cake *</label
               >
               <UInputMenu
@@ -139,7 +145,9 @@ async function handleSubmit() {
           </div>
           <div class="flex items-center space-x-4 mb-10">
             <div class="w-full">
-              <label class="text-lg font-medium mb-2 block" for="cake"
+              <label
+                class="md:text-lg text-sm font-medium mb-2 block"
+                for="cake"
                 >Quantity</label
               >
               <UInputMenu
@@ -151,7 +159,7 @@ async function handleSubmit() {
             </div>
             <div class="w-full">
               <label
-                class="text-lg font-medium mb-2 block"
+                class="md:text-lg text-sm font-medium mb-2 block"
                 for="delivery method"
                 >Delivery Method</label
               >
@@ -166,7 +174,9 @@ async function handleSubmit() {
           </div>
           <div class="mb-10">
             <div class="w-full">
-              <label class="text-lg font-medium mb-2 block" for="order status"
+              <label
+                class="md:text-lg text-sm font-medium mb-2 block"
+                for="order status"
                 >Order Status</label
               >
               <UInputMenu
@@ -179,7 +189,9 @@ async function handleSubmit() {
             </div>
           </div>
           <div class="mb-10">
-            <label class="text-lg font-medium block mb-2" for="calender"
+            <label
+              class="md:text-lg text-sm font-medium block mb-2"
+              for="calender"
               >Delivery Date *</label
             >
             <Calendar
@@ -193,7 +205,9 @@ async function handleSubmit() {
             />
           </div>
           <div>
-            <label class="text-lg font-medium mb-2 block" for="description"
+            <label
+              class="md:text-lg text-sm font-medium mb-2 block"
+              for="description"
               >Description</label
             >
             <UTextarea
