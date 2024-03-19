@@ -50,7 +50,6 @@ const getFilterLabel = computed(() => {
 watch(
   query,
   (newVal) => {
-    // console.log("QUERY_BEFORE_ROUTER", newVal);
     if (filterBy.value === "date" && newVal) {
       const formattedForURL = moment(newVal, "DD MMM YYYY").format(
         "YYYY-MM-DD"
@@ -59,7 +58,6 @@ watch(
         path: props.url,
         query: { filter_by: filterBy.value, query: formattedForURL },
       });
-      // console.log("QUERY_AFTER_ROUTER", formattedForURL);
     } else if (filterBy.value === "due-today" && newVal) {
       router.push({
         path: props.url,

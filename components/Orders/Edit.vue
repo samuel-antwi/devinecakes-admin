@@ -4,7 +4,6 @@ import { useGlobalStore } from "@/composables/globalStore";
 import { useToast } from "primevue/usetoast";
 import { isEqual, cloneDeep } from "lodash-es";
 import Calendar from "primevue/calendar";
-import { formatDate } from "@/utils/date-format";
 
 const toast = useToast();
 const minDate = ref(new Date());
@@ -20,15 +19,24 @@ const props = defineProps<{
 const { editOrderModal } = useGlobalStore();
 
 // make deep copy of customer object
-// const formData = ref<OrderType>(JSON.parse(JSON.stringify(props.order)));
 const formData = ref<OrderType>(cloneDeep(props.order));
 
 const canSaveChanges = computed(() => {
   return !isEqual(props.order, formData.value);
 });
 
-const formatteddate = computed(() => {
-  return formatDate(formData.value.deliveryDate);
+// Format delivery date
+const formattedDeliveryDate = computed({
+  get() {
+    const options = { day: "numeric", month: "short", year: "numeric" };
+    return new Date(formData.value.deliveryDate).toLocaleDateString(
+      undefined,
+      options
+    );
+  },
+  set(newValue) {
+    formData.value.deliveryDate = newValue;
+  },
 });
 
 const closeModal = () => {
@@ -46,7 +54,7 @@ async function handleSubmit() {
   loading.value = true;
   console.log("FORM_DATA", formData.value);
   try {
-    const order = await $fetch("/api/orders/update", {
+    await $fetch("/api/orders/update", {
       method: "PUT",
       body: formData.value,
     });
@@ -69,6 +77,18 @@ async function handleSubmit() {
     throw new Error(e.message);
   }
 }
+
+watch(
+  () => formData.value.deliveryDate,
+  (newDate) => {
+    const today = new Date();
+    // set time to 00:00:00 to compare only the date part
+    today.setHours(0, 0, 0, 0);
+    if (new Date(newDate) > today) {
+      formData.value.orderStatus = "Pending";
+    }
+  }
+);
 </script>
 
 <template>
@@ -199,7 +219,7 @@ async function handleSubmit() {
               :pt="myInputStyle"
               :minDate="minDate"
               :manualInput="false"
-              v-model="formData.deliveryDate"
+              v-model="formattedDeliveryDate"
               dateFormat="dd M yy"
               inputId="delivery_date"
             />

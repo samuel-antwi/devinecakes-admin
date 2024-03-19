@@ -87,7 +87,7 @@ const orderTotal = (order: OrderType) => {
                   GHS{{ order?.balance }}
                 </td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                  GHS{{ orderTotal(order) }}
+                  GHS{{ order.total }}
                 </td>
               </tr>
             </tbody>
@@ -98,9 +98,7 @@ const orderTotal = (order: OrderType) => {
                 class="flex font-semibold text-lg items-center justify-between"
               >
                 <h1>Sub Total</h1>
-                <h1 class="font-medium text-gray-800">
-                  GHS{{ orderTotal(order) }}
-                </h1>
+                <h1 class="font-medium text-gray-800">GHS{{ order.total }}</h1>
               </div>
               <p class="text-sm text-gray-700">
                 Total Quantity: <span>{{ order.quantity }}</span>
@@ -114,7 +112,7 @@ const orderTotal = (order: OrderType) => {
                 >
                   <h1>Total</h1>
                   <h1 class="font-medium text-gray-800">
-                    GHS{{ orderTotal(order) }}
+                    GHS{{ order.total }}
                   </h1>
                 </div>
               </div>

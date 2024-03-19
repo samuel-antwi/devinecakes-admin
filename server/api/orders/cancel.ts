@@ -13,6 +13,9 @@ export default defineEventHandler(async (event) => {
       data: {
         orderStatus: body.orderStatus,
         paymentStatus: body.paymentStatus,
+        receivedAmount: 0,
+        balance: 0,
+        total: 0,
       },
     });
     return order;
