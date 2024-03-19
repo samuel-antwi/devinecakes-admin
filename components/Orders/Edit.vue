@@ -105,129 +105,145 @@ watch(
           />
         </template>
         <form>
-          <div class="flex items-center space-x-4 mb-10">
-            <div class="w-full">
-              <label
-                class="md:text-lg text-sm font-medium mb-2 block"
-                for="payment reference"
-                >Payment Reference *</label
+          <UCard class="mb-10">
+            <h1 class="mb-5 font-medium">Payment Details</h1>
+            <div class="flex items-center space-x-4 mb-10">
+              <div class="w-full">
+                <label
+                  class="text-sm font-medium mb-2 block"
+                  for="payment reference"
+                  >Payment Reference *</label
+                >
+                <UInput
+                  v-model="formData.paymentReference"
+                  id="payment reference"
+                  size="md"
+                />
+              </div>
+              <div class="w-full">
+                <label class="text-sm font-medium mb-2 block" for="amount"
+                  >Price*</label
+                >
+                <UInput
+                  type="number"
+                  v-model="formData.price"
+                  id="amount"
+                  size="md"
+                />
+              </div>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-full">
+                <label
+                  class="text-sm font-medium mb-2 block"
+                  for="payment status"
+                  >Payment Status *</label
+                >
+                <UInputMenu
+                  :options="['Paid', 'Partially Paid', 'Not Paid']"
+                  v-model="formData.paymentStatus"
+                  id="payment status"
+                  size="md"
+                />
+              </div>
+              <div class="w-full">
+                <label
+                  class="text-sm font-medium mb-2 block"
+                  for="amount received"
+                  >Amount received</label
+                >
+                <UInput
+                  type="number"
+                  :ui="{ textTransform: 'capitalize' }"
+                  v-model="formData.receivedAmount"
+                  id="amount received"
+                  size="md"
+                />
+              </div>
+            </div>
+          </UCard>
+          <UCard class="mb-10">
+            <h1 class="mb-5 font-medium">Order Details</h1>
+            <div class="flex items-center space-x-4 mb-10">
+              <div class="w-full">
+                <label class="text-sm font-medium mb-2 block" for="cake"
+                  >Quantity</label
+                >
+                <UInputMenu
+                  :options="['1', '2', '3', '4', '5']"
+                  v-model="formData.quantity"
+                  id="quantity"
+                  size="md"
+                />
+              </div>
+              <div class="w-full">
+                <label
+                  class="text-sm font-medium mb-2 block"
+                  for="delivery method"
+                  >Delivery Method</label
+                >
+                <UInputMenu
+                  :options="['Shop Pickup', 'Home Delivery']"
+                  v-model="formData.deliveryMethod"
+                  id="delivery method"
+                  size="md"
+                >
+                </UInputMenu>
+              </div>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-full">
+                <label class="text-sm font-medium mb-2 block" for="order status"
+                  >Order Status</label
+                >
+                <UInputMenu
+                  :ui="{ textTransform: 'capitalize' }"
+                  :options="['Delivered', 'Pending']"
+                  v-model="formData.orderStatus"
+                  id="order status"
+                  size="md"
+                />
+              </div>
+              <div class="w-full">
+                <label class="text-sm font-medium mb-2 block" for="cake"
+                  >Cake *</label
+                >
+                <UInputMenu
+                  class="capitalize"
+                  multiple
+                  :options="[
+                    'Wedding Cake',
+                    'Celebration Cake',
+                    'Birthday Cake',
+                  ]"
+                  v-model="formData.cakeType"
+                  :ui="{ spacing: 'py-4' }"
+                  id="cake"
+                  size="md"
+                />
+              </div>
+            </div>
+          </UCard>
+          <UCard class="mb-10">
+            <h1 class="mb-5 font-medium">Delivery Details</h1>
+            <div>
+              <label class="text-sm font-medium block mb-2" for="calender"
+                >Delivery Date *</label
               >
-              <UInput
-                v-model="formData.paymentReference"
-                id="payment reference"
-                size="md"
+              <Calendar
+                class="w-full"
+                showIcon
+                :pt="myInputStyle"
+                :minDate="minDate"
+                :manualInput="false"
+                v-model="formattedDeliveryDate"
+                dateFormat="dd M yy"
+                inputId="delivery_date"
               />
             </div>
-            <div class="w-full">
-              <label
-                class="md:text-lg text-sm font-medium mb-2 block"
-                for="amount"
-                >Amount Received *</label
-              >
-              <UInput
-                type="number"
-                v-model="formData.receivedAmount"
-                id="amount"
-                size="md"
-              />
-            </div>
-          </div>
-          <div class="flex items-center space-x-4 mb-10">
-            <div class="w-full">
-              <label
-                class="md:text-lg text-sm font-medium mb-2 block"
-                for="payment status"
-                >Payment Status *</label
-              >
-              <UInputMenu
-                :options="['Paid', 'Partially Paid', 'Not Paid']"
-                v-model="formData.paymentStatus"
-                id="payment status"
-                size="md"
-              />
-            </div>
-            <div class="w-full">
-              <label
-                class="md:text-lg text-sm font-medium mb-2 block"
-                for="cake"
-                >Cake *</label
-              >
-              <UInputMenu
-                class="capitalize"
-                multiple
-                :options="['Wedding Cake', 'Celebration Cake', 'Birthday Cake']"
-                v-model="formData.cakeType"
-                :ui="{ spacing: 'py-4' }"
-                id="cake"
-                size="md"
-              />
-            </div>
-          </div>
-          <div class="flex items-center space-x-4 mb-10">
-            <div class="w-full">
-              <label
-                class="md:text-lg text-sm font-medium mb-2 block"
-                for="cake"
-                >Quantity</label
-              >
-              <UInputMenu
-                :options="['1', '2', '3', '4', '5']"
-                v-model="formData.quantity"
-                id="quantity"
-                size="md"
-              />
-            </div>
-            <div class="w-full">
-              <label
-                class="md:text-lg text-sm font-medium mb-2 block"
-                for="delivery method"
-                >Delivery Method</label
-              >
-              <UInputMenu
-                :options="['Shop Pickup', 'Home Delivery']"
-                v-model="formData.deliveryMethod"
-                id="delivery method"
-                size="md"
-              >
-              </UInputMenu>
-            </div>
-          </div>
-          <div class="mb-10">
-            <div class="w-full">
-              <label
-                class="md:text-lg text-sm font-medium mb-2 block"
-                for="order status"
-                >Order Status</label
-              >
-              <UInputMenu
-                :ui="{ textTransform: 'capitalize' }"
-                :options="['Delivered', 'Pending']"
-                v-model="formData.orderStatus"
-                id="order status"
-                size="md"
-              />
-            </div>
-          </div>
-          <div class="mb-10">
-            <label
-              class="md:text-lg text-sm font-medium block mb-2"
-              for="calender"
-              >Delivery Date *</label
-            >
-            <Calendar
-              showIcon
-              :pt="myInputStyle"
-              :minDate="minDate"
-              :manualInput="false"
-              v-model="formattedDeliveryDate"
-              dateFormat="dd M yy"
-              inputId="delivery_date"
-            />
-          </div>
+          </UCard>
           <div>
-            <label
-              class="md:text-lg text-sm font-medium mb-2 block"
-              for="description"
+            <label class="text-sm font-medium mb-2 block" for="description"
               >Description</label
             >
             <UTextarea
