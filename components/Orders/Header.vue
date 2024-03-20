@@ -39,6 +39,9 @@ const items = [
       click: () => {
         handleEdit();
       },
+      disabled:
+        props.order.orderStatus === "cancelled" ||
+        props.order.orderStatus === "delivered",
     },
   ],
   [

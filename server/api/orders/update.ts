@@ -24,6 +24,7 @@ export default defineEventHandler(async (event) => {
         receivedAmount: body.receivedAmount,
         balance: body.balance,
         price: body.price,
+        total: body.quantity * body.price,
       },
     });
     return order;
