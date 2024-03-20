@@ -48,7 +48,7 @@ async function updateCronJob() {
 <template>
   <ClientOnly>
     <div v-if="isVisible" class="bg-[#FCFFEC]">
-      <div class="flex items-center justify-center py-2.5">
+      <div class="flex items-center justify-center px-4 py-2.5">
         <p class="mr-3 text-sm">
           There have been an update on Order data. Refresh this tab to get the
           latest update.

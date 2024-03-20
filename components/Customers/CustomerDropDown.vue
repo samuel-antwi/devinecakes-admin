@@ -19,14 +19,16 @@ const items = [
   [
     {
       label: "Edit",
-      icon: "i-heroicons-pencil-square-20-solid",
+      icon: "i-mdi-pencil",
       click: () => {
         isOpen.value = true;
       },
     },
+  ],
+  [
     {
       label: "Delete",
-      icon: "i-heroicons-trash-20-solid",
+      icon: "i-mdi-trash-can-outline",
       click: () => {
         isDeleteOpen.value = true;
       },

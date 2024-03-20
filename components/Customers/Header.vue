@@ -19,7 +19,7 @@ const props = defineProps<{
         name="i-heroicons-chevron-left"
         class="text-gray-600 mr-3 cursor-pointer hover:text-primary text-2xl"
       />
-      <h1 class="flex items-center space-x-2 text-2xl text-gray-800">
+      <h1 class="flex items-center space-x-2 text-sm md:text-2xl text-gray-800">
         <span v-if="customer.salutation">{{ customer.salutation }}.</span>
         <span>{{ customer.firstName }}</span>
         <span>{{ customer.surname }}</span>

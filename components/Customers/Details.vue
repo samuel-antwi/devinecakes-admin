@@ -15,7 +15,7 @@ const props = defineProps<{
     </div>
     <div class="flex">
       <div class="border w-12 h-12 flex items-center justify-center rounded">
-        <UIcon name=" i-heroicons-user" class="text-3xl" />
+        <UIcon name=" i-mdi-user-outline" class="text-3xl" />
       </div>
       <div class="ml-12">
         <h1 clas class="flex items-center space-x-1">
