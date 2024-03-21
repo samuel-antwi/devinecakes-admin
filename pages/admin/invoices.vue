@@ -54,7 +54,7 @@ const query = ref(route?.query?.query || "");
 const initialQuery = route?.query?.query || "";
 
 const onRowSelect = () => {
-  router.push(`/admin/content/customers`);
+  router.push(`/admin/content/orders/${selectedField.value.id}`);
 };
 
 const { data: invoice, pending } = await useAsyncData(
@@ -118,12 +118,12 @@ onMounted(() => {
       />
       <search-input class="hidden lg:block" />
     </div>
-    <UDivider class="py-3" />
+
     <div>
       <div v-if="pending">
         <loading-spinner />
       </div>
-      <div v-else class="bg-white md:p-5 mt-5 mb-10">
+      <div v-else class="bg-white mt-5 md:p-5 mb-10">
         <DataTable
           ref="dt"
           v-model:filters="filters"

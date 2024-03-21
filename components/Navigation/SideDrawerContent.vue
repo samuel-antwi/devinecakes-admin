@@ -36,7 +36,7 @@ const isUsersTab = computed(() => {
             name="i-heroicons-archive-box"
           />
         </NuxtLink>
-        <NuxtLink
+        <!-- <NuxtLink
           :class="[isUsersTab ? 'dark:bg-[#21262E] bg-[#F0F4F9]' : '']"
           class="px-5 py-3 flex items-center justify-center"
           to="/admin/users"
@@ -50,7 +50,7 @@ const isUsersTab = computed(() => {
             class="text-2xl"
             name="i-heroicons-users"
           />
-        </NuxtLink>
+        </NuxtLink> -->
         <div class="absolute lg:bottom-28 bottom-52">
           <button
             @click="logout"

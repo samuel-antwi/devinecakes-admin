@@ -11,23 +11,13 @@ const props = defineProps<{
   customer: CustomerType;
 }>();
 
-// const statusClass = (data: any) => {
-//   return [
-//     "px-2 py-1 capitalize text-base font-medium shadow rounded-md",
-//     {
-//       "bg-yellow-50 text-yellow-700": data === "pending",
-//       "bg-green-50 text-green-700": data === "delivered",
-//       "bg-red-50 text-red-700": data === "cancelled",
-//     },
-//   ];
-// };
-
 const columns = [
   { field: "orderNumber", header: "Order #" },
   { field: "paymentReference", header: "Payment Ref" },
   { field: "orderDate", header: "Order Date" },
   { field: "deliveryDate", header: "Delivery Date" },
-  { field: "orderStatus", header: "Status" },
+  { field: "orderStatus", header: "Order Status" },
+  { field: "paymentStatus", header: "Payment Status" },
   { field: "total", header: "Total" },
 ];
 
@@ -43,6 +33,10 @@ const onRowSelect = () => {
   router.push(`/admin/content/orders/${id}`);
 };
 
+const gotoCreateOrder = () => {
+  router.push(`/admin/content/orders/create?customer_id=${props.customer.id}`);
+};
+
 onMounted(() => {
   customerOrders.value = props.customer.orders ?? [];
 });
@@ -50,9 +44,15 @@ onMounted(() => {
 <template>
   <div>
     <Accordion :activeIndex="0">
-      <AccordionTab header="Purchase Orders">
+      <AccordionTab header="Sales Orders">
         <div v-if="!customerOrders.length">
-          <h1>No purchase orders found</h1>
+          <h1 class="mb-3">No sales orders found.</h1>
+          <button
+            @click="gotoCreateOrder"
+            class="bg-primary flex items-center justify-center hover:bg-primay-700 text-white px-3 py-1 rounded-md"
+          >
+            <span>New order</span>
+          </button>
         </div>
         <div v-else>
           <DataTable
@@ -84,7 +84,12 @@ onMounted(() => {
                 </span>
                 <div v-else>
                   <span v-show="col.field === 'total'">GHS</span>
-                  <span v-if="col.field === 'orderStatus'">
+                  <span
+                    v-if="
+                      col.field === 'orderStatus' ||
+                      col.field === 'paymentStatus'
+                    "
+                  >
                     <UBadge
                       :ui="{ rounded: 'rounded-full' }"
                       :class="statusClass(slotProps.data[col.field])"

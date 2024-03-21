@@ -39,6 +39,5 @@ const showContentText = computed(() => {
         <slot name="actions" />
       </div>
     </div>
-    <UDivider class="mt-6 mb-8" />
   </div>
 </template>

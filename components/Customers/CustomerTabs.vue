@@ -3,7 +3,7 @@ import TabView from "primevue/tabview";
 import TabPanel from "primevue/tabpanel";
 import type { CustomerType } from "@/types/customers";
 
-const props = defineProps<{
+defineProps<{
   customer: CustomerType;
 }>();
 </script>
@@ -18,7 +18,7 @@ const props = defineProps<{
       </TabPanel>
       <TabPanel header="Transactions">
         <div class="mt-10">
-          <customers-transactions-purchase-orders :customer="customer" />
+          <customers-transactions-sales-orders :customer="customer" />
         </div>
       </TabPanel>
     </TabView>

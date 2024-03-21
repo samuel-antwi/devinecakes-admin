@@ -57,7 +57,7 @@ onUnmounted(() => {
 <template>
   <div>
     <app-actions
-      class="px-4 lg:px-8"
+      class="px-4 lg:px-8 mb-5"
       :title="'Customers'"
       :icon="'i-heroicons-user-group'"
     >

@@ -22,8 +22,6 @@ const initialQuery = defineModel("initialQuery");
 const selected = defineModel("selected");
 
 const route = useRoute();
-console.log("ROUTE", route.query);
-console.log("INITIAL_QUERY", initialQuery.value);
 
 watch(
   selected,
@@ -38,6 +36,8 @@ watch(
 const getFilterLabel = computed(() => {
   if (filterBy.value === "date") {
     return "Date Ordered";
+  } else if (filterBy.value === "due-date") {
+    return "Due Date";
   } else if (filterBy.value === "due-today") {
     return "Due Today";
   } else if (filterBy.value === "due-tomorrow") {
@@ -50,15 +50,23 @@ const getFilterLabel = computed(() => {
 watch(
   query,
   (newVal) => {
-    if (filterBy.value === "date" && newVal) {
+    if (
+      filterBy.value === "date" ||
+      (filterBy.value === "due-date" && newVal)
+    ) {
       const formattedForURL = moment(newVal, "DD MMM YYYY").format(
         "YYYY-MM-DD"
       );
-      router.push({
-        path: props.url,
-        query: { filter_by: filterBy.value, query: formattedForURL },
-      });
-    } else if (filterBy.value === "due-today" && newVal) {
+      if (query.value) {
+        router.push({
+          path: props.url,
+          query: { filter_by: filterBy.value, query: formattedForURL },
+        });
+      }
+    } else if (
+      filterBy.value === "due-today" ||
+      (filterBy.value === "due-tomorrow" && newVal)
+    ) {
       router.push({
         path: props.url,
         query: { filter_by: filterBy.value, query: newVal },
@@ -90,7 +98,7 @@ function clearAllFilters() {
     </ClientOnly>
     <Calendar
       :pt="myInputStyle"
-      v-if="filterBy === 'date'"
+      v-if="filterBy === 'date' || filterBy === 'due-date'"
       dateFormat="dd M yy"
       v-model="query"
       placeholder="Select a date"

@@ -70,6 +70,7 @@ const enableSaveButton = computed(() => {
         />
       </template>
     </app-actions>
+    <UDivider class="py-5" />
     <div class="mb-5">
       <customers-create-customer />
     </div>

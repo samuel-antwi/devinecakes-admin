@@ -24,6 +24,14 @@ const items = [
   ],
   [
     {
+      label: "Due Date",
+      click: () => {
+        getFilterByValue("due-date");
+      },
+    },
+  ],
+  [
+    {
       label: "Due Today",
       click: () => {
         getFilterByValue("due-today");
@@ -93,7 +101,10 @@ const noOrdrs = computed(() => orders?.value?.length === 0 && !query.value);
 const client = useSupabaseClient();
 let realtimeChannel: RealtimeChannel;
 onMounted(() => {
-  if (filterBy.value === "date" && initialQuery) {
+  if (
+    filterBy.value === "date" ||
+    (filterBy.value === "due-date" && initialQuery)
+  ) {
     query.value = moment(initialQuery, "YYYY-MM-DD").format("DD MMM YYYY");
   }
   realtimeChannel = client
@@ -113,7 +124,7 @@ onUnmounted(() => {
 
 function getFilterByValue(value: string) {
   query.value = "";
-  if (value === "date") {
+  if (value === "date" || value === "due-date") {
     filterBy.value = value;
   } else if (value === "due-today") {
     filterBy.value = value;
@@ -138,6 +149,7 @@ function getFilterByValue(value: string) {
         <app-buttons-create-button />
       </template>
     </app-actions>
+    <UDivider class="py-5" />
     <div v-if="pending">
       <loading-spinner />
     </div>

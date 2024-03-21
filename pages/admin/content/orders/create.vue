@@ -85,6 +85,7 @@ async function createOrder() {
         />
       </template>
     </app-actions>
+    <UDivider class="py-5" />
     <div class="mb-10">
       <orders-create-order :customers @create-order="createOrder" />
     </div>

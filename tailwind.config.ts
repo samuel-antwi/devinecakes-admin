@@ -3,7 +3,7 @@ import defaultTheme from "tailwindcss/defaultTheme";
 
 export default <Partial<Config>>{
   darkMode: "class",
-  content: ["presets/**/*.{js,vue,ts}"],
+  content: ["presets/libs/**/*.{js,vue,ts}"],
   theme: {
     extend: {
       colors: {

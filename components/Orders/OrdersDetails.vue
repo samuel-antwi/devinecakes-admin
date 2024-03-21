@@ -29,9 +29,9 @@ const statusClass = (data: any) => {
   <div class="my-12 max-w-4xl md:px-8 px-4">
     <div class="md:flex items-center justify-between">
       <div>
-        <h1 class="text-2xl mb-3 text-gray-800">PURCHASE ORDER</h1>
+        <h1 class="text-2xl mb-3 text-gray-800">SALES ORDER</h1>
         <p class="text-gray-800 mb-3">
-          Purchase Order#
+          Sales Order#
           <span class="font-medium text-gray-950">{{
             order?.orderNumber
           }}</span>
@@ -43,19 +43,17 @@ const statusClass = (data: any) => {
         >
         <div class="mt-4">
           <div class="flex items-center justify-between mb-2">
-            <p class="uppercase mr-12 text-gray-800 text-sm font-medium">
-              Order Date
-            </p>
+            <p class="capitalize mr-12 text-gray-800 font-medium">Order Date</p>
             <p>{{ formatDate(order.orderDate ?? "") }}</p>
           </div>
           <div class="flex items-center justify-between mb-2">
-            <p class="uppercase mr-12 text-gray-800 text-sm font-medium">
+            <p class="capitalize mr-12 text-gray-800 font-medium">
               Delivery Date
             </p>
             <p>{{ formatDate(order.deliveryDate ?? "") }}</p>
           </div>
           <div class="flex items-center justify-between mb-2">
-            <p class="uppercase mr-12 text-gray-800 text-sm font-medium">
+            <p class="capitalize mr-12 text-gray-800 font-medium">
               Payment status
             </p>
             <p
@@ -65,7 +63,7 @@ const statusClass = (data: any) => {
             </p>
           </div>
           <div class="flex items-center justify-between mb-2">
-            <p class="uppercase mr-12 text-gray-800 text-sm font-medium">
+            <p class="capitalize mr-12 text-gray-800 font-medium">
               Payment ref #
             </p>
             <p class="text-primary">{{ order.paymentReference }}</p>
@@ -73,7 +71,7 @@ const statusClass = (data: any) => {
         </div>
       </div>
       <div class="mt-8 md:mt-0">
-        <h1 class="mb-3 text-sm font-medium uppercase">Customer Address</h1>
+        <h1 class="mb-3 font-medium capitalize">Customer Address</h1>
         <NuxtLink :to="`/admin/content/customers/${customerDetails?.id}`">
           <div class="flex space-x-1 text-primary mb-3">
             <span v-show="customerDetails?.salutation"
@@ -88,20 +86,20 @@ const statusClass = (data: any) => {
         <p>Accra</p>
         <p>{{ customerDetails?.mobileNumber }}</p>
         <div class="mt-5" v-if="customerDetails?.digitalAddress">
-          <h1 class="uppercase text-sm font-medium mb-2">Digital Address</h1>
+          <h1 class="capitalize font-medium mb-2">Digital Address</h1>
           <p class="text-gray-800">{{ customerDetails?.digitalAddress }}</p>
         </div>
       </div>
     </div>
     <div class="mt-10">
-      <h1 class="uppercase text-sm font-medium mb-2">Order Placed By</h1>
+      <h1 class="capitalize font-medium mb-2">Order Placed By</h1>
       <div>
         <p>{{ order.createdBy }}</p>
       </div>
     </div>
     <orders-total-order :order="order" />
     <div class="mt-10">
-      <h1 class="uppercase text-sm font-medium mb-2">Order Note</h1>
+      <h1 class="capitalize font-medium mb-2">Order Note</h1>
       <div class="border py-3 px-4 rounded">
         <p v-if="order.description">{{ order.description }}</p>
         <p v-else>No note</p>
