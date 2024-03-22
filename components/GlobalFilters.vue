@@ -33,18 +33,17 @@ watch(
   { deep: true }
 );
 
+type FilterKey = "date" | "due-date" | "due-today" | "due-tomorrow";
+const labelMap: Record<FilterKey, string> = {
+  date: "Date Ordered",
+  "due-date": "Due Date",
+  "due-today": "Due Today",
+  "due-tomorrow": "Due Tomorrow",
+};
+
 const getFilterLabel = computed(() => {
-  if (filterBy.value === "date") {
-    return "Date Ordered";
-  } else if (filterBy.value === "due-date") {
-    return "Due Date";
-  } else if (filterBy.value === "due-today") {
-    return "Due Today";
-  } else if (filterBy.value === "due-tomorrow") {
-    return "Due Tomorrow";
-  } else {
-    return `All ${props.label}`;
-  }
+  const key = filterBy.value as FilterKey;
+  return labelMap[key] || `All ${props.label}`;
 });
 
 watch(
