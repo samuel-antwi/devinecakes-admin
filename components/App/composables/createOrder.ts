@@ -8,7 +8,7 @@ const orderData = ref<OrderType>({
   description: "",
   deliveryDate: "",
   deliveryMethod: "",
-  quantity: "",
+  quantity: 0,
   createdBy: "",
   orderNumber: "",
   customerId: "",

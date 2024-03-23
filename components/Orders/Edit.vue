@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { OrderType } from "@/types/order";
-import { useGlobalStore } from "@/composables/globalStore";
 import { useToast } from "primevue/usetoast";
 import { isEqual, cloneDeep } from "lodash-es";
 import Calendar from "primevue/calendar";
@@ -16,10 +15,11 @@ const props = defineProps<{
   order: OrderType;
 }>();
 
-const { editOrderModal } = useGlobalStore();
+const { state } = useEditOrder();
 
 // make deep copy of customer object
-const formData = ref<OrderType>(cloneDeep(props.order));
+// const formData = ref<OrderType>(cloneDeep(props.order));
+const formData = ref<OrderType>(cloneDeep(state.value.selectedOrder));
 
 const canSaveChanges = computed(() => {
   return !isEqual(props.order, formData.value);
@@ -42,17 +42,16 @@ const formattedDeliveryDate = computed({
 const closeModal = () => {
   if (canSaveChanges.value) {
     if (confirm("You have unsaved changes. Are you sure you want to close?")) {
-      editOrderModal.value = false;
+      state.value.editOrderModal = false;
     }
   } else {
-    editOrderModal.value = false;
+    state.value.editOrderModal = false;
   }
 };
 
 const loading = ref(false);
 async function handleSubmit() {
   loading.value = true;
-  console.log("FORM_DATA", formData.value);
   try {
     await $fetch("/api/orders/update", {
       method: "PUT",
@@ -60,7 +59,7 @@ async function handleSubmit() {
     });
 
     loading.value = false;
-    editOrderModal.value = false;
+    state.value.editOrderModal = false;
     toast.add({
       severity: "success",
       summary: "Success",
@@ -79,7 +78,6 @@ async function handleSubmit() {
 }
 
 // Computed property for balance
-// const totalAmount = ref(formData.value.total);
 const totalAmount = computed(() => {
   return (formData.value.quantity ?? 0) * (formData.value.price ?? 0);
 });
@@ -100,16 +98,10 @@ watch(
     formData.value.quantity,
     formData.value.price,
   ],
-  () => {
+  ([paymentStatus]) => {
     // Recalculate totalAmount whenever quantity or price changes
-    totalAmount.value =
-      (formData.value.quantity ?? 0) * (formData.value.price ?? 0);
-
     // If paymentStatus is 'Paid', set receivedAmount to totalAmount and balance to 0
-    if (
-      formData.value.paymentStatus === "Paid" ||
-      formData.value.paymentStatus === "paid"
-    ) {
+    if (paymentStatus === "Paid" || paymentStatus === "paid") {
       formData.value.receivedAmount = totalAmount.value;
       formData.value.balance = 0;
     } else {
@@ -126,11 +118,18 @@ watch(
   },
   { immediate: true }
 );
+watch(
+  props.order,
+  (newOrder) => {
+    formData.value = cloneDeep(newOrder);
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
   <div>
-    <UModal v-model="editOrderModal" prevent-close>
+    <UModal v-model="state.editOrderModal" prevent-close>
       <UCard>
         <template #header>
           <h1 class="text-lg font-medium">Edit Order</h1>

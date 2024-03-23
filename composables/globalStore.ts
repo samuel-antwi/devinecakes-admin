@@ -3,7 +3,7 @@ const itemsCount = ref<string[]>([]);
 const searchQuery = ref("");
 const filters = ref();
 const isOpen = ref(false);
-const editOrderModal = ref(false);
+
 
 export const useGlobalStore = () => {
   const initFilters = () => {
@@ -28,6 +28,5 @@ export const useGlobalStore = () => {
     filters,
     initFilters,
     isOpen,
-    editOrderModal,
   };
 };

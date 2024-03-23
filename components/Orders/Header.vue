@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { OrderType } from "@/types/order";
-import { useGlobalStore } from "@/composables/globalStore";
 import { useDeleteAction } from "@/composables/deleteAction";
 import { useToast } from "primevue/usetoast";
 
@@ -20,6 +19,7 @@ const cancelData = ref({
 });
 
 const { userPermissions } = usePermissions();
+const { state } = useEditOrder();
 
 const id = route.params.id;
 const params = {
@@ -65,7 +65,6 @@ const items = [
   ],
 ];
 
-const { editOrderModal } = useGlobalStore();
 const router = useRouter();
 
 const handleGoBack = () => {
@@ -73,7 +72,7 @@ const handleGoBack = () => {
 };
 
 const handleEdit = () => {
-  editOrderModal.value = true;
+  state.value.editOrderModal = true;
 };
 
 watch(checked, (newVal) => {

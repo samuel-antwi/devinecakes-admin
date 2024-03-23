@@ -31,7 +31,7 @@ const statusClass = (data: any) => {
       <div>
         <h1 class="text-2xl mb-3 text-gray-800">SALES ORDER</h1>
         <p class="text-gray-800 mb-3">
-          Sales Order#
+          Order Number
           <span class="font-medium text-gray-950">{{
             order?.orderNumber
           }}</span>
