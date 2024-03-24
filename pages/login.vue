@@ -77,13 +77,18 @@ watch(
         >
           <div class="mb-4">
             <label class="mb-1" for="email">Email address</label>
-            <UInput id="email" size="md" v-model="formData.email" type="text" />
+            <input
+              class="py-2 px-4 rounded-md border block w-full border-gray-300"
+              id="email"
+              v-model="formData.email"
+              type="email"
+            />
           </div>
           <div>
             <label class="mb-1" for="password">Password</label>
-            <UInput
+            <input
+              class="py-2 px-4 rounded-md border block w-full border-gray-300"
               id="password"
-              size="md"
               v-model="formData.password"
               type="password"
             />
