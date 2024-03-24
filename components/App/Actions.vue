@@ -25,11 +25,11 @@ const showContentText = computed(() => {
             <UIcon class="text-xl" :name="icon" />
           </div>
         </div>
-        <span class="hidden md:block">
+        <span class="">
           <p v-if="showContentText" class="text-xs dark:text-gray-500">
             Content
           </p>
-          <h1 class="text-2xl -mt-1 font-medium tracking-wide">
+          <h1 class="md:text-2xl -mt-1 font-medium tracking-wide">
             {{ title }}
           </h1>
         </span>

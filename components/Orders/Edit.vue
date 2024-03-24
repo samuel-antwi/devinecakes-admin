@@ -149,7 +149,6 @@ watch(
                   >Cake *</label
                 >
                 <UInputMenu
-                  class="capitalize"
                   multiple
                   :options="[
                     'Wedding Cake',
@@ -157,7 +156,7 @@ watch(
                     'Birthday Cake',
                   ]"
                   v-model="formData.cakeType"
-                  :ui="{ spacing: 'py-4' }"
+                  :ui="{ spacing: 'py-4', base: 'capitalize' }"
                   id="cake"
                   size="md"
                 />
@@ -195,7 +194,7 @@ watch(
                 >Status</label
               >
               <UInputMenu
-                :ui="{ textTransform: 'capitalize' }"
+                :ui="{ base: 'capitalize' }"
                 :options="['Delivered', 'Pending']"
                 v-model="formData.orderStatus"
                 id="order status"
@@ -213,6 +212,7 @@ watch(
                   >Payment Status *</label
                 >
                 <UInputMenu
+                  :ui="{ base: 'capitalize' }"
                   :options="['Paid', 'Partially Paid', 'Not Paid']"
                   v-model="formData.paymentStatus"
                   id="payment status"
@@ -286,6 +286,7 @@ watch(
                   >Delivery Method</label
                 >
                 <UInputMenu
+                  :ui="{ base: 'capitalize' }"
                   :options="['Shop Pickup', 'Home Delivery']"
                   v-model="formData.deliveryMethod"
                   id="delivery method"

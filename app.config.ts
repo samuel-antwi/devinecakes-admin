@@ -22,7 +22,6 @@ export default defineAppConfig({
         lg: "text-sm",
         xl: "text-xl",
       },
-      base: 'capitalize',
     },
     inputMenu: {
       option: {
