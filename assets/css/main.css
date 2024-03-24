@@ -14,9 +14,3 @@ html body {
   background-color: #f1f1f1;
   font-family: Inter, sans-serif;
 }
-
-input,
-textarea,
-select {
-  font-size: 16px;
-}

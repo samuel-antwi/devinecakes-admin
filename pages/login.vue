@@ -77,12 +77,7 @@ watch(
         >
           <div class="mb-4">
             <label class="mb-1" for="email">Email address</label>
-            <UInput
-              id="email"
-              size="md"
-              v-model="formData.email"
-              type="email"
-            />
+            <UInput id="email" size="md" v-model="formData.email" type="text" />
           </div>
           <div>
             <label class="mb-1" for="password">Password</label>
