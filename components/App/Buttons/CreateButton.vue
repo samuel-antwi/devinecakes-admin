@@ -33,7 +33,7 @@ const computedDetails = computed(() => {
   <UTooltip text="Create Item" :popper="{ arrow: true }">
     <NuxtLink :to="`${computedDetails.link}`">
       <UButton
-        icon="i-heroicons-plus"
+        icon="i-mdi-plus"
         class="w-12 h-12 flex dark:bg-primary-600 dark:text-gray-100 items-center justify-center rounded-full"
       >
       </UButton>

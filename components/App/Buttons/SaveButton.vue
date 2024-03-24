@@ -25,7 +25,7 @@ const props = withDefaults(
         :ui="{ color: 'dark:disabled:bg-gray-300' }"
         :disabled="!props.canSave"
         type="submit"
-        icon="i-heroicons-check"
+        icon="i-mdi-check"
         @click.prevent="emitSave"
         class="w-12 h-12 dark:bg-primary-600 dark:text-gray-100 flex items-center justify-center rounded-full"
       >

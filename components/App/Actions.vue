@@ -20,12 +20,12 @@ const showContentText = computed(() => {
           <back-button v-if="canGoBack" />
           <div
             v-else
-            class="w-10 hidden cursor-not-allowed h-10 md:flex mr-3 text-gray-700 bg-[#F0F4F9] dark:bg-[#21262E] dark:text-gray-100 items-center justify-center rounded-full"
+            class="w-10 hidden cursor-not-allowed h-10 md:flex mr-3 text-gray-100 bg-primary dark:bg-[#21262E] dark:text-gray-100 items-center justify-center rounded-full"
           >
             <UIcon class="text-xl" :name="icon" />
           </div>
         </div>
-        <span class="">
+        <span class="hidden lg:block">
           <p v-if="showContentText" class="text-xs dark:text-gray-500">
             Content
           </p>
