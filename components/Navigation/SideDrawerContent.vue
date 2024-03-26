@@ -61,10 +61,7 @@ const isUsersTab = computed(() => {
               text="Log out"
               :popper="{ placement: 'right', arrow: true, offsetDistance: 16 }"
             >
-              <UIcon
-                class="text-xl"
-                name="i-heroicons-arrow-left-start-on-rectangle"
-              />
+              <UIcon class="text-xl" name="i-mdi-logout" />
             </UTooltip>
           </button>
         </div>

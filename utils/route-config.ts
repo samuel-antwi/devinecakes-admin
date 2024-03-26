@@ -1,7 +1,7 @@
 import type { RouteConfigType } from "~/types/global";
 
 export const routeConfig: RouteConfigType = {
-  "admin-content-orders": { title: "Orders", icon: "i-heroicons-shopping-bag" },
+  "admin-content-orders": { title: "Orders", icon: "i-mdi-shopping-outline" },
   "admin-content-customers": { title: "Customers", icon: "i-heroicons-users" },
   "admin-content-customers-create": {
     title: "Customers",
@@ -15,5 +15,5 @@ export const routeConfig: RouteConfigType = {
     icon: "i-heroicons-users",
   },
 
-  default: { title: "Orders", icon: "i-heroicons-shopping-bag" },
+  default: { title: "Orders", icon: "i-mdi-shopping-outline" },
 };

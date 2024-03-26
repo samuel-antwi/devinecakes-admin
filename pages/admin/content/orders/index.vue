@@ -16,22 +16,6 @@ definePageMeta({
 const items = [
   [
     {
-      label: "Date Ordered",
-      click: () => {
-        getFilterByValue("date");
-      },
-    },
-  ],
-  [
-    {
-      label: "Due Date",
-      click: () => {
-        getFilterByValue("due-date");
-      },
-    },
-  ],
-  [
-    {
       label: "Due Today",
       click: () => {
         getFilterByValue("due-today");
@@ -46,6 +30,22 @@ const items = [
       },
     },
   ],
+  [
+    {
+      label: "Due Date",
+      click: () => {
+        getFilterByValue("due-date");
+      },
+    },
+  ],
+  [
+    {
+      label: "Date Ordered",
+      click: () => {
+        getFilterByValue("date");
+      },
+    },
+  ],
 ];
 
 const { filters } = useGlobalStore();
@@ -56,8 +56,8 @@ const query = ref(route?.query?.query || "");
 const initialQuery = route?.query?.query || "";
 
 const columns = [
-  { field: "orderDate", header: "Order Date" },
   { field: "orderNumber", header: "Order #" },
+  { field: "orderDate", header: "Order Date" },
   { field: "paymentReference", header: "Payment Ref" },
   { field: "deliveryDate", header: "Delivery Date" },
   { field: "orderStatus", header: "Order Status" },
@@ -143,7 +143,7 @@ function getFilterByValue(value: string) {
     <app-actions
       class="px-4 lg:px-8"
       :title="'Orders'"
-      :icon="'i-heroicons-shopping-bag'"
+      :icon="'i-mdi-shopping-outline'"
     >
       <template #actions>
         <search-input v-if="!noOrdrs" />
@@ -158,7 +158,7 @@ function getFilterByValue(value: string) {
       <div v-if="noOrdrs">
         <app-global-empty-content
           description="You have no orders yet."
-          :icon="'i-heroicons-shopping-bag'"
+          :icon="'i-mdi-shopping-outline'"
           create-link="/admin/content/orders/create"
           button-label="Create Order"
         />

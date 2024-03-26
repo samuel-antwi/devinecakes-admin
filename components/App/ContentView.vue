@@ -22,7 +22,7 @@ const canShow = computed(
     >
       <UIcon
         class="text-2xl text-indigo-500 mr-2"
-        name="i-heroicons-shopping-bag"
+        name="i-mdi-shopping-outline"
       />
       <h1 class="text-sm tracking-wide">Orders</h1>
     </NuxtLink>
@@ -35,7 +35,7 @@ const canShow = computed(
     >
       <UIcon
         class="text-2xl text-indigo-500 mr-2"
-        name="i-heroicons-user-group"
+        name="i-mdi-users-group-outline"
       />
       <h1 class="text-sm tracking-wide">Customers</h1>
     </NuxtLink>
@@ -48,7 +48,7 @@ const canShow = computed(
     >
       <UIcon
         class="text-2xl text-indigo-500 mr-2"
-        name="i-heroicons-banknotes"
+        name="i-mdi-invoice-text-outline"
       />
       <h1 class="text-sm tracking-wide">Invoice</h1>
     </NuxtLink>

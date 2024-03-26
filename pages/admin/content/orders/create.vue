@@ -74,7 +74,7 @@ async function createOrder() {
     <app-actions
       class="px-4 lg:px-8"
       :title="'Creating an Order'"
-      :icon="'i-heroicons-shopping-bag'"
+      :icon="'i-mdi-shopping-outline'"
       :can-go-back="true"
     >
       <template #actions>
