@@ -125,16 +125,18 @@ onUnmounted(() => {
 
 function getFilterByValue(value: string) {
   query.value = "";
-  if (value === "date" || value === "due-date") {
-    filterBy.value = value;
-  } else if (value === "due-today") {
-    filterBy.value = value;
-    const today = moment().format("YYYY-MM-DD");
-    query.value = today;
-  } else if (value === "due-tomorrow") {
-    filterBy.value = value;
-    const tomorrow = moment().add(1, "days").format("YYYY-MM-DD");
-    query.value = tomorrow;
+  filterBy.value = value;
+  let date: string | null = null;
+  switch (value) {
+    case "due-today":
+      date = moment().format("YYYY-MM-DD");
+      break;
+    case "due-tomorrow":
+      date = moment().add(1, "days").format("YYYY-MM-DD");
+      break;
+  }
+  if (date) {
+    query.value = date;
   }
 }
 </script>
