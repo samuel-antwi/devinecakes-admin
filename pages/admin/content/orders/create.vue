@@ -87,6 +87,11 @@ async function createOrder() {
     </app-actions>
     <UDivider class="py-5" />
     <div class="mb-10">
+      <div>
+        <h1 class="px-4 lg:hidden mb-5 font-medium text-center">
+          Creating an Order
+        </h1>
+      </div>
       <orders-create-order :customers @create-order="createOrder" />
     </div>
   </div>

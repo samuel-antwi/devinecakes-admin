@@ -72,6 +72,11 @@ const enableSaveButton = computed(() => {
     </app-actions>
     <UDivider class="py-5" />
     <div class="mb-5">
+      <div>
+        <h1 class="px-4 lg:hidden mb-5 font-medium text-center">
+          Adding new Customer
+        </h1>
+      </div>
       <customers-create-customer />
     </div>
   </div>

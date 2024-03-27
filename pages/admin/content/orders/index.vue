@@ -227,9 +227,16 @@ function getFilterByValue(value: string) {
                       >
                     </UBadge>
                   </span>
-                  <span class="capitalize" v-else>{{
-                    slotProps.data[col.field]
-                  }}</span>
+                  <span
+                    v-else
+                    :class="
+                      col.field === 'orderNumber'
+                        ? 'text-primary font-medium hover:underline cursor-pointer'
+                        : ''
+                    "
+                    class="capitalize"
+                    >{{ slotProps.data[col.field] }}</span
+                  >
                 </div>
               </template>
             </Column>
