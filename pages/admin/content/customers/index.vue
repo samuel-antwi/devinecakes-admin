@@ -59,7 +59,7 @@ onUnmounted(() => {
     <app-actions
       class="px-4 lg:px-8 mb-5"
       :title="'Customers'"
-      :icon="'i-heroicons-user-group'"
+      :icon="'i-mdi-user-group-outline'"
     >
       <template #actions>
         <search-input />
@@ -73,7 +73,7 @@ onUnmounted(() => {
       <div v-if="noCustomers">
         <app-global-empty-content
           description="You have no orders yet."
-          :icon="'i-heroicons-user-group'"
+          :icon="'i-mdi-user-group-outline'"
           create-link="/admin/content/customers/create"
           button-label="Add Customer"
         />

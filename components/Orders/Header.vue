@@ -110,7 +110,7 @@ const handleCancelOrder = async () => {
       </div>
     </div>
     <div class="flex items-center space-x-2 md:space-x-3">
-      <button
+      <!-- <button
         class="bg-gray-100 group flex items-center px-2 rounded border text-gray-900"
         type="button"
       >
@@ -119,7 +119,7 @@ const handleCancelOrder = async () => {
           class="text-gray-600 group-hover:text-primary mr-1.5"
         />
         <span class="group-hover:text-primary">Print</span>
-      </button>
+      </button> -->
       <UDropdown
         v-if="userPermissions.adminRole"
         :items="items"

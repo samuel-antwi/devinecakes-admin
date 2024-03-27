@@ -60,7 +60,7 @@ const enableSaveButton = computed(() => {
     <app-actions
       class="px-4 lg:px-8"
       :title="'Adding new Customer'"
-      :icon="'i-heroicons-user-group'"
+      :icon="'i-mdi-user-group-outline'"
       :can-go-back="true"
     >
       <template #actions>
