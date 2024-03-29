@@ -6,9 +6,9 @@ const isOpen = ref(false);
   <div>
     <UButton
       @click="isOpen = true"
-      class="w-10 lg:hidden h-10 flex mr-3 dark:bg-[#21262E] dark:text-gray-100 items-center justify-center rounded-full"
+      class="w-12 lg:hidden h-12 flex mr-3 dark:bg-[#21262E] dark:text-gray-100 items-center justify-center rounded-full"
     >
-      <UIcon class="text-xl" :name="'i-heroicons-bars-3'" />
+      <UIcon class="text-xl" :name="'i-mdi-menu'" />
     </UButton>
     <USlideover side="left" class="lg:hidden w-[250px]" v-model="isOpen">
       <div>

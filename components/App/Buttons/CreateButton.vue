@@ -1,8 +1,6 @@
 <script setup lang="ts">
 const route = useRoute();
 
-const router = useRouter();
-
 const computedDetails = computed(() => {
   let link;
 

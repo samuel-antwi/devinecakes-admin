@@ -88,7 +88,7 @@ async function createOrder() {
     <UDivider class="py-5" />
     <div class="mb-10">
       <div>
-        <h1 class="px-4 lg:hidden mb-5 font-medium text-center">
+        <h1 class="px-4 text-lg lg:hidden mb-5 font-semibold text-center">
           Creating an Order
         </h1>
       </div>
