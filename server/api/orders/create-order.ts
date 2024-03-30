@@ -1,4 +1,5 @@
 import { prisma } from "@/utils/prisma";
+
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
@@ -23,8 +24,28 @@ export default defineEventHandler(async (event) => {
         total: body.price * body.quantity,
       },
     });
-    return orders;
-  } catch (e) {
-    console.error(e);
+
+    return {
+      statusCode: 200,
+      body: orders,
+    };
+  } catch (error) {
+    console.error(error);
+
+    let errorMessage = "An error occurred while creating the order.";
+    let statusCode = 500;
+
+    if (error instanceof Error) {
+      errorMessage = error.message;
+      // Customize the status code based on the specific error type if needed
+      // For example, if it's a validation error, you can set statusCode to 400
+    }
+
+    return {
+      statusCode,
+      body: {
+        error: errorMessage,
+      },
+    };
   }
 });

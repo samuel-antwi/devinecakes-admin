@@ -29,11 +29,28 @@ async function createOrder() {
   loading.value = true;
   try {
     await generateOrderNumber();
-    await $fetch("/api/orders/create-order", {
+    const res = await $fetch("/api/orders/create-order", {
       method: "POST",
       body: orderData.value,
     });
     loading.value = false;
+
+    if (res.statusCode !== 200) {
+      toast.add({
+        severity: "error",
+        summary: "Error",
+        detail: "Error creating order, duplicate invoice number.",
+        life: 10000,
+      });
+      return;
+    }
+
+    toast.add({
+      severity: "success",
+      summary: "Success",
+      detail: "Order created.",
+      life: 4000,
+    });
     orderData.value = {
       orderNumber: "",
       orderDate: "",
@@ -45,27 +62,13 @@ async function createOrder() {
       cakeType: "",
       description: "",
       amount: 0,
-      quantity: "",
+      quantity: 0,
       receivedAmount: 0,
       price: 0,
     };
-
     await router.push("/admin/content/orders");
-
-    toast.add({
-      severity: "success",
-      summary: "Success",
-      detail: "Order created.",
-      life: 4000,
-    });
   } catch (e) {
     console.log(e);
-    toast.add({
-      severity: "error",
-      summary: "Error",
-      detail: "Error creating Order.",
-      life: 4000,
-    });
   }
 }
 </script>
