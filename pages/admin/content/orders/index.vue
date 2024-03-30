@@ -169,17 +169,6 @@ function createNewOrder() {
         />
       </div>
       <div v-else>
-        <div class="px-4 md:px-8 mb-5">
-          <global-filters
-            :label="'Orders'"
-            :url="'/admin/content/orders'"
-            :items
-            v-model:filter-by="filterBy"
-            v-model:query="query"
-            v-model:initial-query="initialQuery"
-            v-model:selected="selected"
-          />
-        </div>
         <div class="px-4 max-w-4xl md:px-8 mb-5 gap-5 md:grid grid-cols-5">
           <UCard class="col-span-3 mb-3 md:mb-0">
             <h1 class="font-semibold mb-3">Your Orders</h1>
@@ -192,6 +181,17 @@ function createNewOrder() {
           <UCard class="col-span-2">
             <sales-order />
           </UCard>
+        </div>
+        <div class="px-4 md:px-8 mb-5">
+          <global-filters
+            :label="'Orders'"
+            :url="'/admin/content/orders'"
+            :items
+            v-model:filter-by="filterBy"
+            v-model:query="query"
+            v-model:initial-query="initialQuery"
+            v-model:selected="selected"
+          />
         </div>
         <div class="bg-white md:p-5 mb-10">
           <DataTable
