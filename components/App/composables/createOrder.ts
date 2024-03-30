@@ -17,6 +17,8 @@ const orderData = ref<OrderType>({
   balance: 0,
   price: 0,
   total: 0,
+  createdAt: "",
+  updatedAt: "",
 });
 
 export const useCreateOrder = () => {

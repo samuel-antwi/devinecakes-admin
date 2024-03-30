@@ -21,4 +21,6 @@ export type OrderType = {
   price?: number;
   total?: number;
   customer?: CustomerType | null;
+  createdAt: string;
+  updatedAt: string;
 };
