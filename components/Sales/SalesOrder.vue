@@ -140,33 +140,26 @@ function formatCurrency(amount: number) {
 
 <template>
   <div>
-    <div class="flex items-center justify-between">
-      <h1 class="font-semibold text-lg">Sales</h1>
-      <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
-        <div class="flex items-center">
-          <ClientOnly>
-            <template #default>
-              <h1 class="mr-1 text-sm text-gray-700">{{ filterLabel }}</h1>
-            </template>
-            <template #placeholder>
-              <h1 class="mr-1 text-sm text-gray-700"></h1>
-            </template>
-          </ClientOnly>
-          <UIcon class="text-xl" name="i-mdi-chevron-down" />
-        </div>
-      </UDropdown>
-    </div>
-    <div class="mt-3">
-      <Calendar
-        :pt="myInputStyle"
-        v-if="selectedFilter === 'custom'"
-        dateFormat="dd M yy"
-        v-model="customDate"
-        placeholder="Select a date"
-      />
-    </div>
-    <ClientOnly>
+    <client-only>
       <template #default>
+        <div class="flex items-center justify-between">
+          <h1 class="font-semibold text-lg">Sales</h1>
+          <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
+            <div class="flex items-center">
+              <h1 class="mr-1 text-sm text-gray-700">{{ filterLabel }}</h1>
+              <UIcon class="text-xl" name="i-mdi-chevron-down" />
+            </div>
+          </UDropdown>
+        </div>
+        <div class="mt-3">
+          <Calendar
+            :pt="myInputStyle"
+            v-if="selectedFilter === 'custom'"
+            dateFormat="dd M yy"
+            v-model="customDate"
+            placeholder="Select a date"
+          />
+        </div>
         <div class="mt-3">
           <h2 class="font-semibold text-2xl">
             {{ formatCurrency(totalSales) }}
@@ -174,10 +167,8 @@ function formatCurrency(amount: number) {
         </div>
       </template>
       <template #placeholder>
-        <div>
-          <p>Loading...</p>
-        </div>
+        <h2>Loading...</h2>
       </template>
-    </ClientOnly>
+    </client-only>
   </div>
 </template>
