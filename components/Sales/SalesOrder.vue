@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { OrderType } from "@/types/order";
 import Calendar from "primevue/calendar";
+import { useStorage } from "@vueuse/core";
+import ProgressSpinner from "primevue/progressspinner";
 
 const items = [
   [
@@ -46,7 +48,7 @@ const myInputStyle = ref({
 });
 const orders = ref<OrderType[]>([]);
 const totalSales = ref(0);
-const selectedFilter = ref("today");
+const selectedFilter = useStorage("selectedFilter", "today");
 const customDate = ref("");
 const filterLabel = computed(() => {
   if (selectedFilter.value === "today") return "Today";
@@ -138,28 +140,44 @@ function formatCurrency(amount: number) {
 
 <template>
   <div>
-    <div>
-      <div class="flex items-center justify-between">
-        <h1 class="font-semibold text-lg">Sales</h1>
+    <div class="flex items-center justify-between">
+      <h1 class="font-semibold text-lg">Sales</h1>
+      <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
         <div class="flex items-center">
-          <h1 class="mr-1 text-gray-700">{{ filterLabel }}</h1>
-          <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
-            <UIcon class="text-lg" name="i-mdi-chevron-down" />
-          </UDropdown>
+          <ClientOnly>
+            <template #default>
+              <h1 class="mr-1 text-sm text-gray-700">{{ filterLabel }}</h1>
+            </template>
+            <template #placeholder>
+              <h1 class="mr-1 text-sm text-gray-700"></h1>
+            </template>
+          </ClientOnly>
+          <UIcon class="text-xl" name="i-mdi-chevron-down" />
         </div>
-      </div>
-      <div class="mt-3">
-        <Calendar
-          :pt="myInputStyle"
-          v-if="selectedFilter === 'custom'"
-          dateFormat="dd M yy"
-          v-model="customDate"
-          placeholder="Select a date"
-        />
-      </div>
+      </UDropdown>
     </div>
     <div class="mt-3">
-      <h2 class="font-semibold text-2xl">{{ formatCurrency(totalSales) }}</h2>
+      <Calendar
+        :pt="myInputStyle"
+        v-if="selectedFilter === 'custom'"
+        dateFormat="dd M yy"
+        v-model="customDate"
+        placeholder="Select a date"
+      />
     </div>
+    <ClientOnly>
+      <template #default>
+        <div class="mt-3">
+          <h2 class="font-semibold text-2xl">
+            {{ formatCurrency(totalSales) }}
+          </h2>
+        </div>
+      </template>
+      <template #placeholder>
+        <div>
+          <p>Loading...</p>
+        </div>
+      </template>
+    </ClientOnly>
   </div>
 </template>

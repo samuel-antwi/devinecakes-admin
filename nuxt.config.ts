@@ -44,6 +44,7 @@ export default defineNuxtConfig({
         "Dialog",
         "InputText",
         "FloatLabel",
+        'ProgressSpinner',
       ],
     },
     importPT: { from: path.resolve(__dirname, "./presets/lara/") },
