@@ -63,9 +63,7 @@ const statusClass = (data: any) => {
             </p>
           </div>
           <div class="flex items-center justify-between mb-2">
-            <p class="capitalize mr-12 text-gray-800 font-medium">
-              Payment ref #
-            </p>
+            <p class="capitalize mr-12 text-gray-800 font-medium">Invoice #</p>
             <p class="text-primary">{{ order.paymentReference }}</p>
           </div>
         </div>

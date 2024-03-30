@@ -22,8 +22,8 @@ const globalFiltersList = [
 ];
 
 const columns = [
+  { field: "paymentReference", header: "Invoive #" },
   { field: "orderDate", header: "Date" },
-  { field: "paymentReference", header: "Reference Number" },
   { field: "customerName", header: "Customer" },
   { field: "paymentStatus", header: "Status" },
   { field: "receivedAmount", header: " Received Amout" },

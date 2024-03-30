@@ -2,7 +2,22 @@
 import type { OrderType } from "@/types/order";
 import Calendar from "primevue/calendar";
 import { useStorage } from "@vueuse/core";
-import ProgressSpinner from "primevue/progressspinner";
+import {
+  startOfToday,
+  startOfYesterday,
+  startOfWeek,
+  startOfMonth,
+  startOfYear,
+  endOfWeek,
+  endOfMonth,
+  endOfYear,
+  parseISO,
+  isSameDay,
+  isWithinInterval,
+  subWeeks,
+  subMonths,
+  subYears,
+} from "date-fns";
 
 const items = [
   [
@@ -37,6 +52,18 @@ const items = [
   ],
   [
     {
+      label: "Previous Week",
+      click: () => updateSelectedFilter("lastWeek"),
+    },
+  ],
+  [
+    {
+      label: "Previous Month",
+      click: () => updateSelectedFilter("lastMonth"),
+    },
+  ],
+  [
+    {
       label: "Custom Date",
       click: () => updateSelectedFilter("custom"),
     },
@@ -44,7 +71,7 @@ const items = [
 ];
 const myInputStyle = ref({
   input:
-    "relative disabled:cursor-not-allowed disabled:opacity-75 md:w-[200px] w-[120px] focus:outline-none border-0 form-input rounded-md placeholder-gray-400 dark:placeholder-gray-500 text-sm px-3.5 py-1.5 shadow-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400",
+    "relative disabled:cursor-not-allowed disabled:opacity-75 w-[120px] focus:outline-none border-0 form-input rounded-md placeholder-gray-400 dark:placeholder-gray-500 text-sm px-3.5 py-1.5 shadow-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400",
 });
 const orders = ref<OrderType[]>([]);
 const totalSales = ref(0);
@@ -56,6 +83,9 @@ const filterLabel = computed(() => {
   if (selectedFilter.value === "week") return "This Week";
   if (selectedFilter.value === "month") return "This Month";
   if (selectedFilter.value === "year") return "This Year";
+  if (selectedFilter.value === "lastWeek") return "Previous Week";
+  if (selectedFilter.value === "lastMonth") return "Previous Month";
+  if (selectedFilter.value === "lastYear") return "Previous Year";
   if (selectedFilter.value === "custom") return "Custom Date";
 });
 
@@ -75,51 +105,70 @@ watch(selectedFilter, calculateTotalSales);
 watch(customDate, calculateTotalSales);
 
 function calculateTotalSales() {
-  let filteredOrders: OrderType[] = [];
+  let filteredOrders = [];
 
-  if (selectedFilter.value === "today") {
-    const today = new Date();
-    filteredOrders = orders.value.filter((order) => {
-      const orderDate = new Date(order.createdAt);
-      return orderDate.toDateString() === today.toDateString();
-    });
-  } else if (selectedFilter.value === "yesterday") {
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    filteredOrders = orders.value.filter((order) => {
-      const orderDate = new Date(order.createdAt);
-      return orderDate.toDateString() === yesterday.toDateString();
-    });
-  } else if (selectedFilter.value === "week") {
-    const today = new Date();
-    const startOfWeek = new Date(
-      today.setDate(today.getDate() - today.getDay())
-    );
-    filteredOrders = orders.value.filter((order) => {
-      const orderDate = new Date(order.createdAt);
-      return orderDate >= startOfWeek;
-    });
-  } else if (selectedFilter.value === "month") {
-    const today = new Date();
-    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-    filteredOrders = orders.value.filter((order) => {
-      const orderDate = new Date(order.createdAt);
-      return orderDate >= startOfMonth;
-    });
-  } else if (selectedFilter.value === "year") {
-    const today = new Date();
-    const startOfYear = new Date(today.getFullYear(), 0, 1);
-    filteredOrders = orders.value.filter((order) => {
-      const orderDate = new Date(order.createdAt);
-      return orderDate >= startOfYear;
-    });
-  } else if (selectedFilter.value === "custom" && customDate.value) {
-    const selectedDate = new Date(customDate.value);
-    filteredOrders = orders.value.filter((order) => {
-      const orderDate = new Date(order.createdAt);
-      return orderDate.toDateString() === selectedDate.toDateString();
-    });
-  }
+  const today = startOfToday();
+  const yesterday = startOfYesterday();
+  const thisWeekStart = startOfWeek(new Date());
+  const thisMonthStart = startOfMonth(new Date());
+  const thisYearStart = startOfYear(new Date());
+
+  // Calculate the start and end of the previous week, month, and year
+  const lastWeekStart = startOfWeek(subWeeks(new Date(), 1));
+  const lastWeekEnd = endOfWeek(subWeeks(new Date(), 1));
+  const lastMonthStart = startOfMonth(subMonths(new Date(), 1));
+  const lastMonthEnd = endOfMonth(subMonths(new Date(), 1));
+  const lastYearStart = startOfYear(subYears(new Date(), 1));
+  const lastYearEnd = endOfYear(subYears(new Date(), 1));
+
+  filteredOrders = orders.value.filter((order) => {
+    const orderDate = parseISO(order.createdAt);
+
+    switch (selectedFilter.value) {
+      case "today":
+        return isSameDay(orderDate, today);
+      case "yesterday":
+        return isSameDay(orderDate, yesterday);
+      case "week":
+        return isWithinInterval(orderDate, {
+          start: thisWeekStart,
+          end: new Date(),
+        });
+      case "month":
+        return isWithinInterval(orderDate, {
+          start: thisMonthStart,
+          end: new Date(),
+        });
+      case "year":
+        return isWithinInterval(orderDate, {
+          start: thisYearStart,
+          end: new Date(),
+        });
+      case "lastWeek":
+        return isWithinInterval(orderDate, {
+          start: lastWeekStart,
+          end: lastWeekEnd,
+        });
+      case "lastMonth":
+        return isWithinInterval(orderDate, {
+          start: lastMonthStart,
+          end: lastMonthEnd,
+        });
+      case "lastYear":
+        return isWithinInterval(orderDate, {
+          start: lastYearStart,
+          end: lastYearEnd,
+        });
+      case "custom":
+        if (customDate.value) {
+          const selectedCustomDate = new Date(customDate.value);
+          return isSameDay(orderDate, selectedCustomDate);
+        }
+        return false;
+      default:
+        return false;
+    }
+  });
 
   totalSales.value = filteredOrders.reduce(
     (total, order) => total + (order.total ?? 0),
@@ -151,7 +200,7 @@ function formatCurrency(amount: number) {
             </div>
           </UDropdown>
         </div>
-        <div class="mt-3">
+        <div class="mt-2 flex justify-end">
           <Calendar
             :pt="myInputStyle"
             v-if="selectedFilter === 'custom'"
@@ -161,7 +210,7 @@ function formatCurrency(amount: number) {
           />
         </div>
         <div class="mt-3">
-          <h2 class="font-semibold text-2xl">
+          <h2 class="font-semibold text-primary md:text-3xl text-2xl">
             {{ formatCurrency(totalSales) }}
           </h2>
         </div>
