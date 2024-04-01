@@ -3,7 +3,7 @@
   <div class="w-full bg-[#0E1C2F] dark:bg-[#30363D]">
     <div class="flex items-center">
       <div class="bg-[#0E1C2F] p-[17px]">
-        <NuxtLink to="/admin/content/orders">
+        <NuxtLink to="/home/inventory-dashboard">
           <UIcon class="text-3xl text-gray-100" name="i-mdi-home-outline" />
         </NuxtLink>
       </div>

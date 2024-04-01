@@ -139,9 +139,6 @@ function getFilterByValue(value: string) {
     query.value = date;
   }
 }
-function createNewOrder() {
-  router.push("/admin/content/orders/create");
-}
 </script>
 <template>
   <div>
@@ -169,19 +166,6 @@ function createNewOrder() {
         />
       </div>
       <div v-else>
-        <div class="px-4 max-w-4xl md:px-8 mb-5 gap-5 md:grid grid-cols-5">
-          <UCard class="col-span-3 mb-3 md:mb-0">
-            <h1 class="font-semibold mb-3">Your Orders</h1>
-            <p class="mb-3">
-              View all your orders here and see the sales you have made for
-              certain period of time.
-            </p>
-            <UButton @click="createNewOrder" label=" Create New Order" />
-          </UCard>
-          <UCard class="col-span-2">
-            <sales-order />
-          </UCard>
-        </div>
         <div class="px-4 md:px-8 mb-5">
           <global-filters
             :label="'Orders'"
