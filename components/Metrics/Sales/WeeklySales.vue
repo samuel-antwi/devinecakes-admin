@@ -29,6 +29,7 @@ const chartOptions = ref({
     {
       name: "Sales",
       data: [] as number[],
+      colorByPoint: true,
     },
   ],
 });
@@ -50,8 +51,19 @@ const processData = () => {
     return salesAmount;
   });
 
+  const colors = [
+    "#7CB5EC",
+    "#434348",
+    "#90ED7D",
+    "#F7A35C",
+    "#8085E9",
+    "#F15C80",
+    "#E4D354",
+  ];
+
   chartOptions.value.xAxis.categories = pastSevenDays;
   chartOptions.value.series[0].data = salesData;
+  chartOptions.value.colors = colors;
 };
 
 // Process the data when the component is mounted
