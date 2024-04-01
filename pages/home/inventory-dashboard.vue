@@ -6,14 +6,9 @@ definePageMeta({
   layout: "auth",
 });
 
-const router = useRouter();
-
 const { data: orders } = await useAsyncData(`metrics-orders`, () =>
   $fetch(`/api/metrics/sales`)
 );
-function createNewOrder() {
-  router.push("/admin/content/orders/create");
-}
 </script>
 <template>
   <div class="px-4">
@@ -24,19 +19,7 @@ function createNewOrder() {
       <TabView>
         <TabPanel header="Dashboard">
           <div class="max-w-3xl">
-            <div class="mb-10 gap-5 md:grid grid-cols-5">
-              <UCard class="col-span-3 mb-3 md:mb-0">
-                <h1 class="font-semibold mb-3">Sales Metrics</h1>
-                <p class="mb-3">
-                  View all your metrics here and see the sales you have made
-                  over certain period of time.
-                </p>
-                <UButton @click="createNewOrder" label=" Create New Order" />
-              </UCard>
-              <UCard class="col-span-2">
-                <sales-order />
-              </UCard>
-            </div>
+            <metrics-sales-total-sales />
             <metrics-sales-weekly-sales :orders />
           </div>
         </TabPanel>

@@ -185,39 +185,53 @@ function formatCurrency(amount: number) {
     })
   );
 }
+const router = useRouter();
+function createNewOrder() {
+  router.push("/admin/content/orders/create");
+}
 </script>
 
 <template>
-  <div>
-    <client-only>
-      <template #default>
-        <div class="flex items-center justify-between">
-          <h1 class="font-semibold text-lg">Sales</h1>
-          <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
-            <div class="flex items-center">
-              <h1 class="mr-1 text-sm text-gray-700">{{ filterLabel }}</h1>
-              <UIcon class="text-xl" name="i-mdi-chevron-down" />
-            </div>
-          </UDropdown>
-        </div>
-        <div class="mt-2 flex justify-end">
-          <Calendar
-            :pt="myInputStyle"
-            v-if="selectedFilter === 'custom'"
-            dateFormat="dd M yy"
-            v-model="customDate"
-            placeholder="Select a date"
-          />
-        </div>
-        <div class="mt-3">
-          <h2 class="font-semibold text-primary md:text-3xl text-2xl">
-            {{ formatCurrency(totalSales) }}
-          </h2>
-        </div>
-      </template>
-      <template #placeholder>
-        <h2>Loading...</h2>
-      </template>
-    </client-only>
+  <div class="mb-10 gap-5 md:grid grid-cols-5">
+    <UCard class="col-span-3 mb-3 md:mb-0">
+      <h1 class="font-semibold mb-3">Sales Metrics</h1>
+      <p class="mb-3">
+        View all your metrics here and see the sales you have made over certain
+        period of time.
+      </p>
+      <UButton @click="createNewOrder" label=" Create New Order" />
+    </UCard>
+    <UCard class="col-span-2">
+      <client-only>
+        <template #default>
+          <div class="flex items-center justify-between">
+            <h1 class="font-semibold text-lg">Sales</h1>
+            <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
+              <div class="flex items-center">
+                <h1 class="mr-1 text-sm text-gray-700">{{ filterLabel }}</h1>
+                <UIcon class="text-xl" name="i-mdi-chevron-down" />
+              </div>
+            </UDropdown>
+          </div>
+          <div class="mt-2 flex justify-end">
+            <Calendar
+              :pt="myInputStyle"
+              v-if="selectedFilter === 'custom'"
+              dateFormat="dd M yy"
+              v-model="customDate"
+              placeholder="Select a date"
+            />
+          </div>
+          <div class="mt-3">
+            <h2 class="font-semibold text-primary md:text-3xl text-2xl">
+              {{ formatCurrency(totalSales) }}
+            </h2>
+          </div>
+        </template>
+        <template #placeholder>
+          <h2>Loading...</h2>
+        </template>
+      </client-only>
+    </UCard>
   </div>
 </template>
