@@ -4,7 +4,7 @@ watch(
   user,
   () => {
     if (user?.value) {
-      return navigateTo("/admin/content/orders");
+      return navigateTo("/home/inventory-dashboard");
     }
   },
   { immediate: true }
