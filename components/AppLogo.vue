@@ -8,7 +8,7 @@
         </NuxtLink>
       </div>
       <div class="ml-4">
-        <p class="text-gray-50">Devine Cakes</p>
+        <p class="text-gray-50">Devinecakesgh</p>
       </div>
     </div>
   </div>
