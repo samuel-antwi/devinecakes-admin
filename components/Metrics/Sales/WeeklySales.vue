@@ -9,10 +9,12 @@ const props = defineProps<{
   orders: OrderType[];
 }>();
 
+const chartType = ref("column");
+
 // Create a reactive variable for chart options
 const chartOptions = ref({
   chart: {
-    type: "column",
+    type: chartType.value,
   },
   title: {
     text: "Sales metrics for the Past 7 Days",
@@ -46,7 +48,11 @@ const processData = () => {
   const salesData = pastSevenDays.map((date) => {
     const formattedDate = format(new Date(date), "yyyy-MM-dd");
     const salesAmount = props.orders
-      .filter((order) => order.orderDate.slice(0, 10) === formattedDate)
+      .filter((order) => {
+        // Parse the order date to a Date object and format it to 'yyyy-MM-dd'
+        const orderDate = format(new Date(order.orderDate), "yyyy-MM-dd");
+        return orderDate === formattedDate;
+      })
       .reduce((total, order) => total + (order.total ?? 0), 0);
     return salesAmount;
   });
@@ -62,8 +68,14 @@ const processData = () => {
   ];
 
   chartOptions.value.xAxis.categories = pastSevenDays;
-  chartOptions.value.series[0].data = salesData;
   chartOptions.value.colors = colors;
+  chartOptions.value.series[0].data = salesData.map((amount) => ({
+    y: amount,
+    dataLabels: {
+      enabled: true,
+      format: "{point.y:,.0f}",
+    },
+  }));
 };
 
 // Process the data when the component is mounted
