@@ -2,7 +2,7 @@
 import type { CustomerType } from "@/types/customers";
 import { useGlobalStore } from "@/composables/globalStore";
 import { useToast } from "primevue/usetoast";
-import { isEqual } from "lodash-es";
+import { isEqual, cloneDeep } from "lodash-es";
 
 const toast = useToast();
 
@@ -13,7 +13,7 @@ const props = defineProps<{
 const { isOpen } = useGlobalStore();
 
 // make deep copy of customer object
-const formData = ref<CustomerType>(JSON.parse(JSON.stringify(props.customer)));
+const formData = ref<CustomerType>(cloneDeep(props.customer));
 
 const canSaveChanges = computed(() => {
   return !isEqual(props.customer, formData.value);

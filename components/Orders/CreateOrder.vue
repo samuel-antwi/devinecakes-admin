@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { useCreateOrder } from "@/components/App/composables/createOrder";
 import type { CustomerType } from "@/types/customers";
+
 const props = defineProps(["customers"]);
 const emit = defineEmits(["createOrder"]);
 
 const { orderData, canCreateOrder } = useCreateOrder();
+const { isOpen } = useGlobalStore();
 const customer = ref<CustomerType>();
 
 const customerOptions = props.customers.map((customer: CustomerType) => {
@@ -32,11 +34,15 @@ onMounted(() => {
   orderData.value.createdBy = user.value?.email || "";
 });
 
+const router = useRouter();
+
 watch(customer, () => {
   if (customer.value) {
     orderData.value.customerId = customer.value?.customer?.id;
+    router.push(
+      `/admin/content/orders/create?customer_id=${customer.value.customer.id}`
+    );
   }
-  console.log("customer", customer.value);
 });
 watch(
   orderData,
@@ -61,6 +67,10 @@ watch(
 const handleCreateOrder = () => {
   emit("createOrder", orderData.value);
 };
+
+const { data: newCustomer } = await useAsyncData("new-customer", () =>
+  $fetch<CustomerType>(`/api/customers/${route.query.customer_id}`)
+);
 </script>
 <template>
   <ClientOnly>
@@ -100,6 +110,13 @@ const handleCreateOrder = () => {
             <p>{{ customer?.customer?.town }}</p>
             <p class="text-gray-600">{{ customer?.customer?.streetName }}</p>
             <p class="text-gray-600">Accra</p>
+            <!-- <div class="mt-3">
+              <UButton
+                @click="isOpen = true"
+                label="Edit"
+                icon="i-mdi-pencil"
+              />
+            </div> -->
           </div>
         </UCard>
         <UCard>
@@ -275,5 +292,6 @@ const handleCreateOrder = () => {
         </div>
       </form>
     </div>
+    <!-- <customers-edit-customer :customer="newCustomer" /> -->
   </ClientOnly>
 </template>
