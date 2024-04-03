@@ -21,6 +21,14 @@ const columns = [
   { field: "total", header: "Total" },
 ];
 
+const filtersBold = [
+  "orderNumber",
+  "paymentReference",
+  "orderStatus",
+  "total",
+  "paymentStatus",
+];
+
 const customerOrders = ref<OrderType[]>([]);
 const canPaginate = computed(() => customerOrders.value.length > 10);
 
@@ -65,11 +73,13 @@ onMounted(() => {
             :rowsPerPageOptions="[5, 10, 20, 50]"
             v-model:selection="selectedField"
             selectionMode="single"
+            :globalFilterFields="filtersBold"
             @rowSelect="onRowSelect"
           >
             <template #empty> No item found. </template>
             <template #loading> Loading customers data. Please wait. </template>
             <Column
+              style="min-width: 9rem"
               v-for="col of columns"
               :key="col.field"
               :header="col.header"

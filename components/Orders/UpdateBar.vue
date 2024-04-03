@@ -50,7 +50,7 @@ async function updateCronJob() {
     <div v-if="isVisible" class="bg-[#FCFFEC]">
       <div class="flex items-center justify-center px-4 py-2.5">
         <p class="mr-3 text-sm">
-          There have been an update on Order data. Refresh this tab to get the
+          There have been an update on Orders data. Refresh this tab to get the
           latest update.
         </p>
         <UButton size="sm" label="Refresh" color="primary" @click="refresh" />
