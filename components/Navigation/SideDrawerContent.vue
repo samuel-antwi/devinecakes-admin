@@ -4,6 +4,8 @@ const router = useRouter();
 
 const supabase = useSupabaseClient();
 
+const { userPermissions } = usePermissions();
+
 const logout = async () => {
   await supabase.auth.signOut();
   router.push("/login");
@@ -12,8 +14,8 @@ const logout = async () => {
 const isContentTab = computed(() => {
   return route.path.includes("content") || route.path.includes("invoices");
 });
-const isUsersTab = computed(() => {
-  return route.path.includes("users");
+const dashboardTab = computed(() => {
+  return route.path.includes("home");
 });
 </script>
 <template>
@@ -36,21 +38,22 @@ const isUsersTab = computed(() => {
             name="i-heroicons-archive-box"
           />
         </NuxtLink>
-        <!-- <NuxtLink
-          :class="[isUsersTab ? 'dark:bg-[#21262E] bg-[#F0F4F9]' : '']"
+        <NuxtLink
+          v-if="userPermissions.adminRole"
+          :class="[dashboardTab ? 'dark:bg-[#21262E] bg-[#F0F4F9]' : '']"
           class="px-5 py-3 flex items-center justify-center"
-          to="/admin/users"
+          to="/home/inventory-dashboard"
         >
           <UIcon
             :class="[
-              isUsersTab
+              dashboardTab
                 ? 'dark:text-gray-100 '
                 : 'dark:text-gray-500 text-gray-300 hover:text-gray-100',
             ]"
             class="text-2xl"
-            name="i-heroicons-users"
+            name="i-mdi-chart-waterfall"
           />
-        </NuxtLink> -->
+        </NuxtLink>
         <div class="absolute lg:bottom-28 bottom-52">
           <button
             @click="logout"

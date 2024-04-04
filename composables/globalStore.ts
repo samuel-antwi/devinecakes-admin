@@ -3,6 +3,7 @@ const itemsCount = ref<string[]>([]);
 const searchQuery = ref("");
 const filters = ref();
 const isOpen = ref(false);
+const sideDrawerOpen = ref(false);
 
 
 export const useGlobalStore = () => {
@@ -28,5 +29,6 @@ export const useGlobalStore = () => {
     filters,
     initFilters,
     isOpen,
+    sideDrawerOpen
   };
 };
