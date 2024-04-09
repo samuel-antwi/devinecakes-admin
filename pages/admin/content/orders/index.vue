@@ -78,7 +78,6 @@ const filtersBold = [
 const router = useRouter();
 const onRowSelect = () => {
   const id = selectedField.value.id;
-  console.log("ID", id);
   router.push(`/admin/content/orders/${id}`);
 };
 

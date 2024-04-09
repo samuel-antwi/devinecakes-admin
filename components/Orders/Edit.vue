@@ -113,7 +113,7 @@ watch(
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     if (new Date(formData.value.deliveryDate) > today) {
-      formData.value.orderStatus = "Pending";
+      formData.value.orderStatus = "pending";
     }
   },
   { immediate: true }
@@ -195,7 +195,7 @@ watch(
               >
               <UInputMenu
                 :ui="{ base: 'capitalize' }"
-                :options="['Delivered', 'Pending']"
+                :options="['delivered', 'pending']"
                 v-model="formData.orderStatus"
                 id="order status"
                 size="md"

@@ -69,7 +69,7 @@ watch(
         >
           <div class="flex items-center">
             <UIcon class="mr-2" name="i-heroicons-cake" />
-            Devine Cakesgh
+            Devinecakesgh
           </div>
         </div>
         <div
@@ -94,7 +94,12 @@ watch(
             />
           </div>
           <div class="mt-5">
-            <UButton type="submit" block class="rounded-full" label="Log in">
+            <UButton
+              type="submit"
+              block
+              class="rounded-full py-3"
+              label="Log in"
+            >
               <template #trailing>
                 <UIcon name="i-mdi-lock-outline" />
               </template>
