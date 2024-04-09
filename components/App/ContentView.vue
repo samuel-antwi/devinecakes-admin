@@ -7,7 +7,6 @@ const canShow = computed(
   () =>
     route.path.includes("/content") ||
     route.path.includes("/invoices") ||
-    route.path === "/admin" ||
     route.path.includes("/home")
 );
 </script>
