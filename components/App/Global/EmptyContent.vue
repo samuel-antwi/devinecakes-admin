@@ -4,6 +4,7 @@ const props = defineProps<{
   icon: string;
   createLink: string;
   buttonLabel: string;
+  title: string;
 }>();
 </script>
 <template>
@@ -14,9 +15,9 @@ const props = defineProps<{
       >
         <UIcon class="text-4xl text-gray-500" :name="icon" />
       </div>
-      <h1 class="font-semibold text-3xl tracking-wide">No Items</h1>
-      <p class="dark:text-gray-500 text-lg">
-        There are no items in this collection yet.
+      <h1 class="font-semibold text-3xl tracking-wide">{{ title }}</h1>
+      <p class="dark:text-gray-500 text-center w-[500px] text-lg">
+        {{ description }}
       </p>
       <NuxtLink :to="`${createLink}`">
         <UButton

@@ -72,7 +72,8 @@ onUnmounted(() => {
     <div v-else>
       <div v-if="noCustomers">
         <app-global-empty-content
-          description="You have no orders yet."
+          title="Customers"
+          description="You don't have any saved customers. Click the button below to add a new customer."
           :icon="'i-mdi-user-group-outline'"
           create-link="/admin/content/customers/create"
           button-label="Add Customer"

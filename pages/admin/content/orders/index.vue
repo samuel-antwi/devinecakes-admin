@@ -158,6 +158,7 @@ function getFilterByValue(value: string) {
     <div v-else>
       <div v-if="noOrdrs">
         <app-global-empty-content
+          :title="'Orders'"
           description="You have no orders yet."
           :icon="'i-mdi-shopping-outline'"
           create-link="/admin/content/orders/create"
