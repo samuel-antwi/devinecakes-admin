@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
         lt: today,
       },
       orderStatus: {
-        notIn: ['delivered', 'overdue'],
+        notIn: ['delivered', 'overdue', 'cancelled'],
       },
     },
   });
